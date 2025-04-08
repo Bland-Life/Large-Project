@@ -40,6 +40,7 @@ function Login() {
 
     return (
         <div id="loginDiv">
+            <p>Login Here!</p>
             <form onSubmit={doLogin}>
                 <input
                     type="text"
