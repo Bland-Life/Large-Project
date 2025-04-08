@@ -1,7 +1,7 @@
 function PageHeader()
 {
 	return (
-		<header><h1>Oh The Places You'll Go!1</h1></header>
+		<header><h1>Oh The Places You'll Go!</h1></header>
 	);
 };
 
