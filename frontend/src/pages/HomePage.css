@@ -9,16 +9,17 @@ html, body {
     width: 100%;
 }
 
-.background-content {
+.page-content {
     position: relative;
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
-.background-content video {
+.page-content video {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -30,7 +31,7 @@ html, body {
     z-index: -1;
 }
 
-.background-content h1 {
+.page-content h1 {
     font-family: 'Berkshire Swash', cursive;
     color: rgba(26, 2, 2, 0.5);
     font-size: 4rem;
@@ -47,6 +48,15 @@ html, body {
     z-index: 1;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(5px);
+    margin: 2rem;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: center; 
+    width: 100%
 }
 
 .button {
@@ -63,7 +73,13 @@ html, body {
 }
 
 .button:hover {
-    background-color: rgba(104, 233, 247, 0.1); /* light overlay effect */
+    background-color: rgba(104, 233, 247, 0.1); 
     border-color: rgb(38, 182, 234);
     transform: scale(1.15);
+}
+
+
+.logo {
+    width: 800px;
+    height: auto;
 }
