@@ -54,6 +54,7 @@ app.post('/api/login', async (req, res, next) => {
 const path = require('path');
 
 app.post('/webhook', (req, res) => {
+
     // Check if npm is available
     exec('npm --version', (err, stdout, stderr) => {
         if (err) {
@@ -84,13 +85,14 @@ app.post('/webhook', (req, res) => {
         PATH: process.env.PATH + ':/opt/bitnami/node/bin', // Add the npm path
     };
 
-    exec(`bash ${deployScriptPath}`, { env: execEnv }, (err, stdout, stderr) => {
+    exec(`bash ${deployScriptPath}`, { env: process.env }, (err, stdout, stderr) => {
         if (err) {
-            console.error(`Deployment error: ${err.message}`);
-            console.error(`stderr: ${stderr}`);  // Log stderr for more details
+            console.error(`Error: ${err.message}`);
+            console.error(`stderr: ${stderr}`);  // Log detailed errors
             return res.status(500).send('Deployment failed');
         }
-        console.log(`Deployment triggered:\n${stdout}`);
+        console.log(`stdout: ${stdout}`);  // Log the output of the script
+        console.log(`stderr: ${stderr}`);  // Log any warnings or errors during execution
         res.status(200).send('Deployment triggered');
     });
 });
