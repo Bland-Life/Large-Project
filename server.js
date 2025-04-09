@@ -59,11 +59,11 @@ app.post('/webhook', (req, res) => {
     const digest = 'sha256=' + hmac.update(req.body).digest('hex');
 
     if (!signature || !crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(digest))) {
-        console.warn('Invalid GitHub webhook signature.' + '\n' + hmac);
+        console.warn('Invalid GitHub webhook signature.');
         return res.status(401).send('Invalid signature');
     }
     console.log('GitHub webhook verified.');
-    exec('bash ./deploy.sh', (err, stdout, stderr) => {
+    exec('pm2 restart script', (err, stdout, stderr) => {
         if (err) {
             console.error(`Deployment error: ${err.message}`);
             return res.status(500).send('Deployment failed');
