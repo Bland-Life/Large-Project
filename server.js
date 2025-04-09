@@ -59,7 +59,7 @@ app.post('/webhook', (req, res) => {
     const digest = 'sha256=' + hmac.update(req.body).digest('hex');
 
     if (!signature || !crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(digest))) {
-        console.warn('Invalid GitHub webhook signature.');
+        console.warn('Invalid GitHub webhook signature.' + '\n' + hmac);
         return res.status(401).send('Invalid signature');
     }
     console.log('GitHub webhook verified.');
