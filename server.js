@@ -71,7 +71,7 @@ app.post('/webhook', (req, res) => {
     const pm2ProcessName = 'script';  // This should be the name of the PM2 process
 
     // Restart the PM2 process once
-    exec(`pm2 restart ${pm2ProcessName} --only ${pm2ProcessName}`, (err, stdout, stderr) => {
+    exec(`pm2 restart ${pm2ProcessName}`, (err, stdout, stderr) => {
         if (err) {
             console.error(`PM2 restart failed with error: ${err.message}`);
             console.error(`stderr: ${stderr}`);  // Log detailed errors
