@@ -51,6 +51,8 @@ app.post('/api/login', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
+const path = require('path');
+
 app.post('/webhook', (req, res) => {
     console.log('🚨 Received webhook POST request!');
     const signature = req.headers['x-hub-signature-256'];
@@ -62,7 +64,14 @@ app.post('/webhook', (req, res) => {
         return res.status(401).send('Invalid signature');
     }
     console.log('GitHub webhook verified.');
-    exec('bash ./deploy.sh', (err, stdout, stderr) => {
+
+    // Use the full path for the deploy.sh script
+    const deployScriptPath = path.join(__dirname, 'deploy.sh'); // Assumes deploy.sh is in the same directory as server.js
+
+    // Define the environment variables for exec
+    const execEnv = { ...process.env, PATH: process.env.PATH + ':/usr/local/bin' }; // Ensure npm is in the PATH
+
+    exec(`bash ${deployScriptPath}`, { env: execEnv }, (err, stdout, stderr) => {
         if (err) {
             console.error(`Deployment error: ${err.message}`);
             return res.status(500).send('Deployment failed');
@@ -71,5 +80,6 @@ app.post('/webhook', (req, res) => {
         res.status(200).send('Deployment triggered');
     });
 });
+
 
 app.listen(5000); // start Node + Express server on port 3000
