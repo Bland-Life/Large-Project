@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const crypto = require('crypto');
 const cors = require('cors');
 const { exec } = require('child_process');
@@ -51,10 +52,7 @@ app.post('/api/login', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-const path = require('path');
-
 app.post('/webhook', (req, res) => {
-
     console.log('🚨 Received webhook POST request!');
     
     const signature = req.headers['x-hub-signature-256'];
@@ -76,17 +74,19 @@ app.post('/webhook', (req, res) => {
         PATH: process.env.PATH + ':/opt/bitnami/node/bin', // Add the npm path
     };
 
-    exec(`bash ${deployScriptPath}`, { env: process.env }, (err, stdout, stderr) => {
+    // Run the deploy script with the modified environment
+    exec(`bash ${deployScriptPath}`, { env: execEnv }, (err, stdout, stderr) => {
         if (err) {
-            console.error(`Error: ${err.message}`);
+            console.error(`Deployment failed with error: ${err.message}`);
             console.error(`stderr: ${stderr}`);  // Log detailed errors
             return res.status(500).send('Deployment failed');
         }
-        console.log(`stdout: ${stdout}`);  // Log the output of the script
+        console.log(`Deployment output:\n${stdout}`);
         console.log(`stderr: ${stderr}`);  // Log any warnings or errors during execution
         res.status(200).send('Deployment triggered');
     });
 });
+
 
 
 
