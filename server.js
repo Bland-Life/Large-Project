@@ -55,6 +55,7 @@ const path = require('path');
 
 app.post('/webhook', (req, res) => {
     console.log('🚨 Received webhook POST request!');
+    
     const signature = req.headers['x-hub-signature-256'];
     const hmac = crypto.createHmac('sha256', GITHUB_SECRET);
     const digest = 'sha256=' + hmac.update(req.body).digest('hex');
@@ -68,18 +69,23 @@ app.post('/webhook', (req, res) => {
     // Use the full path for the deploy.sh script
     const deployScriptPath = path.join(__dirname, 'deploy.sh'); // Assumes deploy.sh is in the same directory as server.js
 
-    // Define the environment variables for exec
-    const execEnv = { ...process.env, PATH: process.env.PATH + ':/usr/local/bin' }; // Ensure npm is in the PATH
+    // Define the environment variables for exec, including npm's path
+    const execEnv = {
+        ...process.env,
+        PATH: process.env.PATH + ':/opt/bitnami/node/bin', // Add the npm path
+    };
 
     exec(`bash ${deployScriptPath}`, { env: execEnv }, (err, stdout, stderr) => {
         if (err) {
             console.error(`Deployment error: ${err.message}`);
+            console.error(`stderr: ${stderr}`);  // Log stderr for more details
             return res.status(500).send('Deployment failed');
         }
         console.log(`Deployment triggered:\n${stdout}`);
         res.status(200).send('Deployment triggered');
     });
 });
+
 
 
 app.listen(5000); // start Node + Express server on port 3000
