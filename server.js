@@ -53,7 +53,7 @@ app.post('/api/login', async (req, res, next) => {
 
 const path = require('path');
 
-app.post('/webhook', (req, res) => {\
+app.post('/webhook', (req, res) => {
     // Check if npm is available
     exec('npm --version', (err, stdout, stderr) => {
         if (err) {
