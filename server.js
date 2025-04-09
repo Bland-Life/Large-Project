@@ -63,7 +63,7 @@ app.post('/webhook', (req, res) => {
         return res.status(401).send('Invalid signature');
     }
     console.log('GitHub webhook verified.');
-    exec('pm2 restart script', (err, stdout, stderr) => {
+    exec('bash ./deploy.sh', (err, stdout, stderr) => {
         if (err) {
             console.error(`Deployment error: ${err.message}`);
             return res.status(500).send('Deployment failed');
