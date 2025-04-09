@@ -55,15 +55,6 @@ const path = require('path');
 
 app.post('/webhook', (req, res) => {
 
-    // Check if npm is available
-    exec('npm --version', (err, stdout, stderr) => {
-        if (err) {
-            console.error('npm not found:', stderr);
-            return res.status(500).send('npm not found');
-        }
-        console.log('npm version:', stdout);  // This should show the npm version
-    });
-
     console.log('🚨 Received webhook POST request!');
     
     const signature = req.headers['x-hub-signature-256'];
