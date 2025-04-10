@@ -61,7 +61,7 @@ function Login() {
                 <input
                     type="submit"
                     id="loginButton"
-                    className="buttons"
+                    className="button"
                     value="Login"
                 />
             </form>
