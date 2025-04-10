@@ -65,6 +65,7 @@ html, body {
     border-radius: 12px;
     font-size: 1rem;
     cursor: pointer;
+    color: black;
     transition: background-color 0.3s ease, transform 0.2s ease;
     background-color: rgba(122, 210, 234, 0.5);
     border-color: black;
