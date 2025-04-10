@@ -15,7 +15,7 @@ const HomePage = () => {
                 <h1 className="main-heading">Oh, the Places You'll Go!</h1> */}
             </div>
             <div className="button-container"> 
-                <button className="button">Login!</button>
+                <a href="/"><button className="button">Login!</button></a>
                 <button className="button">Sign Up!</button>
             </div>
         </div>
