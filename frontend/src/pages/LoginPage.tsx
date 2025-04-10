@@ -1,6 +1,5 @@
 import Login from '../components/Login.tsx';
 import videoBack from '../assets/clouds.mp4';
-import logoImage from '../assets/logoFull.png';
 import '../css/HomePage.css';
 
 const LoginPage = () =>
