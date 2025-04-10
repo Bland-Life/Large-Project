@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import './App.css'
+import './css/App.css'
 
 // Pages
 import LoginPage from './pages/LoginPage.tsx';
