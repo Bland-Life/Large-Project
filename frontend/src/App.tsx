@@ -4,6 +4,7 @@ import './css/App.css'
 // Pages
 import LoginPage from './pages/LoginPage.tsx';
 import HomePage from './pages/HomePage.tsx';
+import MapPage from './pages/MapPage.tsx';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/Login" element={<LoginPage />} />
+        <Route path="/Map" element={<MapPage />} />
       </Routes>
     </Router>
   );
