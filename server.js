@@ -52,6 +52,49 @@ app.post('/api/login', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
+app.post('/api/getcountries', async (req, res, next) => {
+    const { userId } = req.body;
+    const db = client.db();
+    const results = await
+    db.collection('UserCountries').find({ UserId:userId }).toArray();
+    var id = -1;
+    var countries = []
+    if (results.length > 0) {
+        countries = results[0].Countries;
+    }
+    var ret = {countries: countries};
+    res.status(200).json(ret);
+});
+
+app.post('/api/addcountry', async (req, res, next) => {
+    const { userId, country} = req.body;
+    const db = client.db();
+    const results = await
+    db.collection('UserCountries').updateOne({ UserId:userId }, {$push: {Countries: country}});
+    var id = -1;
+    var countries = []
+    if (results.length > 0) {
+        countries = results[1];
+    }
+    var ret = {countries: countries};
+    res.status(200).json(ret);
+});
+
+app.post('/api/deletecountry', async (req, res, next) => {
+    const { userId, country} = req.body;
+    const db = client.db();
+    const results = await
+    db.collection('UserCountries').updateOne({ UserId:userId }, {$pull: {Countries: country}});
+    var id = -1;
+    var countries = []
+    if (results.length > 0) {
+        countries = results[1];
+    }
+    var ret = {countries: countries};
+    res.status(200).json(ret);
+});
+
+
 app.post('/webhook', (req, res) => {
     console.log('🚨 Received webhook POST request!');
     const signature = req.headers['x-hub-signature-256'];
