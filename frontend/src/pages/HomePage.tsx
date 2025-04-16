@@ -17,7 +17,8 @@ const HomePage = () => {
             </div>
             <div className="button-container"> 
                 <a href="/Login"><button className="button">Login!</button></a>
-                <button className="button">Sign Up!</button>
+                <a href="/Signup"><button className="button">Sign Up!</button></a>
+
             </div>
         </div>
     );
