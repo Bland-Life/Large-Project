@@ -84,3 +84,48 @@ html, body {
     width: 800px;
     height: auto;
 }
+
+.signupDiv {
+    width: 600px;
+    text-align: center;
+    padding: 30px;
+    border-radius: 12px;
+    border: 2px solid black;
+    opacity: 100%;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.);
+}
+
+.signupHeader {
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.input-field {
+    margin: 12px 0;
+    position: relative;
+}
+
+.input-field input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 8px;
+    background: none;
+    font-size: 25px;
+    transition: 03s;
+}
+
+.input-field input:focus {
+    border-color: #0984e3;
+    outline: none;
+    box-shadow: 0px 0px 6px rgba(9, 132, 227, 0.3);
+}
+
+.button-signup {
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: center; 
+    width: 100%;
+    opacity: 1;
+}
