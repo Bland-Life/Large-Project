@@ -63,6 +63,29 @@ app.post('/api/login', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
+app.post('/api/signup', async(req, res, next) => {
+    // incoming: login,
+    var error = '';
+    const { login, password, firstName, email, phoneNumber } = req.body;
+    const newUser = {
+        Login: login,
+        Password: password,
+        UserId:1,
+        FirstName: firstName,
+        LastName: email
+    }
+    try {
+        const db = client.db();
+        const result = db.collection('Users').insertOne(newUser);
+    }
+    catch (e) {
+        error = e.toString();
+    }
+    var ret = { error: error };
+    res.status(200).json(ret);
+
+});
+
 app.post('/webhook', (req, res) => {
     console.log('🚨 Received webhook POST request!');
     const signature = req.headers['x-hub-signature-256'];
