@@ -23,9 +23,9 @@ const MapUI = () => {
   let recentlySelectedCountry = "";
   let _ud : any = localStorage.getItem('user_data');
   let ud = JSON.parse( _ud );
-  let loggedInUserId = ud.id;
-  let searchForId = 1; // create search box and do localStorage.getItem()
-  console.log(loggedInUserId);
+  let loggedInUsername = ud.username;
+  let searchForUsername = "MattGerb"; // create search box and do localStorage.getItem()
+  console.log(loggedInUsername);
 
   const toggleCountry = (countryName: string) => {
       setSelectedCountries(prev => {
@@ -40,7 +40,7 @@ const MapUI = () => {
   };
 
   async function getCountries() : Promise<void> {
-      let obj = {userId:searchForId};
+      let obj = {username:searchForUsername};
       let js = JSON.stringify(obj);
 
       try
@@ -63,7 +63,7 @@ const MapUI = () => {
   }
 
   async function addCountry() : Promise<void> {
-      let obj = {userId:loggedInUserId, country:recentlySelectedCountry};
+      let obj = {username:loggedInUsername, country:recentlySelectedCountry};
       let js = JSON.stringify(obj);
 
       try
@@ -78,7 +78,7 @@ const MapUI = () => {
   }
 
   async function deleteCountry() : Promise<void> {
-    let obj = {userId:loggedInUserId, country:recentlySelectedCountry};
+    let obj = {username:loggedInUsername, country:recentlySelectedCountry};
     let js = JSON.stringify(obj);
 
     try
@@ -122,7 +122,7 @@ const MapUI = () => {
                   key={geo.rsmKey}
                   geography={geo}
                   onClick={() => {
-                    if (searchForId === loggedInUserId) {
+                    if (searchForUsername === loggedInUsername) {
                       toggleCountry(countryName);
                       recentlySelectedCountry = countryName;
                       if (!selectedCountries.has(countryName))

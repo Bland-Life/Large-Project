@@ -45,32 +45,33 @@ app.post('/api/login', async (req, res, next) => {
     var ln = '';
     if (results.length > 0) {
         id = results[0].UserId;
+        un = results[0].Login;
         fn = results[0].FirstName;
         ln = results[0].LastName;
     }
-    var ret = { id: id, firstName: fn, lastName: ln, error: '' };
+    var ret = { id: id, firstName: fn, lastName: ln, username: un, error: '' };
     res.status(200).json(ret);
 });
 
 app.post('/api/getcountries', async (req, res, next) => {
-    const { userId } = req.body;
+    const { username } = req.body;
     const db = client.db();
     const results = await
-    db.collection('UserCountries').find({ UserId:userId }).toArray();
+    db.collection('Countries').find({ username:username }).toArray();
     var id = -1;
     var countries = []
     if (results.length > 0) {
-        countries = results[0].Countries;
+        countries = results[0].countries;
     }
     var ret = {countries: countries};
     res.status(200).json(ret);
 });
 
 app.post('/api/addcountry', async (req, res, next) => {
-    const { userId, country} = req.body;
+    const { username, country} = req.body;
     const db = client.db();
     const results = await
-    db.collection('UserCountries').updateOne({ UserId:userId }, {$push: {Countries: country}});
+    db.collection('Countries').updateOne({ username:username }, {$push: {countries: country}});
     var id = -1;
     var countries = []
     if (results.length > 0) {
@@ -81,10 +82,10 @@ app.post('/api/addcountry', async (req, res, next) => {
 });
 
 app.post('/api/deletecountry', async (req, res, next) => {
-    const { userId, country} = req.body;
+    const { username, country} = req.body;
     const db = client.db();
     const results = await
-    db.collection('UserCountries').updateOne({ UserId:userId }, {$pull: {Countries: country}});
+    db.collection('Countries').updateOne({ username:username }, {$pull: {countries: country}});
     var id = -1;
     var countries = []
     if (results.length > 0) {
