@@ -7,6 +7,11 @@ import NavBar from './components/NavBar';
 // Pages
 import LoginPage from './pages/LoginPage.tsx';
 import HomePage from './pages/HomePage.tsx';
+import SignupPage from './pages/SignUpPage.tsx';
+
+
+
+
 
 function App() {
   return (
@@ -15,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/Login" element={<LoginPage />} />
+        <Route path="/Signup" element={<SignupPage />} />
       </Routes>
     </Router>
   );
