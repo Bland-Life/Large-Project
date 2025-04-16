@@ -24,7 +24,7 @@ const MapUI = () => {
   let _ud : any = localStorage.getItem('user_data');
   let ud = JSON.parse( _ud );
   let loggedInUsername = ud.username;
-  let searchForUsername = "MattGerb"; // create search box and do localStorage.getItem()
+  let searchForUsername = localStorage.getItem("searched_username") || loggedInUsername; // create search box and do localStorage.getItem()
   console.log(loggedInUsername);
 
   const toggleCountry = (countryName: string) => {
