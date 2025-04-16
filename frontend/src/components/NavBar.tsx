@@ -40,49 +40,38 @@ const NavBar = () => {
         <NavButton to="/Contact">Contact Us</NavButton>
       </div>
 
-      {/* Push account section to far right */}
-      <div style={{ marginLeft: '4rem', marginRight: '0.5rem', position: 'relative' }}>
-        <div
-          onMouseEnter={() => setShowDropdown(true)}
-          onMouseLeave={() => setShowDropdown(false)}
-          style={{
-            color: 'white',
-            fontWeight: 500,
-            cursor: 'pointer',
-            padding: '8px 16px',
-            backgroundColor: 'rgba(255,255,255,0.15)',
-            borderRadius: '12px',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {user ? 'My Account' : 'You are not logged in!'}
-          {showDropdown && (
-            <div
-              style={{
-                position: 'absolute',
-                top: '100%',
-                right: 0,
-                marginTop: '0.5rem',
-                backgroundColor: '#fff',
-                borderRadius: '8px',
-                boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
-                padding: '0.5rem',
-                zIndex: 10,
-                minWidth: '140px',
-              }}
+      <div style={{ marginLeft: '4rem' }}>
+        {user ? (
+            <Link
+            to="/MyAccount"
+            style={{
+                color: 'white',
+                fontWeight: 500,
+                padding: '8px 16px',
+                backgroundColor: 'rgba(255,255,255,0.15)',
+                borderRadius: '12px',
+                textDecoration: 'none',
+            }}
             >
-              {!user ? (
-                <>
-                  <Link to="/Login" style={dropdownStyle}>Login</Link>
-                  <Link to="/Signup" style={dropdownStyle}>Sign Up</Link>
-                </>
-              ) : (
-                <Link to="/Account" style={dropdownStyle}>Go to Account</Link>
-              )}
-            </div>
-          )}
+            My Account
+            </Link>
+        ) : (
+            <Link
+            to="/Login"
+            style={{
+                color: 'white',
+                fontWeight: 500,
+                padding: '8px 16px',
+                backgroundColor: 'rgba(255,255,255,0.15)',
+                borderRadius: '12px',
+                textDecoration: 'none',
+            }}
+            >
+            Login
+            </Link>
+        )}
         </div>
-      </div>
+
     </nav>
   );
 };
