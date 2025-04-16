@@ -1,4 +1,15 @@
 require('dotenv').config();
+
+//MONGOOSE IS USED HERE TO TROUBLESHOOT LOCAL CONNECTIONS TO MONGODB - John
+const mongoose = require('mongoose');
+console.log("🔄 Connecting to MongoDB...");
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
+//MONGOOSE IS USED HERE TO TROUBLESHOOT LOCAL CONNECTIONS TO MONGODB - John
+
+
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
