@@ -49,7 +49,7 @@ function SignUp(){
 
     return(
         <div className="signupContainer">
-            <p style={{fontSize:'25px'}}>already have an account? <a href="/Login" style={{textDecoration: 'underline', color: 'black', fontWeight: 'bold' }}>login</a></p>
+            <p style={{fontSize:'25px', color: 'black'}}>already have an account? <a href="/Login" style={{textDecoration: 'underline', color: 'black', fontWeight: 'bold' }}>login</a></p>
             <br />
             <form onSubmit={doSignup}>
                 <div className="signupDiv">
