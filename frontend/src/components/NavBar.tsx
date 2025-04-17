@@ -34,7 +34,7 @@ const NavBar = () => {
 
       {/* Nav Buttons */}
       <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-        <NavButton to="/">Home</NavButton>
+        {/* <NavButton to="/MyAccount">Home</NavButton> */}
         <NavButton to="/Map">Map</NavButton>
         <NavButton to="/Explore">Explore</NavButton>
         <NavButton to="/Contact">Contact Us</NavButton>

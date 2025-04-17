@@ -20,7 +20,6 @@ import MyAccount from './pages/MyAccountPage.tsx';
 function App() {
   return (
     <Router>
-      <NavBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/Login" element={<LoginPage />} />
