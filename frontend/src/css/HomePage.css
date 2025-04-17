@@ -105,6 +105,7 @@ html, body {
 .input-field {
     margin: 12px 0;
     position: relative;
+    color: black;
 }
 
 .input-field input {
