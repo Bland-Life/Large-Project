@@ -46,7 +46,6 @@ app.use((req, res, next) => {
 app.post('/api/login', async (req, res, next) => {
     // incoming: login, password
     // outgoing: id, firstName, lastName, error
-    var error = '';
     const { username, password } = req.body;
     const db = client.db();
     const results = await
@@ -98,7 +97,6 @@ app.post('/api/getcountries', async (req, res, next) => {
     const db = client.db();
     const results = await
     db.collection('Countries').find({ username:username }).toArray();
-    var id = -1;
     var countries = []
     if (results.length > 0) {
         countries = results[0].countries;
@@ -112,7 +110,6 @@ app.post('/api/addcountry', async (req, res, next) => {
     const db = client.db();
     const results = await
     db.collection('Countries').updateOne({ username:username }, {$push: {countries: country}});
-    var id = -1;
     var countries = []
     if (results.length > 0) {
         countries = results[1];
@@ -126,12 +123,28 @@ app.post('/api/deletecountry', async (req, res, next) => {
     const db = client.db();
     const results = await
     db.collection('Countries').updateOne({ username:username }, {$pull: {countries: country}});
-    var id = -1;
     var countries = []
     if (results.length > 0) {
         countries = results[1];
     }
     var ret = {countries: countries};
+    res.status(200).json(ret);
+});
+
+app.post('/api/addusertocountries', async (req, res, next) => {
+    const { username } = req.body;
+    const db = client.db();
+    const newUser = {
+        Username: username,
+        Countries: []
+    };
+    const results = await
+    db.collection('Countries').insertOne(newUser);
+    var error = "Failed to add new user to Countries"
+    if (results.acknowledged){
+        error = "Success";
+    }
+    var ret = {error: error};
     res.status(200).json(ret);
 });
 
