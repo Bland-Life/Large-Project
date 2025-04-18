@@ -42,6 +42,7 @@ function Login() {
   return (
     <div className="signupContainer">
       <p style={{fontSize:'25px', color: 'black'}}>don't have an account? <a href="/SignUp" style={{textDecoration: 'underline', color: 'black', fontWeight: 'bold' }}>sign up</a></p>
+      <br />
       <form
         onSubmit={doLogin}
       >
