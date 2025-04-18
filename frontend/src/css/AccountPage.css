@@ -1,22 +1,28 @@
-/*AccountPage.css */
-
+/* ----------  PAGE WRAPPER  ---------- */
 .account-page{
+  /* fill the window but keep thin margins on every machine */
+  min-height:100vh;
+  padding:0 24px 48px;     /* ← 24 px white‑space left & right   */
+  box-sizing:border-box;
   display:flex;
   flex-direction:column;
-  align-items:center;
-  min-height:100vh;
-  background:#F5F5F5;
 }
 
+/* ----------  NAV BAR  ---------- */
+.account-nav{                      /* comes from AccountNavBar.css */
+  width:100%;                      /* now spans full inner width   */
+  border-radius:16px;              /* slightly softer pill shape   */
+}
+
+/* ----------  MAP  ---------- */
 .account-map{
-  width:90%;
-  max-width:1200px;
-  margin:24px 0;
+  width:100%;          /* matches nav‑bar width */
+  margin:32px 0;       /* air above & below     */
 }
 
 .map-placeholder{
   width:100%;
-  aspect-ratio:16/9;
+  height:65vh;         /* big, but leaves stats peeking below fold */
   background:#E0E0E0;
   border:2px solid #C0C0C0;
   border-radius:12px;
@@ -27,13 +33,14 @@
   color:#555;
 }
 
+/* ----------  TRAVEL STATS  ---------- */
 .travel-stats{
-  width:90%;
-  max-width:1200px;
+  width:100%;
+  max-width:1200px;    /* keeps text line‑length comfortable   */
   border:2px solid #D89500;
   border-radius:12px;
   padding:16px 24px;
-  margin-bottom:48px;
+  margin:0 auto;       /* centres inside page‑padding          */
 }
 
 .travel-stats h2{
@@ -48,5 +55,14 @@
   gap:24px;
   font-size:1.2rem;
 }
-
 .stat-grid span strong{font-size:1.5rem;color:#000;}
+
+/* ----------  NO SURPRISES ON SMALL SCREENS  ---------- */
+@media (max-width:900px){
+  .map-placeholder{ height:60vh; }
+}
+
+@media (max-width:680px){
+  .map-placeholder{ height:55vh; }
+  .stat-grid{ gap:16px; font-size:1.05rem; }
+}
