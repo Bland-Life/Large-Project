@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import balloon from "../assets/balloon.png";
 import "./AccountNavBar.css";
 
+
 const tabs = [
-  { label: "Where I've Been", href: "#been" },
+  { label: "Where I've Been", href: "./pages/JoinMePage.tsx" },
   { label: "Where I'm Going", href: "#going" },
   { label: "Join Me",         href: "#join"  },
   { label: "Travel Tools",    href: "#tools" }
