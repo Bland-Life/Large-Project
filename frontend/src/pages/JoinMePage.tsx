@@ -1,10 +1,8 @@
 import AccountNavBar from "../components/AccountNavBar";
+import "../css/JoinMe.css";
 
-export default function JoinMePage() {
-  return (
-    <div>
-      <AccountNavBar />
-      <h1>Join Me — Social Tab</h1>
-    </div>
-  );
-}
+const JoinMePage = () => (
+  <div >
+    Join Me! -- Social Tab
+  </div>
+);

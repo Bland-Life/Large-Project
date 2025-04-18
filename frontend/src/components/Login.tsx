@@ -60,7 +60,7 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           /></div>
-          <p>{message}</p>
+          <p id="error">{message}</p>
         </div>
         <div className='button-signup'>
             <input 
@@ -70,7 +70,6 @@ function Login() {
           />
         </div>
       </form>
-    
     </div>
   );
 }

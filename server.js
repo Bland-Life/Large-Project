@@ -96,7 +96,7 @@ app.post('/api/getcountries', async (req, res, next) => {
     const { username } = req.body;
     const db = client.db();
     const results = await
-    db.collection('Countries').find({ username:username }).toArray();
+    db.collection('Countries').find({ Username:username }).toArray();
     var countries = []
     if (results.length > 0) {
         countries = results[0].countries;
@@ -109,7 +109,7 @@ app.post('/api/addcountry', async (req, res, next) => {
     const { username, country} = req.body;
     const db = client.db();
     const results = await
-    db.collection('Countries').updateOne({ username:username }, {$push: {countries: country}});
+    db.collection('Countries').updateOne({ Username:username }, {$push: {Countries: country}});
     var countries = []
     if (results.length > 0) {
         countries = results[1];
@@ -122,7 +122,7 @@ app.post('/api/deletecountry', async (req, res, next) => {
     const { username, country} = req.body;
     const db = client.db();
     const results = await
-    db.collection('Countries').updateOne({ username:username }, {$pull: {countries: country}});
+    db.collection('Countries').updateOne({ Username:username }, {$pull: {Countries: country}});
     var countries = []
     if (results.length > 0) {
         countries = results[1];
