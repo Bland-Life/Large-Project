@@ -1,10 +1,14 @@
+import React from "react";
 import AccountNavBar from "../components/AccountNavBar";
+import "../css/WhereImGoing.css";
 
-export default function WhereImGoingPage() {
-  return (
-    <div>
-      <AccountNavBar />
-      <h1>Where I'm Going</h1>
-    </div>
-  );
-}
+const WhereImGoingPage = () =>
+{
+    return (
+        <div>
+            <AccountNavBar/>
+        </div>
+    );
+};
+
+export default WhereImGoingPage;
