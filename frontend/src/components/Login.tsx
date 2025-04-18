@@ -9,7 +9,7 @@ function Login() {
   async function doLogin(event: React.FormEvent): Promise<void> {
     event.preventDefault();
 
-    const obj = { login: username, password: password };
+    const obj = { username: username, password: password };
     const js = JSON.stringify(obj);
 
     try {
@@ -20,11 +20,12 @@ function Login() {
       });
 
       const res = JSON.parse(await response.text());
-
       if (res.id <= 0) {
         setMessage("User/Password combination incorrect");
         console.log(res.id);
       } else {
+        console.log(res.id + "Tomato!")
+        return;
         const user = {
           firstName: res.firstName,
           lastName: res.lastName,
