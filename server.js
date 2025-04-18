@@ -76,6 +76,11 @@ app.post('/api/signup', async(req, res, next) => {
     }
     try {
         const db = client.db();
+        const user = await db.collection('Users').find({$or: [{Login: login}, {LastName: email}]}).toArray();
+        if (user.length > 0) {
+            var ret = {error: "User already exists"};
+            return res.status(409).json(ret);
+        }
         const result = db.collection('Users').insertOne(newUser);
     }
     catch (e) {
