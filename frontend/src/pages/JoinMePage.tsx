@@ -4,10 +4,13 @@ import React from "react";
 import AccountNavBar from "../components/AccountNavBar";
 import "../css/JoinMe.css";
 
-const JoinMePage = () => (
-  <div >
-    Join Me! -- Social Tab
-  </div>
-);
+const JoinMePage = () => {
+  return (
+    <div className="page-content">
+        Join Me ! --- Social Tab!
+    </div>
+  );
+}
+
 
 export default JoinMePage;
