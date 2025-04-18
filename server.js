@@ -47,36 +47,35 @@ app.post('/api/login', async (req, res, next) => {
     // incoming: login, password
     // outgoing: id, firstName, lastName, error
     var error = '';
-    const { login, password } = req.body;
+    const { username, password } = req.body;
     const db = client.db();
     const results = await
-        db.collection('Users').find({ Login: login, Password: password }).toArray();
-    var id = -1;
+        db.collection('Users').find({ Username: username, Password: password }).toArray();
     var fn = '';
-    var ln = '';
+    var em = '';
+    var un = '';
     if (results.length > 0) {
-        id = results[0].UserId;
         fn = results[0].FirstName;
-        ln = results[0].LastName;
+        em = results[0].Email;
+        un = results[0].Login;
     }
-    var ret = { id: id, firstName: fn, lastName: ln, error: '' };
+    var ret = { firstName: fn, username: un, email: em, error: '' };
     res.status(200).json(ret);
 });
 
 app.post('/api/signup', async(req, res, next) => {
     // incoming: login,
     var error = '';
-    const { login, password, firstName, email, phoneNumber } = req.body;
+    const { username, password, firstName, email } = req.body;
     const newUser = {
-        Login: login,
+        Username: username,
         Password: password,
-        UserId:1,
         FirstName: firstName,
-        LastName: email
+        Email: email
     }
     try {
         const db = client.db();
-        const user = await db.collection('Users').find({$or: [{Login: login}, {LastName: email}]}).toArray();
+        const user = await db.collection('Users').find({$or: [{Username: username}, {Email: email}]}).toArray();
         if (user.length > 0) {
             var ret = {error: "User already exists"};
             return res.status(409).json(ret);
