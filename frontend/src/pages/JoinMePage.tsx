@@ -10,7 +10,7 @@ const JoinMePage = () => {
         Join Me ! --- Social Tab!
     </div>
   );
-}
+};
 
 
 export default JoinMePage;
