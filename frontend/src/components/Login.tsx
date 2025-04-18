@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import '../css/HomePage.css'
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -39,70 +40,30 @@ function Login() {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "80vh",
-      }}
-    >
+    <div>
       <form
         onSubmit={doLogin}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          background: "linear-gradient(to right, #d4145a, #fbb03b)",
-          padding: "30px",
-          borderRadius: "20px",
-          boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-        }}
       >
         <input
+          className="input-field"
           type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          style={{
-            padding: "10px",
-            fontSize: "1.1rem",
-            marginBottom: "15px",
-            borderRadius: "10px",
-            border: "1px solid #ccc",
-            width: "250px",
-          }}
         />
         <input
+          className="input-field"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          style={{
-            padding: "10px",
-            fontSize: "1.1rem",
-            marginBottom: "15px",
-            borderRadius: "10px",
-            border: "1px solid #ccc",
-            width: "250px",
-          }}
         />
         <input
+          className='button-signup'
           type="submit"
           value="Login"
-          style={{
-            padding: "10px 20px",
-            fontSize: "1.1rem",
-            borderRadius: "12px",
-            border: "none",
-            backgroundColor: "#fff",
-            color: "#d4145a",
-            fontWeight: "bold",
-            cursor: "pointer",
-          }}
         />
-        <p style={{ marginTop: "15px", color: "#fff" }}>{message}</p>
+        <p>{message}</p>
       </form>
     </div>
   );
