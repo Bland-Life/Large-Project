@@ -20,9 +20,8 @@ function Login() {
       });
 
       const res = JSON.parse(await response.text());
-      if (res.id <= 0) {
+      if (res.username === "") {
         setMessage("User/Password combination incorrect");
-        console.log(res.id);
       } else {
         const user = {
           firstName: res.firstName,
