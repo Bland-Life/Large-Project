@@ -40,7 +40,7 @@ function Login() {
   }
 
   return (
-    <div>
+    <div className="signupDiv">
       <form
         onSubmit={doLogin}
       >
