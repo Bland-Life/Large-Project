@@ -47,6 +47,7 @@ function Login() {
         onSubmit={doLogin}
       >
         <div className="signupDiv">
+        <h2 className="signupHeader">Login</h2>
           <div className="input-field"><input
             type="text"
             placeholder="Username"
