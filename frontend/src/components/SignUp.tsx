@@ -32,7 +32,7 @@ function SignUp(){
         }
 
         const obj = {
-            login: username,
+            username: username,
             password: password,
             firstName: firstName,
             email: email,
