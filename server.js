@@ -54,12 +54,15 @@ app.post('/api/login', async (req, res, next) => {
     var fn = '';
     var em = '';
     var un = '';
+    var er = 'Incorrect Username or Password'
     if (results.length > 0) {
         fn = results[0].FirstName;
         em = results[0].Email;
         un = results[0].Username;
+        er = 'Successful Login';
     }
-    var ret = { firstName: fn, username: un, email: em, error: '' };
+    
+    var ret = { firstName: fn, username: un, email: em, error: er };
     res.status(200).json(ret);
 });
 
