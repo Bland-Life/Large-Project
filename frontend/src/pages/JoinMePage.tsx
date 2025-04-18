@@ -6,7 +6,7 @@ import "../css/JoinMe.css";
 
 const JoinMePage = () => {
   return (
-    <div className="page-content">
+    <div >
         Join Me ! --- Social Tab!
     </div>
   );
