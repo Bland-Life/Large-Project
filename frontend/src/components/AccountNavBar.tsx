@@ -1,6 +1,6 @@
-//AccountNavBar.tsx
-
 import React from "react";
+import { Link } from "react-router-dom";
+import balloon from "../assets/balloon.png";
 import "./AccountNavBar.css";
 
 const tabs = [
@@ -13,11 +13,17 @@ const tabs = [
 export default function AccountNavBar() {
   return (
     <nav className="account-nav">
-      {tabs.map(t => (
-        <a key={t.label} href={t.href} className="account-nav__item">
-          {t.label}
-        </a>
-      ))}
+      <img src={balloon} alt="logo" className="account-nav__logo" />
+
+      <div className="account-nav__tabs">
+        {tabs.map(t => (
+          <Link key={t.label} to={t.href} className="account-nav__item">
+            {t.label}
+          </Link>
+        ))}
+      </div>
+
+      <div className="account-nav__avatar" />
     </nav>
   );
 }
