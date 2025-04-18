@@ -7,14 +7,13 @@ function SignUp(){
     const[confirmPassword, setConfirmPassword] = useState('');
     const[firstName, setFirstName] = useState('');
     const[email, setEmail] = useState('');
-    const[phoneNumber, setPhoneNumber] = useState('');
     const[message, setMessage] = useState('');
 
     async function doSignup(event: React.FormEvent): Promise<void> {
         event.preventDefault();
 
         // Check if any field is empty
-        if (!username || !password || !confirmPassword || !firstName || !email || !phoneNumber) {
+        if (!username || !password || !confirmPassword || !firstName || !email) {
             setMessage('Please fill in all fields');
             return;
         }
@@ -37,7 +36,6 @@ function SignUp(){
             password: password,
             firstName: firstName,
             email: email,
-            phoneNumber: phoneNumber,
         };
         const js = JSON.stringify(obj);
 
@@ -111,15 +109,6 @@ function SignUp(){
                         placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                    />
-                    </div>
-                    <div className="input-field">
-                    <input
-                        type="text"
-                        id="phoneNumber"
-                        placeholder="Phone Number"
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
                     />
                     </div>
                     <p id="error">{message}</p>

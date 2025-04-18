@@ -12,11 +12,6 @@ import MyAccount from './pages/MyAccountPage.tsx';
 
 
 
-
-
-
-
-
 function App() {
   return (
     <Router>
