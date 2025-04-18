@@ -9,7 +9,7 @@ function Login() {
   async function doLogin(event: React.FormEvent): Promise<void> {
     event.preventDefault();
 
-    const obj = { login: username, password: password };
+    const obj = { username: username, password: password };
     const js = JSON.stringify(obj);
 
     try {
@@ -33,7 +33,7 @@ function Login() {
         };
         localStorage.setItem("user_data", JSON.stringify(user));
         setMessage("");
-        window.location.href = "/";
+        window.location.href = "/MyAccount";
       }
     } catch (error: any) {
       alert(error.toString());
