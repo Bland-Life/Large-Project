@@ -41,35 +41,36 @@ function Login() {
 
   return (
     <div className="signupContainer">
-    <div className="signupDiv">
+    
       <form
         onSubmit={doLogin}
       >
-        <div className="input-field"><input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        /></div>
-        
-        <div className="input-field"><input
-          className="input-field"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        /></div>
-
-        <div className='button-signup'>
-          <input 
-          className="button"
-          type="submit"
-          value="Login"
-        />
+        <div className="signupDiv">
+          <div className="input-field"><input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          /></div>
+          
+          <div className="input-field"><input
+            className="input-field"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          /></div>
+          <p>{message}</p>
         </div>
-        <p>{message}</p>
+        <div className='button-signup'>
+            <input 
+            className="button"
+            type="submit"
+            value="Login"
+          />
+        </div>
       </form>
-    </div>
+    
     </div>
   );
 }
