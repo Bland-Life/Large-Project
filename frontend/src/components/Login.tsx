@@ -45,25 +45,27 @@ function Login() {
       <form
         onSubmit={doLogin}
       >
-        <input
-          className="input-field"
+        <div className="input-field"><input
           type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
+        /></div>
+        
+        <div className="input-field"><input
           className="input-field"
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
+        /></div>
+        
+        <div className="input-field"><input
           className='button-signup'
           type="submit"
           value="Login"
-        />
+        /></div>
+        
         <p>{message}</p>
       </form>
     </div>
