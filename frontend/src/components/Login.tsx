@@ -24,8 +24,6 @@ function Login() {
         setMessage("User/Password combination incorrect");
         console.log(res.id);
       } else {
-        console.log(res.id + "Tomato!")
-        return;
         const user = {
           firstName: res.firstName,
           lastName: res.lastName,
