@@ -1,10 +1,10 @@
 import AccountNavBar from "../components/AccountNavBar";
 
-export default function WhereImGoingPage() {
+export default function WhereIveBeenPage() {
   return (
     <div>
       <AccountNavBar />
-      <h1>Where I'm Going</h1>
+      <h1>Where I've Been</h1>
     </div>
   );
 }

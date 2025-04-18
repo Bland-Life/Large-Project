@@ -7,7 +7,7 @@ import "./AccountNavBar.css";
 const tabs = [
   { label: "Where I've Been", to: "/WhereIveBeen" },
   { label: "Where I'm Going", to: "/WhereImGoingPage" },
-  { label: "Join Me",         to: "/JoinMe" },
+  { label: "Join Me",         to: "/JoinMePage" },
   { label: "Travel Tools",    to: "/TravelTools" }
 ];
 
