@@ -1,0 +1,17 @@
+/* AccountNavBar.css */
+
+.account-nav{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:40px;
+  padding:12px 0;
+  background:linear-gradient(90deg,#D726D3,#F1392F,#FFA500);
+  border-radius:0 0 12px 12px;
+}
+.account-nav__item{
+  font-weight:600;
+  color:#fff;
+  text-decoration:none;
+}
+.account-nav__item:hover{opacity:.7;}

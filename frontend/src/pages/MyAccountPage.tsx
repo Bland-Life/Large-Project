@@ -1,44 +1,29 @@
+//MyAccountPage.tsx
+
 import React from "react";
-import videoBack from "../assets/clouds.mp4";
-import "../css/App.css";
+import AccountNavBar from "../components/AccountNavBar";
+import "../css/AccountPage.css";
 
-const MyAccount = () => {
-  return (
-    <div className="page-content">
-      <video src={videoBack} autoPlay loop muted />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          minHeight: "90vh",
-          padding: "2rem",
-          zIndex: 1,
-        }}
-      >
-        <h1 style={{ fontSize: "2rem", marginBottom: "2rem", color: "#1c1c1c" }}>
-          Welcome back, (Name of Account holder)
-        </h1>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "2rem",
-            maxWidth: "800px",
-            width: "100%",
-          }}
-        >
-          <button className="account-button" style={{ background: "#d4145a" }}>My Map</button>
-          <button className="account-button" style={{ background: "#f75d1a" }}>Planned Trips</button>
-          <button className="account-button" style={{ background: "#fbb03b" }}>Past Trips</button>
-          <button className="account-button" style={{ background: "#7ac943" }}>Saved Destinations</button>
-          <button className="account-button" style={{ background: "#00c0ef" }}>Preferences</button>
-          <button className="account-button" style={{ background: "#8e44ad" }}>Account Settings</button>
-        </div>
+const MyAccountPage = () => (
+  <div className="account-page">
+    <AccountNavBar />
+
+    {/* --- Map section (placeholder) --- */}
+    <section id="been" className="account-map">
+      <div className="map-placeholder">Map will render here</div>
+    </section>
+
+    {/* --- Travel‑stats strip --- */}
+    <section className="travel-stats">
+      <h2>Travel Stats</h2>
+      <div className="stat-grid">
+        <span><strong>7</strong> / 7 continents</span>
+        <span><strong>8</strong> / 195 countries</span>
+        <span><strong>30</strong> / 50 states</span>
+        <span><strong>22</strong> / 87 megacities</span>
       </div>
-    </div>
-  );
-};
+    </section>
+  </div>
+);
 
-export default MyAccount;
+export default MyAccountPage;
