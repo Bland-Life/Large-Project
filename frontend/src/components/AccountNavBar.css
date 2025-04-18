@@ -1,0 +1,57 @@
+.account-nav{
+    display:flex;
+    align-items:center;
+    padding:10px 24px;
+    background:linear-gradient(90deg,#D726D3 0%,#F1392F 60%,#FFA500 100%);
+    border-radius:12px;
+    box-sizing:border-box;
+    overflow-x:auto;                 /* lets the row scroll if ever too tight */
+  }
+  
+  .account-nav__logo{
+    height:48px;
+    flex-shrink:0;
+    margin-right:24px;
+  }
+  
+  /*  PUSH TABS RIGHT  */
+  .account-nav__tabs{
+    margin-left:auto;                /* this is the “push right” */
+    display:flex;
+    gap:48px;                        /* roomy on big screens */
+    white-space:nowrap;
+  }
+  
+  .account-nav__item{
+    color:#fff;
+    font-weight:600;
+    text-decoration:none;
+  }
+  .account-nav__item:hover{opacity:.75;}
+  
+  .account-nav__avatar{
+    width:48px; height:48px; flex-shrink:0;
+    border-radius:50%;
+    background:#ccc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23999' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 22c0-4 4-6 8-6s8 2 8 6'/%3E%3C/svg%3E") center/60% no-repeat;
+    border:2px solid #fff;
+    margin-left:24px;
+  }
+  
+  /* ----------  RESPONSIVE TWEAKS ---------- */
+  @media (max-width:1200px){
+    .account-nav__tabs{ gap:36px; }
+    .account-nav__item{ font-size:0.95rem; }
+  }
+  
+  @media (max-width:900px){
+    .account-nav__tabs{ gap:24px; }
+    .account-nav__item{ font-size:0.85rem; }
+    .account-nav__logo,
+    .account-nav__avatar{ height:40px; width:40px; }
+  }
+  
+  @media (max-width:680px){
+    .account-nav__tabs{ gap:16px; }
+    .account-nav__item{ font-size:0.78rem; }
+  }
+  
