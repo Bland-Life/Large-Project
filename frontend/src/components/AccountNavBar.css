@@ -1,24 +1,29 @@
+/* ----------  ACCOUNT NAV‑BAR  ---------- */
 .account-nav{
+    width:100%;
+    height:56px;                     /* thinner bar (≈25 % less)            */
     display:flex;
     align-items:center;
-    padding:10px 24px;
+    padding:6px 24px;                /* gradient shows above & below text   */
+    margin-top:2px;                  /* pulls bar very close to top          */
     background:linear-gradient(90deg,#D726D3 0%,#F1392F 60%,#FFA500 100%);
-    border-radius:12px;
+    border-radius:16px;
     box-sizing:border-box;
-    overflow-x:auto;                 /* lets the row scroll if ever too tight */
+    overflow-x:auto;                 /* safety on ultra‑small screens       */
   }
   
+  /* left balloon logo */
   .account-nav__logo{
-    height:48px;
+    height:44px;                     /* fits the 56‑px bar nicely           */
     flex-shrink:0;
     margin-right:24px;
   }
   
-  /*  PUSH TABS RIGHT  */
+  /* centre tab row pushed right */
   .account-nav__tabs{
-    margin-left:auto;                /* this is the “push right” */
+    margin-left:auto;                /* push everything right of logo       */
     display:flex;
-    gap:48px;                        /* roomy on big screens */
+    gap:48px;
     white-space:nowrap;
   }
   
@@ -26,32 +31,32 @@
     color:#fff;
     font-weight:600;
     text-decoration:none;
+    font-size:1rem;
   }
   .account-nav__item:hover{opacity:.75;}
   
+  /* profile avatar placeholder */
   .account-nav__avatar{
-    width:48px; height:48px; flex-shrink:0;
+    width:44px;height:44px;
     border-radius:50%;
-    background:#ccc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23999' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 22c0-4 4-6 8-6s8 2 8 6'/%3E%3C/svg%3E") center/60% no-repeat;
     border:2px solid #fff;
+    flex-shrink:0;
+    background:#ccc
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23999' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 22c0-4 4-6 8-6s8 2 8 6'/%3E%3C/svg%3E")
+      center/60% no-repeat;
     margin-left:24px;
   }
   
-  /* ----------  RESPONSIVE TWEAKS ---------- */
-  @media (max-width:1200px){
-    .account-nav__tabs{ gap:36px; }
-    .account-nav__item{ font-size:0.95rem; }
-  }
-  
+  /* ----------  RESPONSIVE SHRINK  ---------- */
   @media (max-width:900px){
-    .account-nav__tabs{ gap:24px; }
-    .account-nav__item{ font-size:0.85rem; }
-    .account-nav__logo,
-    .account-nav__avatar{ height:40px; width:40px; }
+    .account-nav__tabs{ gap:32px; }
+    .account-nav__item{ font-size:0.92rem; }
   }
   
   @media (max-width:680px){
-    .account-nav__tabs{ gap:16px; }
-    .account-nav__item{ font-size:0.78rem; }
+    .account-nav__tabs{ gap:20px; }
+    .account-nav__item{ font-size:0.82rem; }
+    .account-nav__logo,
+    .account-nav__avatar{ width:38px;height:38px; }
   }
   
