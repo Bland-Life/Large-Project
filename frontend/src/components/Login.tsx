@@ -9,7 +9,7 @@ function Login() {
   async function doLogin(event: React.FormEvent): Promise<void> {
     event.preventDefault();
 
-    const obj = { login: username, password: password };
+    const obj = { username: username, password: password };
     const js = JSON.stringify(obj);
 
     try {
