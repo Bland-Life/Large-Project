@@ -40,6 +40,7 @@ function Login() {
   }
 
   return (
+    <div className="signupContainer">
     <div className="signupDiv">
       <form
         onSubmit={doLogin}
@@ -65,6 +66,7 @@ function Login() {
         />
         <p>{message}</p>
       </form>
+    </div>
     </div>
   );
 }
