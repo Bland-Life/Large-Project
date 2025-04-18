@@ -13,6 +13,20 @@ function SignUp(){
     async function doSignup(event: React.FormEvent): Promise<void> {
         event.preventDefault();
 
+        // Check if any field is empty
+        if (!username || !password || !confirmPassword || !firstName || !email || !phoneNumber) {
+            setMessage('Please fill in all fields');
+            return;
+        }
+
+        // Check if password meets the criteria
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{4,}$/;
+        if (!passwordRegex.test(password)) {
+            setMessage('Password must be at least 4 characters long and include at least one uppercase and one lowercase letter.');
+            return;
+        }
+
+        // Make sure passwords match
         if(password !== confirmPassword){
             setMessage('Passwords do not match');
             return;
