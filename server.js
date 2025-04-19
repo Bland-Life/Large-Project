@@ -96,6 +96,24 @@ app.post('/api/signup', async(req, res, next) => {
 
 });
 
+app.post('/api/deleteuser', async (req, res, next) => {
+    // incoming: login, password
+    // outgoing: id, firstName, lastName, error
+    const { username } = req.body;
+    const db = client.db();
+    const results = await
+        db.collection('Users').deleteOne({ Username: username })
+    
+    var status = 'Failed to delete'
+    if (results.acknowledged) {
+        status = 'Successfully deleted';
+    }
+    
+    var ret = { status: status };
+    res.status(200).json(ret);
+});
+
+
 app.post('/api/getcountries', async (req, res, next) => {
     const { username } = req.body;
     const db = client.db();
