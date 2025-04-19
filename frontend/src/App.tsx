@@ -25,10 +25,10 @@ function App() {
         <Route path="/MyAccount"     element={<MyAccount />} />
 
         {/* account‑sub routes */}
-        <Route path="/WhereIveBeenPage"  element={<WhereIveBeenPage />} />
-        <Route path="/WhereImGoingPage"  element={<WhereImGoingPage />} />
-        <Route path="/JoinMePage"        element={<JoinMePage />} />
-        <Route path="/TravelToolsPage"   element={<TravelToolsPage />} />
+        <Route path="/WhereIveBeen"  element={<WhereIveBeenPage />} />
+        <Route path="/WhereImGoing"  element={<WhereImGoingPage />} />
+        <Route path="/JoinMe"        element={<JoinMePage />} />
+        <Route path="/TravelTools"   element={<TravelToolsPage />} />
       </Routes>
     </Router>
   );
