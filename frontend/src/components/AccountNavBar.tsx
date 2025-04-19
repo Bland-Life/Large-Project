@@ -26,8 +26,10 @@ export default function AccountNavBar() {
         ))}
       </div>
 
-      {/*avatar */}
-      <div className="account-nav__avatar" />
+      {/*avatar link */}
+      <Link to="/Profile">
+        <div className="account-nav__avatar" />
+      </Link>
     </nav>
   );
 }
