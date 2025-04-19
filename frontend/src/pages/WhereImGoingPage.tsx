@@ -7,6 +7,7 @@ const WhereImGoingPage = () =>
     return (
         <div>
             <AccountNavBar/>
+            Where I'm Going!
         </div>
     );
 };
