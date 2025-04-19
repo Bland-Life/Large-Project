@@ -1,67 +1,73 @@
-import React, { useState } from 'react';
-import '../css/HomePage.css'
+import React, { useState, useEffect } from 'react';
+import '../css/HomePage.css';
 
 function UserProf() {
-    return(
-        <div className="signupContainer">
-            
-                <div className="signupDiv">
-                    <h2 className="signupHeader padding-12px">Profile</h2>
-                    <div className="input-field">
-                    {/* <input
-                        type="text"
-                        id="username"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    /> */}
-                    </div>
-                    <div className="input-field">
-                    {/* <input
-                        type="password"
-                        id="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    /> */}
-                    </div>
-                    <div className="input-field">
-                    {/* <input
-                        type="password"
-                        id="confirmPassword"
-                        placeholder="Confirm Password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                    /> */}
-                    </div>
-                    <div className="input-field">
-                    {/* <input
-                        type="text"
-                        id="firstName"
-                        placeholder="First Name"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                    /> */}
-                    </div>
-                    <div className="input-field">
-                    {/* <input
-                        type="email"
-                        id="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    /> */}
-                    </div>
-                    {/* <p id="error">{message}</p> */}
+    const [userData, setUserData] = useState({
+        username: '',
+        email: '',
+        name: ''
+    });
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+
+    // Fetch user data when component mounts
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                // Replace with your actual API endpoint
+                const response = await fetch('https://your-api.com/user/profile', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}` // Assuming you use token-based auth
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user data');
+                }
+
+                const data = await response.json();
+                setUserData({
+                    username: data.username,
+                    email: data.email,
+                    name: data.firstName || data.name // Adjust based on your API response
+                });
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUserData();
+    }, []);
+
+    if (loading) {
+        return <div>Loading user data...</div>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
+    return (
+        <div className="user-profile-container">
+            <h2>User Profile</h2>
+            <div className="profile-info">
+                <div className="profile-field">
+                    <span className="field-label">Username:</span>
+                    <span className="field-value">{userData.username}</span>
                 </div>
-                {/* <div className='button-signup'>
-                    <input
-                        type="submit"
-                        id="signupButton"
-                        className="button"
-                        value="Sign Up"
-                    />
-                </div> */}
+                <div className="profile-field">
+                    <span className="field-label">Email:</span>
+                    <span className="field-value">{userData.email}</span>
+                </div>
+                <div className="profile-field">
+                    <span className="field-label">Name:</span>
+                    <span className="field-value">{userData.name}</span>
+                </div>
+            </div>
         </div>
     );
 }
