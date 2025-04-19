@@ -83,7 +83,7 @@ app.post('/api/signup', async(req, res, next) => {
             var ret = {status: status};
             return res.status(409).json(ret);
         }
-        const result = db.collection('Users').insertOne(newUser);
+        const result = await db.collection('Users').insertOne(newUser);
         if (result.acknowledged) {
             status = "Successfully signed up";
         }
