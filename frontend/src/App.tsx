@@ -11,6 +11,7 @@ import MyAccount       from "./pages/MyAccountPage";
 import JoinMePage          from "./pages/JoinMePage";
 import TravelToolsPage     from "./pages/TravelToolsPage";
 import WhereImGoingPage    from "./pages/WhereImGoingPage";
+import UserProfilePage     from "./pages/UserProfilePage"
 
 /* page you still need to create — stub shown below */
 import WhereIveBeenPage    from "./pages/WhereIveBeenPage";
@@ -29,6 +30,7 @@ function App() {
         <Route path="/WhereImGoing"  element={<WhereImGoingPage />} />
         <Route path="/JoinMe"        element={<JoinMePage />} />
         <Route path="/TravelTools"   element={<TravelToolsPage />} />
+        <Route path="/Profile"   element={<UserProfilePage />} />
       </Routes>
     </Router>
   );
