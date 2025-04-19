@@ -1,12 +1,14 @@
 import React from "react";
 import AccountNavBar from "../components/AccountNavBar";
-import "../css/WhereImGoing.css";
+import UserProf from '../components/UserProf.tsx';
+import '../css/HomePage.css';
 
 const UserProfilePage = () =>
 {
     return (
-        <div>
+        <div className='page-content'>
             <AccountNavBar/>
+            <UserProf />
             User Prof!
         </div>
     );
