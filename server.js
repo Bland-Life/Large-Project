@@ -204,9 +204,9 @@ app.post('/api/addemptytravelstats', async (req, res, next) => {
 });
 
 app.post('/api/addtravelstat', async (req, res, next) => {
-    const { username, statName, amount } = req.body;
+    const { username, statname, amount } = req.body;
     const db = client.db();
-    const results = await db.collection('TravelStats').updateOne({}, {$inc: {[statName]: amount}});
+    const results = await db.collection('TravelStats').updateOne({Username:username}, {$inc: {[statname]: amount}});
     var status = "Failed to update travel stats";
     if (results.acknowledged) {
         status = "Success";
