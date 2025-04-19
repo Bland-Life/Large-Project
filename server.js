@@ -155,6 +155,55 @@ app.post('/api/addusertocountries', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
+app.post('/api/gettravelstats', async (req, res, next) => {
+    const { username } = req.body;
+    const db = client.db();
+    const results = await
+    db.collection('TravelStats').find({ Username:username }).toArray();
+    var status = "Failed to get travel stats"
+    var continents = 0;
+    var countries = 0;
+    var states = 0;
+    var megacities = 0;
+    if (results.length > 0){
+        continents = results[0].Continents;
+        countries = results[0].Countries;
+        states = results[0].States;
+        megacities = results[0].Megacities;
+        status = "Success";
+    }
+    var ret = {
+        continents: continents, 
+        countries: countries, 
+        states: states, 
+        megacities: megacities, 
+        status: status
+    };
+    res.status(200).json(ret);
+});
+
+app.post('/api/addemptytravelstats', async (req, res, next) => {
+    const { username } = req.body;
+    var stats = {
+        Username: username,
+        Continents: 0,
+        Countries: 0,
+        States: 0,
+        Megacities: 0
+    };
+    const db = client.db();
+    const results = await
+    db.collection('TravelStats').insertOne(stats);
+    var status = "Failed to get travel stats";
+    if (results.acknowledged) {
+        status = "Success";
+    }
+    
+    var ret = {status: status};
+    res.status(200).json(ret);
+});
+
+
 app.post('/webhook', (req, res) => {
     console.log('🚨 Received webhook POST request!');
     const signature = req.headers['x-hub-signature-256'];
