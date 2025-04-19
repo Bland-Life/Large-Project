@@ -103,7 +103,7 @@ app.post('/api/getcountries', async (req, res, next) => {
     db.collection('Countries').find({ Username:username }).toArray();
     var countries = []
     var status = "Failed to get countries"
-    if (results.length > 0) {
+    if (results.acknowledged) {
         countries = results[0].Countries;
         status = "Successfully got countries";
     }
