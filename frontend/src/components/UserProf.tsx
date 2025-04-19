@@ -1,67 +1,43 @@
 import React, { useState } from 'react';
-import '../css/HomePage.css'
+import '../css/UserProfile.css';
 
 function UserProf() {
+    // placeholder until API inclusion
+    const [userData, setUserData] = useState({
+        name: "John Doe",
+        username: "johndoe123",
+        email: "john.doe@example.com"
+    });
+
     return(
-        <div className="signupContainer">
+        <div className="user-profile-container">
+            <h1 className="profile-title">User Profile</h1>
             
-                <div className="signupDiv">
-                    <h2 className="signupHeader padding-12px">Profile</h2>
-                    <div className="input-field">
-                    {/* <input
-                        type="text"
-                        id="username"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    /> */}
+            <div className="profile-card">
+                <div className="profile-avatar">
+                    {/* Profile image placeholder - first letter of name */}
+                    <div className="avatar-placeholder">
+                        {userData.name.charAt(0)}
                     </div>
-                    <div className="input-field">
-                    {/* <input
-                        type="password"
-                        id="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    /> */}
-                    </div>
-                    <div className="input-field">
-                    {/* <input
-                        type="password"
-                        id="confirmPassword"
-                        placeholder="Confirm Password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                    /> */}
-                    </div>
-                    <div className="input-field">
-                    {/* <input
-                        type="text"
-                        id="firstName"
-                        placeholder="First Name"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                    /> */}
-                    </div>
-                    <div className="input-field">
-                    {/* <input
-                        type="email"
-                        id="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    /> */}
-                    </div>
-                    {/* <p id="error">{message}</p> */}
                 </div>
-                {/* <div className='button-signup'>
-                    <input
-                        type="submit"
-                        id="signupButton"
-                        className="button"
-                        value="Sign Up"
-                    />
-                </div> */}
+                
+                <div className="profile-details">
+                    <div className="profile-field">
+                        <span className="field-label">Name:</span>
+                        <span className="field-value">{userData.name}</span>
+                    </div>
+                    
+                    <div className="profile-field">
+                        <span className="field-label">Username:</span>
+                        <span className="field-value">{userData.username}</span>
+                    </div>
+                    
+                    <div className="profile-field">
+                        <span className="field-label">Email:</span>
+                        <span className="field-value">{userData.email}</span>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
