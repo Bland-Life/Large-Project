@@ -15,7 +15,7 @@
   
   /* left balloon logo */
   .account-nav__logo{
-    height:44px;                     /* fits the 56‑px bar nicely           */
+    height:60px;                     /* fits the 56‑px bar nicely           */
     flex-shrink:0;
     margin-right:24px;
   }
@@ -47,6 +47,8 @@
       center/60% no-repeat;
     margin-left:24px;
   }
+
+  .account-nav__avatar:hover{opacity:.75;}
   
   /* ----------  RESPONSIVE SHRINK  ---------- */
   @media (max-width:900px){
