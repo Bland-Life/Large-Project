@@ -53,21 +53,21 @@ app.post('/api/login', async (req, res, next) => {
     var fn = '';
     var em = '';
     var un = '';
-    var er = 'Incorrect Username or Password'
+    var status = 'Incorrect Username or Password'
     if (results.length > 0) {
         fn = results[0].FirstName;
         em = results[0].Email;
         un = results[0].Username;
-        er = 'Successful Login';
+        status = 'Successfully logged in';
     }
     
-    var ret = { firstName: fn, username: un, email: em, error: er };
+    var ret = { firstName: fn, username: un, email: em, status: status };
     res.status(200).json(ret);
 });
 
 app.post('/api/signup', async(req, res, next) => {
     // incoming: login,
-    var error = '';
+    var status = 'Failed to sign up';
     const { username, password, firstName, email } = req.body;
     const newUser = {
         Username: username,
@@ -79,15 +79,19 @@ app.post('/api/signup', async(req, res, next) => {
         const db = client.db();
         const user = await db.collection('Users').find({$or: [{Username: username}, {Email: email}]}).toArray();
         if (user.length > 0) {
-            var ret = {error: "User already exists"};
+            status = "User already exists";
+            var ret = {status: status};
             return res.status(409).json(ret);
         }
         const result = db.collection('Users').insertOne(newUser);
+        if (result.acknowledged) {
+            status = "Successfully signed up";
+        }
     }
     catch (e) {
         error = e.toString();
     }
-    var ret = { error: error };
+    var ret = { status: status };
     res.status(200).json(ret);
 
 });
@@ -98,10 +102,12 @@ app.post('/api/getcountries', async (req, res, next) => {
     const results = await
     db.collection('Countries').find({ Username:username }).toArray();
     var countries = []
+    var status = "Failed to get countries"
     if (results.length > 0) {
-        countries = results[0].countries;
+        countries = results[0].Countries;
+        status = "Successfully got countries";
     }
-    var ret = {countries: countries};
+    var ret = {countries: countries, status: status};
     res.status(200).json(ret);
 });
 
@@ -111,10 +117,11 @@ app.post('/api/addcountry', async (req, res, next) => {
     const results = await
     db.collection('Countries').updateOne({ Username:username }, {$push: {Countries: country}});
     var countries = []
-    if (results.length > 0) {
-        countries = results[1];
+    var status = "Failed to add";
+    if (results.acknowledged) {
+        status = "Successfully added"
     }
-    var ret = {countries: countries};
+    var ret = {status: status};
     res.status(200).json(ret);
 });
 
@@ -123,11 +130,11 @@ app.post('/api/deletecountry', async (req, res, next) => {
     const db = client.db();
     const results = await
     db.collection('Countries').updateOne({ Username:username }, {$pull: {Countries: country}});
-    var countries = []
-    if (results.length > 0) {
-        countries = results[1];
+    var status = "Failed to felete";
+    if (results.acknowledged) {
+        status = "Successfully deleted";
     }
-    var ret = {countries: countries};
+    var ret = {status: status};
     res.status(200).json(ret);
 });
 
@@ -140,11 +147,11 @@ app.post('/api/addusertocountries', async (req, res, next) => {
     };
     const results = await
     db.collection('Countries').insertOne(newUser);
-    var error = "Failed to add new user to Countries"
+    var status = "Failed to add new user to Countries"
     if (results.acknowledged){
-        error = "Success";
+        status = "Successfully added";
     }
-    var ret = {error: error};
+    var ret = {status: status};
     res.status(200).json(ret);
 });
 
