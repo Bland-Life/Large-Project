@@ -9,6 +9,9 @@ const UserProfilePage = () =>
         <div className='page-content'>
             <AccountNavBar/>
             <div />
+            <div />
+            <div />
+            <div />
             <UserProf />
         </div>
     );
