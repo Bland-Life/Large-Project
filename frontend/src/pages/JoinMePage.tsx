@@ -4,8 +4,9 @@ import "../css/JoinMe.css";
 const JoinMePage = () => {
   return(
     <div >
-    Join Me! -- Social Tab
-  </div>
+      <AccountNavBar />
+      Join Me! -- Social Tab
+    </div>
   );
   
 };
