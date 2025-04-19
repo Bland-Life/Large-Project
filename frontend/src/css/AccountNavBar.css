@@ -15,7 +15,7 @@
   
   /* left balloon logo */
   .account-nav__logo{
-    height:200px;                     /* fits the 56‑px bar nicely           */
+    height:50px;                     /* fits the 56‑px bar nicely           */
     flex-shrink:0;
     margin-right:24px;
   }
