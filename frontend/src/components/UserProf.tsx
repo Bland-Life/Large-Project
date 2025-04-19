@@ -6,7 +6,7 @@ function UserProf() {
         <div className="signupContainer">
             
                 <div className="signupDiv">
-                    <h2 className="signupHeader">Profile</h2>
+                    <h2 className="signupHeader padding-12px">Profile</h2>
                     <div className="input-field">
                     {/* <input
                         type="text"

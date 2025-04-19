@@ -9,7 +9,6 @@ const UserProfilePage = () =>
         <div className='page-content'>
             <AccountNavBar/>
             <UserProf />
-            User Prof!
         </div>
     );
 };
