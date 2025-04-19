@@ -203,6 +203,18 @@ app.post('/api/addemptytravelstats', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
+app.post('/api/addtravelstat', async (req, res, next) => {
+    const { username, statName, amount } = req.body;
+    const db = client.db();
+    const results = await db.collection('TravelStats').updateOne({}, {$inc: {[statName]: amount}});
+    var status = "Failed to update travel stats";
+    if (results.acknowledged) {
+        status = "Success";
+    }
+    var ret = {status: status};
+    res.status(200).json(ret);
+});
+
 
 app.post('/webhook', (req, res) => {
     console.log('🚨 Received webhook POST request!');
