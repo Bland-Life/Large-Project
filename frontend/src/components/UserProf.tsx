@@ -11,7 +11,7 @@ function UserProf() {
 
     return(
         <div className="user-profile-container">
-            <h1 className="profile-title">User Profile</h1>
+            <h1 className="profile-title">Hello, {userData.name.split(" ")[0]}!</h1>
             
             <div className="profile-card">
                 <div className="profile-avatar">
