@@ -25,7 +25,7 @@ function App() {
         <Route path="/MyAccount"     element={<MyAccount />} />
 
         {/* account‑sub routes */}
-        <Route path="/WhereIveBeen"  element={<WhereIveBeenPage />} />
+        <Route path="/WhereIveBeen"  element={<MyAccount />} />
         <Route path="/WhereImGoing"  element={<WhereImGoingPage />} />
         <Route path="/JoinMe"        element={<JoinMePage />} />
         <Route path="/TravelTools"   element={<TravelToolsPage />} />
