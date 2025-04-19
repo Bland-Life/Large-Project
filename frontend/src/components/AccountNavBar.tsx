@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import balloon from "../assets/balloon.png";
-import "./AccountNavBar.css";
+import "../css/AccountNavBar.css";
 
 
 const tabs = [
