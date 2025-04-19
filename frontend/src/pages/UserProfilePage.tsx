@@ -7,9 +7,9 @@ const UserProfilePage = () =>
 {
     return (
         <div className='page-content'>
-            <UserProf />
             <AccountNavBar/>
-            
+            <div />
+            <UserProf />
         </div>
     );
 };
