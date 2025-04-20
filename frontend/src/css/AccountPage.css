@@ -1,11 +1,11 @@
-/* ----------  PAGE WRAPPER  ---------- */
-.account-page{
-  min-height:100vh;
-  padding:0 24px 48px;   /* 24‑px white space left & right */
-  box-sizing:border-box;
-  display:flex;
-  flex-direction:column;
+/* ----------  GENERAL  ---------- */
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* prevent scrolling, so the stats rectangle falls off page */
 }
+
 
 /* ----------  MAP SECTION  ---------- */
 .account-map{
@@ -26,33 +26,6 @@
   color:#555;
 }
 
-/* ----------  TRAVEL STATS BOX  ---------- */
-.travel-stats{
-  width:100%;
-  max-width:1200px;
-  border:2px solid #D89500;
-  border-radius:12px;
-  padding:16px 24px;
-  margin:0 auto;        /* centre within page padding */
-}
-
-.travel-stats h2{
-  margin:0 0 12px;
-  font-size:1.4rem;
-  color:#D4145A;
-}
-
-.stat-grid{
-  display:flex;
-  flex-wrap:wrap;
-  gap:24px;
-  font-size:1.2rem;
-}
-.stat-grid span strong{
-  font-size:1.5rem;
-  color:#000;
-}
-
 /* ----------  SMALL‑SCREEN TWEAKS  ---------- */
 @media (max-width:900px){
   .map-placeholder{ height:62vh; }
@@ -61,4 +34,82 @@
 @media (max-width:680px){
   .map-placeholder{ height:58vh; }
   .stat-grid{ gap:16px; font-size:1.05rem; }
+}
+
+
+/* ----------  TRAVEL STATS BOX  ---------- */
+.travel-stats {
+  width: 100%;
+  padding: 20px;
+  margin-top: 10px;
+  background-color: #fff;
+  overflow: hidden;
+  
+  /* gradient box */
+  background: 
+    linear-gradient(white, white) padding-box,
+    linear-gradient(90deg, #9932CC 0%, #F05 50%, #FFA500 100%) border-box; 
+
+  border: 3px solid transparent;
+  border-radius: 20px;
+  background-clip: padding-box, border-box;
+
+  /* make the box for travel stats "fall off the page" */
+  margin-bottom: -24px; 
+  padding-bottom: 110px; 
+}
+
+.account-page {
+  min-height: 100vh;
+  padding: 0 24px 0; /* Remove bottom padding */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevent scrollbars from appearing due to negative margins */
+}
+
+.travel-stats h2 {
+  color: #0c0104;
+  font-size: 1.6rem;
+  margin: 0;
+  padding: 10px 0;
+  text-align: center;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.stat-grid {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 16px 20px;
+  flex-wrap: wrap;
+}
+
+.stat-grid span {
+  font-size: 1.5rem;
+  color: #333;
+  padding: 0 10px;
+  white-space: nowrap;
+}
+
+/* continent num */
+.stat-grid strong {
+  font-size: 2.5rem;
+  color: #FF7043; /* Orange for the first number */
+  font-weight: bold;
+}
+
+/* countries num */
+.stat-grid span:nth-child(2) strong {
+  color: #E91E63; /* Pink/red for the second number */
+}
+
+/* states num */
+.stat-grid span:nth-child(3) strong {
+  color: #9C27B0; /* Purple for the third number */
+}
+
+/* megacities num */
+.stat-grid span:nth-child(4) strong {
+  color: #673AB7; 
 }
