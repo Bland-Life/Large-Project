@@ -6,11 +6,11 @@
     align-items:center;
     padding:6px 24px;                /* gradient shows above & below text   */
     margin-top:2px;                  /* pulls bar very close to top          */
-    background:linear-gradient(90deg,#D726D3 0%,#F1392F 60%,#FFA500 100%);
+    background:linear-gradient(90deg,#FFA500 0%,#F1392F 30%,#4E00D5  100%);
     border-radius:16px;
     box-sizing:border-box;
     overflow-x:auto;                 /* safety on ultra‑small screens       */
-    opacity:.9;
+    opacity:.8;
   }
   
   /* left balloon logo */
