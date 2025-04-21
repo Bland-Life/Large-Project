@@ -25,11 +25,11 @@ const url = process.env.MONGO_URI;
 const client = new MongoClient(url);
 client.connect();
 
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
 app.use(cors());
 app.use('/webhook', express.raw({ type: 'application/json' }));
 app.use(bodyParser.json());
-
-app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
