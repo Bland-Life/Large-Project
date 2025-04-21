@@ -56,7 +56,9 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: #ccc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23999' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 22c0-4 4-6 8-6s8 2 8 6'/%3E%3C/svg%3E") center/60% no-repeat;
+    background: #ccc 
+    url("https://ohtheplacesyoullgo.space/images/Beach.jpg") center/60% no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23999' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 22c0-4 4-6 8-6s8 2 8 6'/%3E%3C/svg%3E") center/60% no-repeat;
 }
 
 .profile-details {
