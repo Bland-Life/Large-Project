@@ -35,7 +35,9 @@
     font-size:1rem;
     padding: 5px 5px; 
   }
-  .account-nav__item:hover{opacity:.75;}
+  .account-nav__item:hover{
+    opacity:.75;
+  }
   
   /* profile avatar placeholder */
   .account-nav__avatar{
