@@ -1,5 +1,5 @@
-import React from "react";
 import AccountNavBar from "../components/AccountNavBar";
+import WhereImGoing from "../components/WhereImGoing";
 import "../css/WhereImGoing.css";
 
 const WhereImGoingPage = () =>
@@ -7,7 +7,7 @@ const WhereImGoingPage = () =>
     return (
         <div>
             <AccountNavBar/>
-            Where I'm Going!
+            <WhereImGoing />
         </div>
     );
 };
