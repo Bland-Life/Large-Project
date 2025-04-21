@@ -27,6 +27,7 @@ function Login() {
           firstName: res.firstName,
           username: res.username,
           email: res.email,
+          profileimage: res.profileimage
         };
         localStorage.setItem("user_data", JSON.stringify(user));
         setMessage("");

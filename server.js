@@ -54,27 +54,30 @@ app.post('/api/login', async (req, res, next) => {
     var fn = '';
     var em = '';
     var un = '';
+    var pi = '';
     var status = 'Incorrect Username or Password'
     if (results.length > 0) {
         fn = results[0].FirstName;
         em = results[0].Email;
         un = results[0].Username;
+        pi = results[0].ProfileImage;
         status = 'Successfully logged in';
     }
     
-    var ret = { firstName: fn, username: un, email: em, status: status };
+    var ret = { firstName: fn, username: un, email: em, profileimage: pi, status: status };
     res.status(200).json(ret);
 });
 
 app.post('/api/signup', async(req, res, next) => {
     // incoming: login,
     var status = 'Failed to sign up';
-    const { username, password, firstName, email } = req.body;
+    const { username, password, firstName, email, profileimage} = req.body;
     const newUser = {
         Username: username,
         Password: password,
         FirstName: firstName,
-        Email: email
+        Email: email,
+        ProfileImage: profileimage
     }
     try {
         const db = client.db();

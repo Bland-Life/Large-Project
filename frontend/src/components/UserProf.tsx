@@ -9,7 +9,8 @@ function UserProf() {
     const [userData, setUserData] = useState({
         name: ud.firstName,
         username: ud.username,
-        email: ud.email
+        email: ud.email,
+        profileimage: ud.profileimage
     });
 
     return (
@@ -18,7 +19,10 @@ function UserProf() {
 
             <div className="profile-content">
                 <div className="profile-avatar">
-                    <div className="avatar-placeholder" />
+                    <div className="avatar-placeholder" 
+                    style={{
+                        background: userData.profileimage ? `#ccc url(${userData.profileimage}) center/160% no-repeat` : `#ccc`,
+                    }}/>
                 </div>
 
                 <div className="profile-details">

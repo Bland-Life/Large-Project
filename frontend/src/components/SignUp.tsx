@@ -8,6 +8,7 @@ function SignUp(){
     const[firstName, setFirstName] = useState('');
     const[email, setEmail] = useState('');
     const[message, setMessage] = useState('');
+    const defaultImage = "https://ohtheplacesyoullgo.space/images/Beach.jpg";
 
     async function doSignup(event: React.FormEvent): Promise<void> {
         event.preventDefault();
@@ -36,6 +37,7 @@ function SignUp(){
             password: password,
             firstName: firstName,
             email: email,
+            profileimage: defaultImage
         };
         const js = JSON.stringify(obj);
 
