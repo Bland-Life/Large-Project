@@ -33,6 +33,7 @@
     font-weight:600;
     text-decoration:none;
     font-size:1rem;
+    padding: 5px 5px; 
   }
   .account-nav__item:hover{opacity:.75;}
   
@@ -48,7 +49,17 @@
     margin-left:24px;
   }
 
-  .account-nav__avatar:hover{opacity:.75;}
+  .account-nav__avatar:hover{
+    opacity:.75;
+  }
+
+
+  .account-nav__item--active {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 5px 5px; 
+    border-radius: 20px;
+    transition: background 0.3s;
+  }
   
   /* ----------  RESPONSIVE SHRINK  ---------- */
   @media (max-width:900px){

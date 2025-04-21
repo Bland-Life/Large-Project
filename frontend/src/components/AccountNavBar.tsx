@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import balloon from "../assets/balloon.png";
 import "../css/AccountNavBar.css";
 
@@ -12,6 +12,10 @@ const tabs = [
 ];
 
 export default function AccountNavBar() {
+
+  const location = useLocation();
+  const currentPath = location.pathname;
+
   return (
     <nav className="account-nav">
       {/*logo */}
@@ -20,7 +24,10 @@ export default function AccountNavBar() {
       {/*center tab */}
       <div className="account-nav__tabs">
         {tabs.map(t => (
-          <Link key={t.label} to={t.to} className="account-nav__item">
+          <Link 
+            key={t.label} 
+            to={t.to} 
+            className={`account-nav__item ${currentPath === t.to ? "account-nav__item--active" : ""}`}>
             {t.label}
           </Link>
         ))}
