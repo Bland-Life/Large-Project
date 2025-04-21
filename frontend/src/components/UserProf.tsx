@@ -34,6 +34,9 @@ function UserProf() {
                         <span className="field-label">Email:</span>
                         <span className="field-value">{userData.email}</span>
                     </div>
+                    <div>
+                        <a href="/"><button id="logout-button">Logout</button></a>
+                    </div>
                 </div>
             </div>
         </div>
