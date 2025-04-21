@@ -25,13 +25,7 @@ const url = process.env.MONGO_URI;
 const client = new MongoClient(url);
 client.connect();
 
-app.use('/images', express.static(path.join(__dirname, 'images')));
-
-app.use('/images', (req, res, next) => {
-    console.log('Request for image:', req.url);
-    next();
-  });
-  
+app.use('/frontend/public/images', express.static(path.join(__dirname, 'images')));  
 
 app.use(cors());
 app.use('/webhook', express.raw({ type: 'application/json' }));
