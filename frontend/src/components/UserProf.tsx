@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import '../css/UserProfile.css';
 
 function UserProf() {
+    let _ud : any = localStorage.getItem('user_data');
+    let ud = JSON.parse( _ud );
+
     // placeholder until API inclusion for profile
     const [userData, setUserData] = useState({
-        name: "GerBot Discord",
-        username: "gerbotDiscord123",
-        email: "gerbot@discord.com"
+        name: ud.firstName,
+        username: ud.username,
+        email: ud.email
     });
 
     return (
