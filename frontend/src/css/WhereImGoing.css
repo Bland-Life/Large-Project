@@ -38,9 +38,8 @@
 }
 
 .imagePlaceholder {
-    width: 100%;
-    max-width: 150px;
-    height: 150px; /* Adjust height as needed */
+    width: 90%;
+    height: 150px;
     background-color: #fff; /* White box */
     border-radius: 10px;
     margin-bottom: 0.5rem;
