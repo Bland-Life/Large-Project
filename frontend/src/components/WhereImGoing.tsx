@@ -11,19 +11,14 @@ const WhereImGoing = () => {
         <div>
             <div className="destinationContainer">
                 <div className="destination">
-                    1
-                </div>
-                <div className="destination">
-                    2
-                </div>
-                <div className="destination">
-                    3
-                </div>
-                <div className="destination">
-                    4
-                </div>
-                <div className="destination">
-                    5
+                    <h2>Destination</h2>
+                    <div className="imagePlaceholder"></div>
+                    <h3>Activities</h3>
+                    <ul>
+                        <li>Activity 1</li>
+                        <li>Activity 2</li>
+                        <li>Activity 3</li>
+                    </ul>
                 </div>
             </div>
             <button className="addDestination" onClick={openModal}>
