@@ -10,13 +10,21 @@ export default function TravelToolsPage({ pageType = "default" }) {
   const [inverseRate, setInverseRate] = useState(0.00070267);
 
   const destinations = [
-    { name: "General Vacation", icon: "⚠️" },
-    { name: "Thailand", icon: "⚠️" },
-    { name: "Alaska", icon: "⚠️" },
-    { name: "Zimbabwe", icon: "⚠️" },
-    { name: "Lake Tahoe", icon: "⚠️" },
-    { name: "Germany", icon: "⚠️" },
-    { name: "California", icon: "⚠️" },
+    // { name: "General Vacation", icon: " " },
+    // { name: "Thailand", icon: " " },
+    // { name: "Alaska", icon: " " },
+    // { name: "Zimbabwe", icon: "⚠️" },
+    // { name: "Lake Tahoe", icon: "⚠️" },
+    // { name: "Germany", icon: "⚠️" },
+    // { name: "California", icon: "⚠️" },
+    
+    { name: "General Vacation"},
+    { name: "Thailand"},
+    { name: "Alaska"},
+    { name: "Zimbabwe"},
+    { name: "Lake Tahoe"},
+    { name: "Germany"},
+    { name: "California"},
   ];
 
   const flights = [
@@ -164,7 +172,7 @@ export default function TravelToolsPage({ pageType = "default" }) {
                 {destinations.map((destination, index) => (
                   <div key={index} className="packing-list-card">
                     <div className="packing-list-name">{destination.name}</div>
-                    <div className="packing-list-icon">{destination.icon}</div>
+                    {/* <div className="packing-list-icon">{destination.icon}</div> */}
                   </div>
                 ))}
               </div>
