@@ -1,6 +1,7 @@
 import React from "react";
 import AccountNavBar from "../components/AccountNavBar";
 import "../css/AccountPage.css";
+import MapExplorer from "../components/MapExplorer";
 
 const MyAccountPage = () => (
   <div className="account-page-root">
@@ -8,9 +9,8 @@ const MyAccountPage = () => (
       <AccountNavBar />
 
       {/* --- Map section (placeholder) --- */}
-      <section id="been" className="account-map">
-        <div className="map-placeholder">Map will render here</div>
-      </section>
+      <section id="been" className="account-map"></section>
+      <MapExplorer />
 
       {/* --- Travel‑stats strip --- */}
       <section className="travel-stats">
