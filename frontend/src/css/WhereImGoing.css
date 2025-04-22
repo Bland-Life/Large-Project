@@ -1,3 +1,38 @@
+.destinationContainer{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+.destination{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.destination:nth-child(3n+1) {
+    background-color: #ffcc99
+}
+
+.destination:nth-child(3n+2) {
+    background-color: #ffcccc
+}
+
+.destination:nth-child(3n) {
+    background-color: #cc99ff
+}
+
+.destination:hover {
+    transform: scale(1.05);
+    transform: transform 02s ease;
+}
+
 .addDestination {
     position: relative; /* Position the button relative to its normal flow */
     margin-top: 20px; /* Add space below the navigation bar */
