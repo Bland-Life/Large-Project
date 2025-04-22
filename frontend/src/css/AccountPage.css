@@ -1,11 +1,16 @@
-/* ----------  GENERAL  ---------- */
+/* AccountPage.css (css) */
 body, html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  /* removed since this prevents scrolling on ALL PAGES */
-  /* overflow: hidden; prevent scrolling, so the stats rectangle falls off page */
-}
+
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* still hide horizontal overflow */
+    overflow-y: auto;   /* allow vertical scrolling */
+  }
+
+  
+ 
+
 
 /* ----------  ACCOUNT PAGE WRAPPER ---------- */
 
@@ -71,8 +76,8 @@ body, html {
   background-clip: padding-box, border-box;
 
   /* make the box for travel stats "fall off the page" */
-  margin-bottom: -24px; 
-  padding-bottom: 110px; 
+  margin-bottom: 24px; 
+  padding-bottom: 20px; 
 }
 
 /* This container prevents scrolling just for the account page */
@@ -89,9 +94,12 @@ body, html {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  /* overflow: hidden; - Removed from here since container handles it 
-} */
+
+  overflow: visible; 
+}
+
+}
+
 
 .travel-stats h2 {
   color: #0c0104;
