@@ -21,9 +21,30 @@ function UserProf() {
             const file = event.target.files[0];
             const reader = new FileReader();
 
-            reader.onload = () => {
+            // reader.onload = () => {
+            //     if (reader.result) {
+            //         setNewProfileImage(reader.result.toString());
+            //     }
+            // };
+
+            reader.onload = async () => {
                 if (reader.result) {
-                    setNewProfileImage(reader.result.toString());
+                    const base64Image = reader.result.toString();
+                    const image = {
+                        image: base64Image
+                    };
+                    const response = await fetch('https://ohtheplacesyoullgo.space/upload', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(image),
+                    });
+
+                    const res = JSON.parse(await response.text());
+                    if (res.filename != "") {
+                        setNewProfileImage(res.filename);
+                    }
                 }
             };
 
