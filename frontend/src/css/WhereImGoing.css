@@ -1,4 +1,13 @@
-.destinationContainer{
+.pageLayout {
+    display: flex;
+    align-items: flex-start;
+    padding: 2rem;
+    gap: 1rem;
+}
+
+
+.destinationContainer {
+    flex-grow: 1;
     display: grid;
     grid-template-columns: repeat(3,minmax(100px, 1fr));
     grid-auto-rows: 1fr;
@@ -10,7 +19,7 @@
     box-sizing: border-box;
 }
 
-.destination{
+.destination {
     border-radius: 10px;
     width: 100%;
     display: flex;
@@ -37,26 +46,65 @@
     transform: transform 02s ease;
 }
 
+.destinationTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+
 .imagePlaceholder {
     width: 90%;
     height: 150px;
     background-color: #fff; /* White box */
     border-radius: 10px;
     margin-bottom: 0.5rem;
-  }
+}
+
+.destinationSubtitle {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.destinationList {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
 
 .addDestination {
-    position: relative; /* Position the button relative to its normal flow */
-    margin-top: 20px; /* Add space below the navigation bar */
-    margin-left: 20px; /* Add space from the left edge of the screen */
-    padding: 10px 20px; /* Add some padding for better appearance */
-    font-size: 16px; /* Adjust font size */
-    background-color: #007bff; /* Button background color */
-    color: white; /* Button text color */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Add rounded corners */
-    cursor: pointer; /* Change cursor to pointer on hover */
+    align-self: flex-start;
+    margin-top: 1rem;
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 20%;
+    color: black;
+    background-color: white;
+    border: 2px solid;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    line-height: 1;
 }
+
+
+
+/*.addDestination {
+    position: relative; 
+    margin-top: 20px;
+    margin-left: 20px; 
+    padding: 10px 20px; 
+    font-size: 16px; 
+    background-color: #007bff; 
+    color: white;
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+}*/
 
 .addDestination:hover {
     background-color: #0056b3; /* Darker background on hover */

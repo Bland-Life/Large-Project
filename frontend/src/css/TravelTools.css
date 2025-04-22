@@ -368,17 +368,23 @@ html, body {
   }
   
   .packing-list-card {
-    border: 2px solid #fb923c;
-    border-radius: 1rem;
     padding: 0.75rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 8rem;
-    transition: border-color 0.2s;
     cursor: pointer;
     position: relative;
+    transition: border-color 0.2s;
+  
+    background: 
+      linear-gradient(white, white) padding-box, 
+      linear-gradient(120deg, #FFA500 0%, #F05 50%, #9932CC 100%) border-box;
+  
+    border: 2px solid transparent;
+    border-radius: 1rem;
+    background-clip: padding-box, border-box;
   }
   
   .no-scroll .packing-list-card {
@@ -387,7 +393,7 @@ html, body {
   }
   
   .packing-list-card:hover {
-    border-color: #a855f7;
+    border-color: rgb(255, 191, 0);
   }
   
   .packing-list-name {

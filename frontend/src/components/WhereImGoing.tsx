@@ -8,23 +8,60 @@ const WhereImGoing = () => {
     const closeModal = () => setIsModalOpen(false);
 
     return (
-        <div>
+        <div className="pageLayout">
+            <button className="addDestination" onClick={openModal}>
+                +
+            </button>
+
             <div className="destinationContainer">
                 <div className="destination">
-                    <h2>Destination</h2>
+                    <h2 className="destinationTitle">Destination</h2>
                     <div className="imagePlaceholder"></div>
-                    <h3>Activities</h3>
-                    <ul>
-                        <li>Activity 1</li>
-                        <li>Activity 2</li>
-                        <li>Activity 3</li>
-                        <li>Activity 4</li>
+                    <h3 className="destinationSubtitle">You've Planned</h3>
+                    <ul className="destinationList">
+                        <li>3 Activities</li>
+                        <li>4 Restraunts</li>
+                        <li>2 Places</li>
+                        <li>2 Hotels</li>
+                    </ul>
+                </div>
+
+                <div className="destination">
+                    <h2 className="destinationTitle">Destination</h2>
+                    <div className="imagePlaceholder"></div>
+                    <h3 className="destinationSubtitle">You've Planned</h3>
+                    <ul className="destinationList">
+                        <li>3 Activities</li>
+                        <li>4 Restraunts</li>
+                        <li>2 Places</li>
+                        <li>2 Hotels</li>
+                    </ul>
+                </div>
+
+                <div className="destination">
+                    <h2 className="destinationTitle">Destination</h2>
+                    <div className="imagePlaceholder"></div>
+                    <h3 className="destinationSubtitle">You've Planned</h3>
+                    <ul className="destinationList">
+                        <li>3 Activities</li>
+                        <li>4 Restraunts</li>
+                        <li>2 Places</li>
+                        <li>2 Hotels</li>
+                    </ul>
+                </div>
+
+                <div className="destination">
+                    <h2 className="destinationTitle">Destination</h2>
+                    <div className="imagePlaceholder"></div>
+                    <h3 className="destinationSubtitle">You've Planned</h3>
+                    <ul className="destinationList">
+                        <li>3 Activities</li>
+                        <li>4 Restraunts</li>
+                        <li>2 Places</li>
+                        <li>2 Hotels</li>
                     </ul>
                 </div>
             </div>
-            <button className="addDestination" onClick={openModal}>
-                Add Destination
-            </button>
 
             {isModalOpen && (
                 <div className="modal">
