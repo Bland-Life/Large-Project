@@ -9,6 +9,10 @@ const WhereImGoing = () => {
 
     return (
         <div>
+            <button className="addDestination" onClick={openModal}>
+                +
+            </button>
+            
             <div className="destinationContainer">
                 <div className="destination">
                     <h2 className="destinationTitle">Destination</h2>
@@ -22,10 +26,6 @@ const WhereImGoing = () => {
                     </ul>
                 </div>
             </div>
-
-            <button className="addDestination" onClick={openModal}>
-                +
-            </button>
 
             {isModalOpen && (
                 <div className="modal">
