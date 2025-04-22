@@ -8,11 +8,11 @@ const WhereImGoing = () => {
     const closeModal = () => setIsModalOpen(false);
 
     return (
-        <div>
+        <div className="pageLayout">
             <button className="addDestination" onClick={openModal}>
                 +
             </button>
-            
+
             <div className="destinationContainer">
                 <div className="destination">
                     <h2 className="destinationTitle">Destination</h2>
