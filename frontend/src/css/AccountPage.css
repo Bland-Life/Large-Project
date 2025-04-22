@@ -3,9 +3,25 @@ body, html {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden; /* prevent scrolling, so the stats rectangle falls off page */
+  /* removed since this prevents scrolling on ALL PAGES */
+  /* overflow: hidden; prevent scrolling, so the stats rectangle falls off page */
 }
 
+/* ----------  ACCOUNT PAGE WRAPPER ---------- */
+
+.account-page-wrapper {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.account-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 24px;
+}
 
 /* ----------  MAP SECTION  ---------- */
 .account-map{
@@ -59,14 +75,23 @@ body, html {
   padding-bottom: 110px; 
 }
 
+/* This container prevents scrolling just for the account page */
+/* .account-page-container {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 .account-page {
   min-height: 100vh;
-  padding: 0 24px 0; /* Remove bottom padding */
+  padding: 0 24px 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Prevent scrollbars from appearing due to negative margins */
-}
+  overflow: hidden;
+  /* overflow: hidden; - Removed from here since container handles it 
+} */
 
 .travel-stats h2 {
   color: #0c0104;
