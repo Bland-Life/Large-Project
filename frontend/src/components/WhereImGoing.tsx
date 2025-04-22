@@ -24,7 +24,7 @@ const WhereImGoing = () => {
             </div>
 
             <button className="addDestination" onClick={openModal}>
-                Add Destination
+                +
             </button>
 
             {isModalOpen && (
