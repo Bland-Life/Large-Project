@@ -54,10 +54,33 @@ html, body {
   }
   
   .section {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  
+  .section-container {
+    position: relative;
+    border: 2px solid black;
+    border-radius: 1.5rem;
+    padding: 1.5rem 1rem 1rem;
+    margin-top: 0.75rem;
   }
   
   .section-title {
+    position: absolute;
+    top: -0.75rem;
+    left: 3rem;
+    background-color: white;
+    padding: 0.2rem 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    z-index: 10;
+    border: 2px solid black;
+    border-radius: 0.5rem;
+  }
+  
+  /* old section-title styles */
+  /* .section-title {
     display: inline-block;
     border: 2px solid black;
     border-radius: 10px;
@@ -65,13 +88,13 @@ html, body {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 0.75rem;
-  }
+  } */
   
-  .section-container {
-    border: 2px solid black;
-    border-radius: 1.5rem;
-    padding: 1rem;
+  /* Adjust padding for the flights container to account for the title */
+  /* .flights-container {
+    padding-top: 0.5rem;
   }
+   */
   
   /* Flights Section */
   .flights-container {
@@ -380,7 +403,7 @@ html, body {
   
     background: 
       linear-gradient(white, white) padding-box, 
-      linear-gradient(120deg, #FFA500 0%, #F05 50%, #9932CC 100%) border-box;
+      linear-gradient(130deg, #FFA500 0%, #F05 50%, #9932CC 100%) border-box;
   
     border: 2px solid transparent;
     border-radius: 1rem;

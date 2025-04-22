@@ -1,5 +1,3 @@
-// src/pages/TravelToolsPage.tsx
-
 import React, { useState, ChangeEvent } from "react";
 import AccountNavBar from "../components/AccountNavBar";
 import "../css/TravelTools.css";
@@ -38,7 +36,6 @@ export default function TravelToolsPage({
     setAmount(e.target.value);
   };
 
-  // Apply different container classes based on page type
   const containerClass =
     pageType === "where-ive-been"
       ? "page-container no-scroll"
@@ -48,13 +45,11 @@ export default function TravelToolsPage({
     <div className={containerClass}>
       <AccountNavBar />
       <div className="content-container">
-        <h1 className="page-title">Travel Tools</h1>
-
         <div className="sections-wrapper">
           {/* Upcoming Flights Section */}
           <div className="section">
-            <div className="section-title">Upcoming Flights</div>
             <div className="section-container">
+              <div className="section-title">Upcoming Flights</div>
               <div className="flights-container">
                 {flights.map((flight, i) => (
                   <div key={i} className="flight-card">
@@ -90,8 +85,8 @@ export default function TravelToolsPage({
 
           {/* Currency Converter Section */}
           <div className="section">
-            <div className="section-title">Currency Converter</div>
             <div className="section-container">
+              <div className="section-title">Currency Converter</div>
               <div className="currency-container">
                 <div className="currency-form">
                   <div className="form-group">
@@ -170,8 +165,8 @@ export default function TravelToolsPage({
 
           {/* Packing Lists Section */}
           <div className="section">
-            <div className="section-title">Packing Lists</div>
             <div className="section-container">
+              <div className="section-title">Packing Lists</div>
               <div className="packing-lists-grid">
                 {destinations.map((d, i) => (
                   <div key={i} className="packing-list-card">
