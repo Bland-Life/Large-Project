@@ -13,12 +13,12 @@ const WhereImGoing = () => {
                 <div className="destination">
                     <h2 className="destinationTitle">Destination</h2>
                     <div className="imagePlaceholder"></div>
-                    <h3 className="destinationSubtitle">Activities</h3>
+                    <h3 className="destinationSubtitle">You've Planned</h3>
                     <ul className="destinationList">
-                        <li>Activity 1</li>
-                        <li>Activity 2</li>
-                        <li>Activity 3</li>
-                        <li>Activity 4</li>
+                        <li>3 Activities</li>
+                        <li>4 Restraunts</li>
+                        <li>2 Places</li>
+                        <li>2 Hotels</li>
                     </ul>
                 </div>
             </div>
