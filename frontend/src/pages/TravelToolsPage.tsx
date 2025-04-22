@@ -23,14 +23,14 @@ export default function TravelToolsPage({
     // { name: "Lake Tahoe", icon: "⚠️" },
     // { name: "Germany", icon: "⚠️" },
     // { name: "California", icon: "⚠️" },
-    
-    { name: "General Vacation"},
-    { name: "Thailand"},
-    { name: "Alaska"},
-    { name: "Zimbabwe"},
-    { name: "Lake Tahoe"},
-    { name: "Germany"},
-    { name: "California"},
+
+    { name: "General Vacation" },
+    { name: "Thailand" },
+    { name: "Alaska" },
+    { name: "Zimbabwe" },
+    { name: "Lake Tahoe" },
+    { name: "Germany" },
+    { name: "California" },
   ];
 
   const flights = [
@@ -44,16 +44,27 @@ export default function TravelToolsPage({
     setAmount(e.target.value);
   };
 
+<<<<<<< HEAD
   const containerClass =
     pageType === "where-ive-been"
       ? "page-container no-scroll"
       : "page-container";
+=======
+  // Apply different container classes based on page type
+  const containerClass = pageType === "where-ive-been"
+    ? "page-container no-scroll"
+    : "page-container";
+>>>>>>> 5ecd5c6 (sketching on travel tools page)
 
   return (
     <div className={containerClass}>
       <AccountNavBar />
       <div className="content-container">
+<<<<<<< HEAD
         <h1 className="page-title">Travel Tools</h1>
+=======
+        {/* <h1 className="page-title">Travel Tools</h1> */}
+>>>>>>> 5ecd5c6 (sketching on travel tools page)
 
         <div className="sections-wrapper">
           {/* Upcoming Flights */}
@@ -65,10 +76,23 @@ export default function TravelToolsPage({
                   <div key={i} className="flight-card">
                     <div className="flight-cities">
                       <div className="flight-city">
+<<<<<<< HEAD
                         <img src="/api/placeholder/200/150" alt={flight.departure} />
                       </div>
                       <div className="flight-city">
                         <img src="/api/placeholder/200/150" alt={flight.arrival} />
+=======
+                        <img
+                          src={`/images/${flight.departure.replace(/\s/g, "")}.jpg`}
+                          alt={flight.departure}
+                        />
+                      </div>
+                      <div className="flight-city">
+                        <img
+                          src={`/images/${flight.arrival.replace(/\s/g, "")}.jpg`}
+                          alt={flight.arrival}
+                        />
+>>>>>>> 5ecd5c6 (sketching on travel tools page)
                       </div>
                     </div>
                     <div className="flight-label">
@@ -87,7 +111,11 @@ export default function TravelToolsPage({
             </div>
           </div>
 
+<<<<<<< HEAD
           {/* Currency Converter */}
+=======
+          {/* Currency Converter Section */}
+>>>>>>> 5ecd5c6 (sketching on travel tools page)
           <div className="section">
             <div className="section-title">Currency Converter</div>
             <div className="section-container">
@@ -167,7 +195,11 @@ export default function TravelToolsPage({
             </div>
           </div>
 
+<<<<<<< HEAD
           {/* Packing Lists */}
+=======
+          {/* Packing Lists Section */}
+>>>>>>> 5ecd5c6 (sketching on travel tools page)
           <div className="section">
             <div className="section-title">Packing Lists</div>
             <div className="section-container">

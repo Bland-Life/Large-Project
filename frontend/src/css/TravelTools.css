@@ -8,7 +8,7 @@ html, body {
   
   .page-container {
     min-height: 100vh;
-    background-color: #f9fafb;
+    /* background-color: #f9fafb; */
     display: flex;
     flex-direction: column;
     overflow-y: auto; /* Default: allows scrolling */
@@ -60,7 +60,7 @@ html, body {
   .section-title {
     display: inline-block;
     border: 2px solid black;
-    border-radius: 9999px;
+    border-radius: 10px;
     padding: 0.5rem 1.5rem;
     font-size: 1.25rem;
     font-weight: 600;
@@ -86,10 +86,10 @@ html, body {
     scroll-behavior: smooth;
   }
   
-  /* For no-scroll pages, make elements smaller */
+  /* For no-scroll pages, make elements smaller
   .no-scroll .flights-container {
     height: 8.5rem;
-  }
+  } */
   
   .flights-container::-webkit-scrollbar {
     height: 6px;
@@ -161,26 +161,26 @@ html, body {
     justify-content: center;
   }
   
-  .airplane-body {
+  /* .airplane-body {
     width: 7rem;
     height: 2.5rem;
     background-color: white;
     border-radius: 0.5rem;
     transform: rotate(-45deg);
-  }
+  } */
   
-  .no-scroll .airplane-body {
+  /* .no-scroll .airplane-body {
     width: 6rem;
     height: 2rem;
-  }
+  } */
   
-  .airplane-stripe {
+  /* .airplane-stripe {
     height: 20%;
     width: 100%;
     background-color: #ef4444;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
-  }
+  } */
   
   /* Currency Converter Section */
   .currency-container {
