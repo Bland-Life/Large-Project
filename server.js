@@ -16,6 +16,7 @@ const path = require('path');
 const crypto = require('crypto');
 const cors = require('cors');
 const { exec } = require('child_process');
+const fs = require('fs');
 const app = express();
 
 const GITHUB_SECRET = process.env.GITHUB_SECRET;
@@ -61,7 +62,7 @@ app.post('/api/login', async (req, res, next) => {
         em = results[0].Email;
         un = results[0].Username;
         pi = results[0].ProfileImage;
-        status = 'Successfully logged in';
+        status = 'Success';
     }
     
     var ret = { firstName: fn, username: un, email: em, profileimage: pi, status: status };
@@ -89,7 +90,7 @@ app.post('/api/signup', async(req, res, next) => {
         }
         const result = await db.collection('Users').insertOne(newUser);
         if (result.acknowledged) {
-            status = "Successfully signed up";
+            status = "Success";
         }
     }
     catch (e) {
@@ -110,7 +111,7 @@ app.delete('/api/deleteuser/:username', async (req, res, next) => {
     
     var status = 'Failed to delete'
     if (results.acknowledged) {
-        status = 'Successfully deleted';
+        status = 'Success';
     }
     
     var ret = { status: status };
@@ -126,7 +127,7 @@ app.get('/api/getcountries/:username', async (req, res, next) => {
     var status = "Failed to get countries"
     if (results.length > 0) {
         countries = results[0].Countries;
-        status = "Successfully got countries";
+        status = "Success";
     }
     var ret = {countries: countries, status: status};
     res.status(200).json(ret);
@@ -141,7 +142,7 @@ app.put('/api/addcountry/:username', async (req, res, next) => {
     var countries = []
     var status = "Failed to add";
     if (results.acknowledged) {
-        status = "Successfully added"
+        status = "Success"
     }
     var ret = {status: status};
     res.status(200).json(ret);
@@ -155,7 +156,7 @@ app.put('/api/deletecountry/:username', async (req, res, next) => {
     db.collection('Countries').updateOne({ Username:username }, {$pull: {Countries: country}});
     var status = "Failed to felete";
     if (results.acknowledged) {
-        status = "Successfully deleted";
+        status = "Success";
     }
     var ret = {status: status};
     res.status(200).json(ret);
@@ -172,7 +173,7 @@ app.post('/api/addusertocountries', async (req, res, next) => {
     db.collection('Countries').insertOne(newUser);
     var status = "Failed to add new user to Countries"
     if (results.acknowledged){
-        status = "Successfully added";
+        status = "Success";
     }
     var ret = {status: status};
     res.status(200).json(ret);
@@ -237,6 +238,47 @@ app.put('/api/addtravelstat/:username', async (req, res, next) => {
     }
     var ret = {status: status};
     res.status(200).json(ret);
+});
+
+app.put('/api/updateprofileimage/:username', async (req, res, next) => {
+    const username = req.params.username;
+    const { profileimage } = req.body;
+    const db = client.db();
+    const results = await db.collection('Users').updateOne({Username:username}, {ProfileImage:profileimage});
+    var status = "Failed to update profile image";
+    if (results.acknowledged) {
+        status = "Success";
+    }
+    var ret = {status: status};
+    res.status(200).json(ret);
+});
+
+app.post('/upload', (req, res) => {
+    const {image} = req.body;
+    var ret;
+
+    const matches = image.match(/^data:(.+);base64,(.+)$/);
+    if (!matches) {
+        ret = {filename: "", status:"Invalid image format"}
+        return res.status(400).json(ret);
+    }
+
+    const ext = matches[1].split('/')[1];
+    const data = matches[2];
+    const buffer = Buffer.from(data, 'base64');
+
+    const fileName = `image_${Date.now()}.${ext}`;
+    const filePath = path.join(__dirname, 'frontend', 'public', 'images', fileName);
+
+    fs.writeFile(filePath, buffer, (err) => {
+        if (err) {
+            console.log(err);
+            ret = {filename: "", status:"Error saving image"}
+            return res.status(500).json(ret);
+        }
+        ret = {filename: filename, status: "Success"};
+        return res.status(200).json(ret);
+    })
 });
 
 app.post('/webhook', (req, res) => {
