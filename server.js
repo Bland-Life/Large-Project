@@ -100,10 +100,10 @@ app.post('/api/signup', async(req, res, next) => {
 
 });
 
-app.post('/api/deleteuser', async (req, res, next) => {
+app.delete('/api/deleteuser/:username', async (req, res, next) => {
     // incoming: login, password
     // outgoing: id, firstName, lastName, error
-    const { username } = req.body;
+    const username = req.params;
     const db = client.db();
     const results = await
         db.collection('Users').deleteOne({ Username: username })
@@ -117,9 +117,8 @@ app.post('/api/deleteuser', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-
-app.post('/api/getcountries', async (req, res, next) => {
-    const { username } = req.body;
+app.get('/api/getcountries/:username', async (req, res, next) => {
+    const username = req.params;
     const db = client.db();
     const results = await
     db.collection('Countries').find({ Username:username }).toArray();
@@ -133,8 +132,9 @@ app.post('/api/getcountries', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-app.post('/api/addcountry', async (req, res, next) => {
-    const { username, country} = req.body;
+app.put('/api/addcountry/:username', async (req, res, next) => {
+    const username = req.params;
+    const country = req.body;
     const db = client.db();
     const results = await
     db.collection('Countries').updateOne({ Username:username }, {$push: {Countries: country}});
@@ -147,8 +147,9 @@ app.post('/api/addcountry', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-app.post('/api/deletecountry', async (req, res, next) => {
-    const { username, country} = req.body;
+app.put('/api/deletecountry/:username', async (req, res, next) => {
+    const username = req.params;
+    const country = req.body;
     const db = client.db();
     const results = await
     db.collection('Countries').updateOne({ Username:username }, {$pull: {Countries: country}});
@@ -177,8 +178,8 @@ app.post('/api/addusertocountries', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-app.post('/api/gettravelstats', async (req, res, next) => {
-    const { username } = req.body;
+app.get('/api/gettravelstats/:username', async (req, res, next) => {
+    const username = req.params;
     const db = client.db();
     const results = await
     db.collection('TravelStats').find({ Username:username }).toArray();
@@ -225,8 +226,9 @@ app.post('/api/addemptytravelstats', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-app.post('/api/addtravelstat', async (req, res, next) => {
-    const { username, statname, amount } = req.body;
+app.put('/api/addtravelstat/:username', async (req, res, next) => {
+    const username = req.params;
+    const { statname, amount } = req.body;
     const db = client.db();
     const results = await db.collection('TravelStats').updateOne({Username:username}, {$inc: {[statname]: amount}});
     var status = "Failed to update travel stats";
@@ -236,7 +238,6 @@ app.post('/api/addtravelstat', async (req, res, next) => {
     var ret = {status: status};
     res.status(200).json(ret);
 });
-
 
 app.post('/webhook', (req, res) => {
     console.log('🚨 Received webhook POST request!');
