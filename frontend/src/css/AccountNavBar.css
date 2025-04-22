@@ -9,7 +9,8 @@
     background:linear-gradient(90deg,#FFA500 0%,#F1392F 30%,#4E00D5  100%);
     border-radius:16px;
     box-sizing:border-box;
-    overflow-x:auto;                 /* safety on ultra‑small screens       */
+    overflow-x: visible;  
+    flex-wrap: wrap;               
     opacity:.8;
   }
   
