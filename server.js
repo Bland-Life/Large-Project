@@ -118,7 +118,7 @@ app.delete('/api/deleteuser/:username', async (req, res, next) => {
 });
 
 app.get('/api/getcountries/:username', async (req, res, next) => {
-    const username = req.params;
+    const username = req.params.username;
     const db = client.db();
     const results = await
     db.collection('Countries').find({ Username:username }).toArray();
@@ -133,7 +133,7 @@ app.get('/api/getcountries/:username', async (req, res, next) => {
 });
 
 app.put('/api/addcountry/:username', async (req, res, next) => {
-    const username = req.params;
+    const username = req.params.username;
     const country = req.body;
     const db = client.db();
     const results = await
@@ -148,7 +148,7 @@ app.put('/api/addcountry/:username', async (req, res, next) => {
 });
 
 app.put('/api/deletecountry/:username', async (req, res, next) => {
-    const username = req.params;
+    const username = req.params.username;
     const country = req.body;
     const db = client.db();
     const results = await
@@ -179,7 +179,7 @@ app.post('/api/addusertocountries', async (req, res, next) => {
 });
 
 app.get('/api/gettravelstats/:username', async (req, res, next) => {
-    const username = req.params;
+    const username = req.params.username;
     const db = client.db();
     const results = await
     db.collection('TravelStats').find({ Username:username }).toArray();
@@ -227,7 +227,7 @@ app.post('/api/addemptytravelstats', async (req, res, next) => {
 });
 
 app.put('/api/addtravelstat/:username', async (req, res, next) => {
-    const username = req.params;
+    const username = req.params.username;
     const { statname, amount } = req.body;
     const db = client.db();
     const results = await db.collection('TravelStats').updateOne({Username:username}, {$inc: {[statname]: amount}});
