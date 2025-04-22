@@ -11,10 +11,10 @@ const WhereImGoing = () => {
         <div>
             <div className="destinationContainer">
                 <div className="destination">
-                    <h2>Destination</h2>
+                    <h2 className="destinationTitle">Destination</h2>
                     <div className="imagePlaceholder"></div>
-                    <h3>Activities</h3>
-                    <ul>
+                    <h3 className="destinationSubtitle">Activities</h3>
+                    <ul className="destinationList">
                         <li>Activity 1</li>
                         <li>Activity 2</li>
                         <li>Activity 3</li>
@@ -22,6 +22,7 @@ const WhereImGoing = () => {
                     </ul>
                 </div>
             </div>
+
             <button className="addDestination" onClick={openModal}>
                 Add Destination
             </button>
