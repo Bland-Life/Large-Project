@@ -259,6 +259,14 @@ app.put('/api/updateprofileimage/:username', async (req, res, next) => {
 app.post('/api/upload', (req, res) => {
     const {image} = req.body;
     var ret;
+    let size = 0;
+    req.on('data', chunk => {
+      size += chunk.length;
+    });
+    req.on('end', () => {
+      console.log('Request size:', size / 1024, 'KB');
+      next();
+    });  
 
     const matches = image.match(/^data:(.+);base64,(.+)$/);
     if (!matches) {
