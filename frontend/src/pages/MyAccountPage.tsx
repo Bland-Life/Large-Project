@@ -1,5 +1,3 @@
-//MyAccountPage.tsx (pages)
-
 import React from "react";
 import AccountNavBar from "../components/AccountNavBar";
 import "../css/AccountPage.css";

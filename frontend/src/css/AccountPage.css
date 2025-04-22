@@ -1,62 +1,61 @@
-/* AccountPage.css (css) */
+/* ----------  GENERAL  ---------- */
 body, html {
-
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden; /* still hide horizontal overflow */
-    overflow-y: auto;   /* allow vertical scrolling */
-  }
-
-  
- 
-
-
-/* ----------  ACCOUNT PAGE WRAPPER ---------- */
-
-.account-page-wrapper {
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  /* don't disable scroll here — this affects all pages */
 }
 
-.account-page {
+/* ----------  ACCOUNT PAGE ROOT ---------- */
+.account-page-root {
+  position: fixed;       /* lock to viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow-y: hidden;    /* prevent vertical scroll */
+  display: flex;
+  flex-direction: column;
+  background-color: #fff; /* optional: prevent transparency issues */
+}
+
+/* ----------  ACCOUNT PAGE CONTENT ---------- */
+.account-page-content {
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 0 24px;
+  box-sizing: border-box;
 }
 
 /* ----------  MAP SECTION  ---------- */
-.account-map{
-  width:100%;
-  margin:24px 0 8px;    /* leave only 8‑px gap above stats so it peeks */
+.account-map {
+  width: 100%;
+  margin: 24px 0 8px; /* leave only 8px gap above stats so it peeks */
 }
 
-.map-placeholder{
-  width:100%;
-  height:67vh;          /* dominant, but leaves stats visible           */
-  background:#E0E0E0;
-  border:2px solid #C0C0C0;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:1.1rem;
-  color:#555;
+.map-placeholder {
+  width: 100%;
+  height: 67vh;
+  background: #E0E0E0;
+  border: 2px solid #C0C0C0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: #555;
 }
 
 /* ----------  SMALL‑SCREEN TWEAKS  ---------- */
-@media (max-width:900px){
-  .map-placeholder{ height:62vh; }
+@media (max-width: 900px) {
+  .map-placeholder { height: 62vh; }
 }
 
-@media (max-width:680px){
-  .map-placeholder{ height:58vh; }
-  .stat-grid{ gap:16px; font-size:1.05rem; }
+@media (max-width: 680px) {
+  .map-placeholder { height: 58vh; }
+  .stat-grid { gap: 16px; font-size: 1.05rem; }
 }
-
 
 /* ----------  TRAVEL STATS BOX  ---------- */
 .travel-stats {
@@ -66,40 +65,17 @@ body, html {
   background-color: #fff;
   overflow: hidden;
   
-  /* gradient box */
   background: 
     linear-gradient(white, white) padding-box,
-    linear-gradient(90deg, #9932CC 0%, #F05 50%, #FFA500 100%) border-box; 
+    linear-gradient(90deg, #9932CC 0%, #F05 50%, #FFA500 100%) border-box;
 
   border: 3px solid transparent;
   border-radius: 20px;
   background-clip: padding-box, border-box;
 
-  /* make the box for travel stats "fall off the page" */
-  margin-bottom: 24px; 
-  padding-bottom: 20px; 
+  margin-bottom: -24px;
+  padding-bottom: 110px;
 }
-
-/* This container prevents scrolling just for the account page */
-/* .account-page-container {
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.account-page {
-  min-height: 100vh;
-  padding: 0 24px 0;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-
-  overflow: visible; 
-}
-
-}
-
 
 .travel-stats h2 {
   color: #0c0104;
@@ -125,24 +101,21 @@ body, html {
   white-space: nowrap;
 }
 
-/* continent num */
+/* individual stat colors */
 .stat-grid strong {
   font-size: 2.5rem;
-  color: #FF7043; /* Orange for the first number */
+  color: #FF7043;
   font-weight: bold;
 }
 
-/* countries num */
 .stat-grid span:nth-child(2) strong {
-  color: #E91E63; /* Pink/red for the second number */
+  color: #E91E63;
 }
 
-/* states num */
 .stat-grid span:nth-child(3) strong {
-  color: #9C27B0; /* Purple for the third number */
+  color: #9C27B0;
 }
 
-/* megacities num */
 .stat-grid span:nth-child(4) strong {
-  color: #673AB7; 
+  color: #673AB7;
 }
