@@ -33,7 +33,7 @@ function UserProf() {
                     const image = {
                         image: base64Image
                     };
-                    const response = await fetch('https://ohtheplacesyoullgo.space/upload', {
+                    const response = await fetch('https://ohtheplacesyoullgo.space/api/upload', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

@@ -254,7 +254,6 @@ app.put('/api/updateprofileimage/:username', async (req, res, next) => {
 });
 
 app.post('/api/upload', (req, res) => {
-    return res.status(200).json({test: "success"});
     const {image} = req.body;
     var ret;
 
