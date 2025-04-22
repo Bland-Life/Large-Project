@@ -9,9 +9,23 @@ const WhereImGoing = () => {
 
     return (
         <div>
+            <div className="destinationContainer">
+                <div className="destination">
+                    <h2>Destination</h2>
+                    <div className="imagePlaceholder"></div>
+                    <h3>Activities</h3>
+                    <ul>
+                        <li>Activity 1</li>
+                        <li>Activity 2</li>
+                        <li>Activity 3</li>
+                        <li>Activity 4</li>
+                    </ul>
+                </div>
+            </div>
             <button className="addDestination" onClick={openModal}>
                 Add Destination
             </button>
+
             {isModalOpen && (
                 <div className="modal">
                     <div className="modal-content">

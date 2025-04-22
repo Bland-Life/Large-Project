@@ -1,3 +1,50 @@
+.destinationContainer{
+    display: grid;
+    grid-template-columns: repeat(3,minmax(100px, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 1rem;
+    height: 100%;
+    margin: 0 auto;
+    justify-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.destination{
+    border-radius: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.destination:nth-child(3n+1) {
+    background-color: #ffcc99
+}
+
+.destination:nth-child(3n+2) {
+    background-color: #f9b7e3
+}
+
+.destination:nth-child(3n) {
+    background-color: #cc99ff
+}
+
+.destination:hover {
+    transform: scale(1.05);
+    transform: transform 02s ease;
+}
+
+.imagePlaceholder {
+    width: 90%;
+    height: 150px;
+    background-color: #fff; /* White box */
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+  }
+
 .addDestination {
     position: relative; /* Position the button relative to its normal flow */
     margin-top: 20px; /* Add space below the navigation bar */
