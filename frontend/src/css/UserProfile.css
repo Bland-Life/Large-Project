@@ -80,6 +80,15 @@
     font-weight: 500;
 }
 
+.edit {
+    background:linear-gradient(90deg,#FFA500 0%,#F1392F 30%,#4E00D5  100%);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 10px; /* Adds spacing between the edit and logout buttons */
+    cursor: pointer;
+}
+
 .logout-button {
     background: red;
     padding: 5px;
