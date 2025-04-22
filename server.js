@@ -103,7 +103,7 @@ app.post('/api/signup', async(req, res, next) => {
 app.delete('/api/deleteuser/:username', async (req, res, next) => {
     // incoming: login, password
     // outgoing: id, firstName, lastName, error
-    const username = req.params;
+    const username = req.params.username;
     const db = client.db();
     const results = await
         db.collection('Users').deleteOne({ Username: username })
