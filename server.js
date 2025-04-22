@@ -31,6 +31,8 @@ app.use('/images', express.static(path.join(__dirname, 'frontend', 'public', 'im
 app.use(cors());
 app.use('/webhook', express.raw({ type: 'application/json' }));
 app.use(bodyParser.json());
+app.use(express.json({ limit: '10mb' }));
+
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
