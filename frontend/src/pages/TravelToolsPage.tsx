@@ -1,3 +1,5 @@
+// src/pages/TravelToolsPage.tsx
+
 import React, { useState, ChangeEvent } from "react";
 import AccountNavBar from "../components/AccountNavBar";
 import "../css/TravelTools.css";
@@ -16,14 +18,6 @@ export default function TravelToolsPage({
   const [inverseRate] = useState(0.00070267);
 
   const destinations = [
-    // { name: "General Vacation", icon: " " },
-    // { name: "Thailand", icon: " " },
-    // { name: "Alaska", icon: " " },
-    // { name: "Zimbabwe", icon: "⚠️" },
-    // { name: "Lake Tahoe", icon: "⚠️" },
-    // { name: "Germany", icon: "⚠️" },
-    // { name: "California", icon: "⚠️" },
-
     { name: "General Vacation" },
     { name: "Thailand" },
     { name: "Alaska" },
@@ -44,30 +38,20 @@ export default function TravelToolsPage({
     setAmount(e.target.value);
   };
 
-<<<<<<< HEAD
+  // Apply different container classes based on page type
   const containerClass =
     pageType === "where-ive-been"
       ? "page-container no-scroll"
       : "page-container";
-=======
-  // Apply different container classes based on page type
-  const containerClass = pageType === "where-ive-been"
-    ? "page-container no-scroll"
-    : "page-container";
->>>>>>> 5ecd5c6 (sketching on travel tools page)
 
   return (
     <div className={containerClass}>
       <AccountNavBar />
       <div className="content-container">
-<<<<<<< HEAD
         <h1 className="page-title">Travel Tools</h1>
-=======
-        {/* <h1 className="page-title">Travel Tools</h1> */}
->>>>>>> 5ecd5c6 (sketching on travel tools page)
 
         <div className="sections-wrapper">
-          {/* Upcoming Flights */}
+          {/* Upcoming Flights Section */}
           <div className="section">
             <div className="section-title">Upcoming Flights</div>
             <div className="section-container">
@@ -76,12 +60,6 @@ export default function TravelToolsPage({
                   <div key={i} className="flight-card">
                     <div className="flight-cities">
                       <div className="flight-city">
-<<<<<<< HEAD
-                        <img src="/api/placeholder/200/150" alt={flight.departure} />
-                      </div>
-                      <div className="flight-city">
-                        <img src="/api/placeholder/200/150" alt={flight.arrival} />
-=======
                         <img
                           src={`/images/${flight.departure.replace(/\s/g, "")}.jpg`}
                           alt={flight.departure}
@@ -92,7 +70,6 @@ export default function TravelToolsPage({
                           src={`/images/${flight.arrival.replace(/\s/g, "")}.jpg`}
                           alt={flight.arrival}
                         />
->>>>>>> 5ecd5c6 (sketching on travel tools page)
                       </div>
                     </div>
                     <div className="flight-label">
@@ -111,11 +88,7 @@ export default function TravelToolsPage({
             </div>
           </div>
 
-<<<<<<< HEAD
-          {/* Currency Converter */}
-=======
           {/* Currency Converter Section */}
->>>>>>> 5ecd5c6 (sketching on travel tools page)
           <div className="section">
             <div className="section-title">Currency Converter</div>
             <div className="section-container">
@@ -195,26 +168,14 @@ export default function TravelToolsPage({
             </div>
           </div>
 
-<<<<<<< HEAD
-          {/* Packing Lists */}
-=======
           {/* Packing Lists Section */}
->>>>>>> 5ecd5c6 (sketching on travel tools page)
           <div className="section">
             <div className="section-title">Packing Lists</div>
             <div className="section-container">
               <div className="packing-lists-grid">
-
                 {destinations.map((d, i) => (
                   <div key={i} className="packing-list-card">
                     <div className="packing-list-name">{d.name}</div>
-                    <div className="packing-list-icon">{d.icon}</div>
-
-                
-                  
-                    
-                    
-
                   </div>
                 ))}
               </div>
