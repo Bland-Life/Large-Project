@@ -270,7 +270,7 @@ app.post('/api/upload', (req, res) => {
 
     const fileName = `image_${Date.now()}.${ext}`;
 
-    const filePath = path.join(__dirname, 'images', fileName);
+    const filePath = path.join(__dirname, "frontend", "public", 'images', fileName);
 
     fs.writeFile(filePath, buffer, (err) => {
         if (err) {
