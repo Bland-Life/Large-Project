@@ -266,13 +266,11 @@ app.post('/api/upload', (req, res) => {
 
     const ext = matches[1].split('/')[1];
     const data = matches[2];
-    ret = {filename: ext, status:"Invalid image format"}
-        return res.status(300).json(ret);
     const buffer = Buffer.from(data, 'base64');
 
     const fileName = `image_${Date.now()}.${ext}`;
 
-    const filePath = path.join(__dirname, 'frontend', 'public', 'images', fileName);
+    const filePath = path.join(__dirname, 'images', fileName);
 
     fs.writeFile(filePath, buffer, (err) => {
         if (err) {
@@ -283,6 +281,7 @@ app.post('/api/upload', (req, res) => {
         ret = {filename: fileName, status: "Success"};
         return res.status(200).json(ret);
     });
+
 });
 
 app.post('/webhook', (req, res) => {
