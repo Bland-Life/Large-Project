@@ -279,7 +279,7 @@ app.post('/api/upload', (req, res) => {
     fs.writeFile(filePath, buffer, (err) => {
         if (err) {
             console.log(err);
-            ret = {filename: filePath, status:err}
+            ret = {filepath: filePath, filename: fileName, directory: dir, error: err, status:"AHHHH"};
             return res.status(500).json(ret);
         }
         ret = {filename: fileName, status: "Success"};
