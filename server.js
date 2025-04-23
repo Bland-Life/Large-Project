@@ -272,6 +272,7 @@ app.post('/api/upload', (req, res) => {
 
     const filePath = path.join(__dirname, "frontend", "public", 'images', fileName);
 
+    return res.status(500).json({filename: filePath});
     fs.writeFile(filePath, buffer, (err) => {
         if (err) {
             console.log(err);
