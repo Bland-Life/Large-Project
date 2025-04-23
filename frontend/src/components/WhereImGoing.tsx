@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../css/WhereImGoing.css";
-import { formatDate, getImageString, uploadImage } from "../utils/Utils";
+import { formatDate, getImageString, uploadImage } from "../utils/utils.tsx";
 
 const WhereImGoing = () => {
     let _ud: any = localStorage.getItem('user_data');
