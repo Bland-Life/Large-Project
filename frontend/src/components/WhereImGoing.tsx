@@ -29,7 +29,10 @@ const WhereImGoing = () => {
             ]
         }
     ]
+
     const destClick = (id) => {setSelectedDest(id)};
+
+    console.log('Done loading');
 
     return (
         <div className="pageLayout">
