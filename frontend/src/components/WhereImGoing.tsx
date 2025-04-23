@@ -215,7 +215,7 @@ const WhereImGoing = () => {
                                         onChange={(e) => setImage(e.target.value)}/>
                                     </label>
                                     <br />
-                                    <button type="submit" onclick={addTrip}>Submit</button>
+                                    <button type="submit" onClick={addTrip}>Submit</button>
                                 </form>
                             </div>
                         </div>
