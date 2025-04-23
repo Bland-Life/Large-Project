@@ -40,7 +40,6 @@
     position: absolute;
     left: 20px;
     top: 0;
-    right: 0;
     text-align: center;
     transform: translateY(-50%);
     white-space: nowrap;
@@ -48,8 +47,7 @@
 
 .cards {
     border: 10px solid;
-    border-image:linear-gradient(90deg,#FFA500 0%,#F1392F 30%,#4E00D5  100%);
-    border-image-slice: 1;
+    border-image:linear-gradient(90deg,#FFA500 0%,#F1392F 30%,#4E00D5  100%) 1;
     border-radius: 10px;
     padding: 1rem;
     text-align: center;
