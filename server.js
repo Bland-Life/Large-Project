@@ -25,8 +25,9 @@ const MongoClient = require('mongodb').MongoClient;
 const url = process.env.MONGO_URI;
 const client = new MongoClient(url);
 client.connect();
-app.use(express.json({ limit: '10mb' }));
+
 app.use('/images', express.static(path.join(__dirname, 'frontend', 'public', 'images')));  
+app.use(express.json({ limit: '10mb' }));
 
 app.use(cors());
 app.use('/webhook', express.raw({ type: 'application/json' }));
