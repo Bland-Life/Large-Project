@@ -28,6 +28,7 @@
     justify-content: center;
     align-items: center;
     color: black;
+    position: relative;
 }
 
 .plansTitle {
@@ -35,12 +36,15 @@
     background-color: white;
     padding: 0 10px;
     position: absolute;
-    left: 20px;
+    left: 0;
+    top: 0;
+    text-align: center;
 }
 
 .cards {
-    border: 10px solid transparent;
+    border: 10px solid;
     border-image:linear-gradient(90deg,#FFA500 0%,#F1392F 30%,#4E00D5  100%);
+    padding: 20px;
     text-align: center;
 }
 

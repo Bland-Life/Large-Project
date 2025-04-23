@@ -43,7 +43,6 @@ const WhereImGoing = () => {
                         <div className="plans">
                             <div className="plansTitle">Activities</div>
                             <div className="cards">
-                                <div className="imagePlaceholder"></div>
                                 <p>There is an Activity here</p>
                             </div>
                         </div>
