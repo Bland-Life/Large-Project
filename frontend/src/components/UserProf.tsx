@@ -52,14 +52,14 @@ function UserProf() {
         }
     };
 
-    const saveProfileImage = () => {
+    const saveProfileImage = async () => {
         setUserData((prevData) => ({
             ...prevData,
             profileimage: newProfileImage,
         }));
         console.log(userData.profileimage);
 
-        const response = fetch(`https://ohtheplacesyoullgo.space/api/updateprofileimage/${userData.username}`, {
+        const response = await fetch(`https://ohtheplacesyoullgo.space/api/updateprofileimage/${userData.username}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
