@@ -269,17 +269,20 @@ app.post('/api/upload', (req, res) => {
     const buffer = Buffer.from(data, 'base64');
 
     const fileName = `image_${Date.now()}.${ext}`;
+
     const filePath = path.join(__dirname, 'frontend', 'public', 'images', fileName);
 
+    ret = {filename: filePath, status:"Test"}
+        return res.status(400).json(ret);
     fs.writeFile(filePath, buffer, (err) => {
         if (err) {
             console.log(err);
-            ret = {filename: "", status:"Error saving image"}
+            ret = {filename: filePath, status:"Error saving image"}
             return res.status(500).json(ret);
         }
-        ret = {filename: filename, status: "Success"};
+        ret = {filename: fileName, status: "Success"};
         return res.status(200).json(ret);
-    })
+    });
 });
 
 app.post('/webhook', (req, res) => {
