@@ -18,21 +18,20 @@ const WhereImGoing = () => {
             profileimage: ud.profileimage,
         });
     const [destination, setDestination] = useState<string>("");
-    const [date, setDate] = useState<Date>(null);
+    const [date, setDate] = useState<string>("");
     const [image, setImage] = useState<File>(null);
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
     function formatData() {
-        var dateString = formatDate(date);
         var imageString = getImageString(image);
         uploadImage(imageString);
         var emptyPlans = createEmptyPlans();
 
         var trip = {
             destination:destination,
-            date:dateString,
+            date:date,
             plans:emptyPlans,
             image:imageString
         }
