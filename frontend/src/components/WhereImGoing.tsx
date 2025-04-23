@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../css/WhereImGoing.css";
 
 const WhereImGoing = () => {
+    console.log("STARTING WHEREIMGOING");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDest, setSelectedDest] = useState(false);
 
@@ -64,8 +65,6 @@ const WhereImGoing = () => {
                     </div>
                 ))}
             </div>
-
-            <div>TEST</div>
 
             {isModalOpen && (
                 <div className="modal">
