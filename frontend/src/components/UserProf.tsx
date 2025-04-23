@@ -73,10 +73,13 @@ function UserProf() {
             ...prevData,
             profileimage: newProfileImage,
         }));
-        console.log(userData.profileImage);
+        console.log(userData.profileimage);
         localStorage.setItem('user_data', JSON.stringify(userData));
 
         setIsModalOpen(false);
+
+        // Refresh the page so nav bar updates
+        window.location.reload();
     };
 
     const openModal = () => setIsModalOpen(true);
