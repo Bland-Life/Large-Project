@@ -36,10 +36,11 @@
     background-color: white;
     padding: 0 10px;
     position: absolute;
-    left: 20%;
-    top: 50%;
+    left: 20px;
+    top: 0;
     right: 0;
     text-align: center;
+    transform: translateY(-50%);
 }
 
 .cards {
