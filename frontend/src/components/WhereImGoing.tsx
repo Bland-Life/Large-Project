@@ -30,47 +30,50 @@ const WhereImGoing = () => {
         }
     ]
 
-    const destClick = (id) => {setSelectedDest(id)};
+    const destClick = (id) => {
+        const selectedDest = destData.find((destination) => destination.id === id);
+        setSelectedDest(selectedDest);
+    };
 
 
     return (
-        <div className="pageLayout">
-            <button className="addDestination" onClick={openModal}>
-                +
-            </button>
+        {selectedDest ? (
+            <div>You have reached the destination page</div>
+        ) : (
+            <div className="pageLayout">
+                <button className="addDestination" onClick={openModal}>
+                    +
+                </button>
 
-            {isModalOpen && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <span className="close-button" onClick={closeModal}>
-                            &times;
-                        </span>
-                        <form>
-                            <h2>Where I'm Going Form</h2>
-                            <label>
-                                Destination:
-                                <input type="text" name="destination" />
-                            </label>
-                            <br />
-                            <label>
-                                Date:
-                                <input type="date" name="date" />
-                            </label>
-                            <br />
-                            <label>
-                                Upload Image:
-                                <input type="file" name="image" accept="image/*" />
-                            </label>
-                            <br />
-                            <button type="submit">Submit</button>
-                        </form>
+                {isModalOpen && (
+                    <div className="modal">
+                        <div className="modal-content">
+                            <span className="close-button" onClick={closeModal}>
+                                &times;
+                            </span>
+                            <form>
+                                <h2>Where I'm Going Form</h2>
+                                <label>
+                                    Destination:
+                                    <input type="text" name="destination" />
+                                </label>
+                                <br />
+                                <label>
+                                    Date:
+                                    <input type="date" name="date" />
+                                </label>
+                                <br />
+                                <label>
+                                    Upload Image:
+                                    <input type="file" name="image" accept="image/*" />
+                                </label>
+                                <br />
+                                <button type="submit">Submit</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
 
-            {selectedDest ? (
-                <div>You have reached the destination page</div>
-            ) : (
                 <div className="destinationContainer">
                     {destData.map((destination) => (
                         <div className="destination" key={destination.id} onClick={() => destClick(destination.id)}>

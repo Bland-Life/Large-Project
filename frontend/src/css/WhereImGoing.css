@@ -92,21 +92,6 @@
     vertical-align: middle;
 }
 
-
-
-/*.addDestination {
-    position: relative; 
-    margin-top: 20px;
-    margin-left: 20px; 
-    padding: 10px 20px; 
-    font-size: 16px; 
-    background-color: #007bff; 
-    color: white;
-    border: none; 
-    border-radius: 5px; 
-    cursor: pointer; 
-}*/
-
 .addDestination:hover {
     background-color: #0056b3; /* Darker background on hover */
 }
