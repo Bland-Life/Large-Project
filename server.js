@@ -277,7 +277,7 @@ app.post('/api/upload', (req, res) => {
             ret = {filename: "", status:"Error saving image"}
             return res.status(500).json(ret);
         }
-        ret = {filename: filename, status: "Success"};
+        ret = {filename: fileName, status: "Success"};
         return res.status(200).json(ret);
     })
 });
