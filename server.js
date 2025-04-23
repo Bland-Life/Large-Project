@@ -275,7 +275,7 @@ app.post('/api/upload', (req, res) => {
     fs.writeFile(filePath, buffer, (err) => {
         if (err) {
             console.log(err);
-            ret = {filename: filePath, status:"Error saving image"}
+            ret = {filename: filePath, status:err}
             return res.status(500).json(ret);
         }
         ret = {filename: fileName, status: "Success"};
