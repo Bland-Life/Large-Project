@@ -338,13 +338,29 @@ app.put('/api/edittrip/:username', async (req, res, next) => {
     const db = client.db();
     const results = await db.collection('WhereImGoing').updateOne({Username: username}, {$pull: {Trips: {destination, date}}});
     results = await db.collection('WhereImGoing').updateOne({Username:username}, {$push: {Trips: newTripData}});
-    var status = "Failed to add trip";
+    var status = "Failed to edit trip";
     if (results.acknowledged) {
         status = "Success";
     }
     var ret = {status: status};
     res.status(200).json(ret);
+});
+
+app.get('/api/gettrips/:username', async (req, res, next) => {
+    const username = req.params.username;
+    const db = client.db();
+    const results = await
+    db.collection('WhereImGoing').find({ Username:username }).toArray();
+    var trips = []
+    var status = "Failed to get trips"
+    if (results.length > 0) {
+        trips = results[0].Trips;
+        status = "Success";
+    }
+    var ret = {trips: trips, status: status};
+    res.status(200).json(ret);
 })
+
 
 app.post('/webhook', (req, res) => {
     console.log('🚨 Received webhook POST request!');
