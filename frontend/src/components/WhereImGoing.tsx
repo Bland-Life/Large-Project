@@ -3,7 +3,7 @@ import "../css/WhereImGoing.css";
 
 const WhereImGoing = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedDest, setSelectedDest] = useState<null | {id: number; title: string};>(null);
+    const [selectedDest, setSelectedDest] = useState<null | { id: number; title: string }>(null);
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -39,7 +39,22 @@ const WhereImGoing = () => {
     return (
         <div>
             {selectedDest ? (
-                <div>You have reached the destination page</div>
+                <div className="destinationLayout">
+                    <div className="plansContainer">
+                        <div className="plans">
+                            <div className="plansTitle">Activities</div>
+                        </div>
+                        <div className="plans">
+                            <h2>Restraunts</h2>
+                        </div>
+                        <div className="plans">
+                            <h2>Places</h2>
+                        </div>
+                        <div className="plans">
+                            <h2>Hotels</h2>
+                        </div>
+                    </div>
+                </div>
             ) : (
                 <div className="pageLayout">
                     <button className="addDestination" onClick={openModal}>
