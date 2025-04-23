@@ -30,6 +30,7 @@ const WhereImGoing = () => {
         }
     ]
 
+    console.log('Perhaps here')
     const destClick = (id) => {setSelectedDest(id)};
 
     console.log('Done loading');
