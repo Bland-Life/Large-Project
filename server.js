@@ -349,6 +349,14 @@ app.put('/api/edittrip/:username', async (req, res, next) => {
 app.get('/api/gettrips/:username', async (req, res, next) => {
     const username = req.params.username;
     const db = client.db();
+
+    const user = await db.collection('WhereImGoing').find({Username: username}).toArray();
+    if (user.length = 0) {
+        status = "Incorrect Username";
+        var ret = {status: status};
+        return res.status(409).json(ret);
+    }
+
     const results = await
     db.collection('WhereImGoing').find({ Username:username }).toArray();
     var trips = []
