@@ -289,6 +289,79 @@ app.post('/api/upload', (req, res) => {
 
 });
 
+app.post('/api/createemptygoing', async (req, res, next) => {
+    const { username } = req.body;
+    const userDocument = {
+        Username: username,
+        Trips: []
+    };
+    const db = client.db();
+    const results = await db.collection('WhereImGoing').insertOne(userDocument);
+    var status = "Failed to add user";
+    if (results.acknowledged) {
+        status = "Success";
+    }
+    var ret = {status: status};
+    res.status(200).json(ret);
+});
+
+app.put('/api/addtrip/:username', async (req, res, next) => {
+    const username = req.params.username;
+    const { destination, date, plans, comments, image } = req.body;
+    const tripData = {
+        Destination: destination,
+        Date: date,
+        Plans: plans,
+        Comments: comments,
+        Image: image
+    };
+    const db = client.db();
+    const results = await db.collection('WhereImGoing').updateOne({Username: username}, {$push: {Trips: tripData}});
+    var status = "Failed to add trip";
+    if (results.acknowledged) {
+        status = "Success";
+    }
+    var ret = {status: status};
+    res.status(200).json(ret);
+});
+
+app.put('/api/edittrip/:username', async (req, res, next) => {
+    const username = req.params.username;
+    const { destination, date, newdate, newplans, newcomments, newimage } = req.body;
+    const newTripData = {
+        Destination: destination,
+        Date: newdate,
+        Plans: newplans,
+        Comments: newcomments,
+        Image: newimage
+    };
+    const db = client.db();
+    const results1 = await db.collection('WhereImGoing').updateOne({Username: username}, {$pull: {Trips: {Destination: destination, Date: date}}});
+    const results2 = await db.collection('WhereImGoing').updateOne({Username:username}, {$push: {Trips: newTripData}});
+    var status = "Failed to edit trip";
+    if (results2.acknowledged) {
+        status = "Success";
+    }
+    var ret = {status: status};
+    res.status(200).json(ret);
+});
+
+app.get('/api/gettrips/:username', async (req, res, next) => {
+    const username = req.params.username;
+    const db = client.db();
+    const results = await
+    db.collection('WhereImGoing').find({ Username:username }).toArray();
+    var trips = []
+    var status = "Failed to get trips"
+    if (results.length > 0) {
+        trips = results[0].Trips;
+        status = "Success";
+    }
+    var ret = {trips: trips, status: status};
+    res.status(200).json(ret);
+})
+
+
 app.post('/webhook', (req, res) => {
     console.log('🚨 Received webhook POST request!');
     const signature = req.headers['x-hub-signature-256'];
