@@ -65,6 +65,8 @@ const WhereImGoing = () => {
                 ))}
             </div>
 
+            <div>TEST</div>
+
             {isModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
