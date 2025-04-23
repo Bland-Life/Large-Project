@@ -1,14 +1,19 @@
-import React from "react";
-import NavBar from "./NavBar";
-import { Outlet } from "react-router-dom";
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import NavBar from './NavBar';  // Assuming NavBar is in the same directory
 
-export default function Layout() {
+const Layout = () => {
   return (
-    <>
+    <div>
+      {/* NavBar is shared across all pages */}
       <NavBar />
-      <div style={{ marginTop: '1rem' }}>
+      
+      {/* Outlet renders the current page component */}
+      <div className="content">
         <Outlet />
       </div>
-    </>
+    </div>
   );
-}
+};
+
+export default Layout;
