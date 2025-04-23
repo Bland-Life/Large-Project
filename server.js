@@ -245,7 +245,7 @@ app.put('/api/updateprofileimage/:username', async (req, res, next) => {
     const username = req.params.username;
     const { profileimage } = req.body;
     const db = client.db();
-    const results = await db.collection('Users').updateOne({Username:username}, {ProfileImage:profileimage});
+    const results = await db.collection('Users').updateOne({Username:username}, {$set: {ProfileImage:profileimage}});
     var status = "Failed to update profile image";
     if (results.acknowledged) {
         status = "Success";
