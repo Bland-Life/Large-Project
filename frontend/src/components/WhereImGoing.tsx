@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../css/WhereImGoing.css";
 
+console.log("TESTING TIME");
+
 const WhereImGoing = () => {
     console.log("STARTING WHEREIMGOING");
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -65,6 +67,7 @@ const WhereImGoing = () => {
                     </div>
                 ))}
             </div>
+        
 
             {isModalOpen && (
                 <div className="modal">
