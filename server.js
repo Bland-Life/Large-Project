@@ -370,7 +370,7 @@ app.get('/api/gettrips/:username', async (req, res, next) => {
 })
 
 
-app.post('/webhook', (req, res) => {
+app.post('/webhook', express.raw({ type: '*/*' }),  (req, res) => {
     console.log('🚨 Received webhook POST request!');
     const signature = req.headers['x-hub-signature-256'];
     const hmac = crypto.createHmac('sha256', GITHUB_SECRET);
