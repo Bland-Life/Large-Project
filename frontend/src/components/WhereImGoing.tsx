@@ -1,12 +1,100 @@
 import React, { useState } from "react";
 import "../css/WhereImGoing.css";
+import { formatDate, getImageString } from "../utils/Utils";
 
 const WhereImGoing = () => {
+    let _ud: any = localStorage.getItem('user_data');
+    let ud = JSON.parse(_ud);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDest, setSelectedDest] = useState<null | { id: number; title: string }>(null);
+    const [currentTrips, setCurrentTrips] = useState(null);
+    const [username, setUsername] = useState<string>("");
+    const [tripData, setTripData] = useState(null);
+    const [userData, setUserData] = useState({
+            name: ud.firstName,
+            username: ud.username,
+            email: ud.email,
+            profileimage: ud.profileimage,
+        });
+    const [destination, setDestination] = useState<string>("");
+    const [date, setDate] = useState<Date>(null);
+    const [image, setImage] = useState<File>(null);
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
+
+    function formatData() {
+        var stringDate = formatDate(date);
+        var imageString = getImageString(image);
+        var emptyPlans = createEmptyPlans();
+
+        var trip = {
+            destination:destination,
+            date:date,
+            plans:emptyPlans,
+            image:image
+        }
+
+        setTripData(trip);
+    }
+
+    function createEmptyPlans() : any {
+        var plans = {
+            Activities: {
+                number: 0,
+                activities:[]
+            },
+            Restaraunts: {
+                number: 0,
+                restaraunts: []
+            },
+            Places: {
+                number: 0,
+                places: []
+            },
+            Hotels: {
+                number: 0,
+                hotels: []
+            }
+        };
+
+        return plans;
+    }
+
+    async function sendData() {
+        var jsTripData = JSON.stringify(tripData);
+        
+        const response = await fetch(`https://ohtheplacesyoullgo.space/api/addtrip/${userData.username}`, {
+            method: "PUT",
+            body: jsTripData,
+            headers: { "Content-Type": "application/json" },
+          });
+    
+          const res = JSON.parse(await response.text());
+
+          if (res.status === "Success") {
+            window.location.reload();
+          }
+    }
+
+    async function addTrip() : Promise<void> {
+        formatData();
+        sendData();
+    }
+
+    async function getTrips() : Promise<void> {
+        const response = await fetch(`https://ohtheplacesyoullgo.space/api/gettrips/${username}`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
+    
+          const res = JSON.parse(await response.text());
+
+          if (res.status === "Success") {
+            setCurrentTrips(res.trips);
+          }
+    }
 
     const destData = [
         {id: 1, title: 'Greece', img: null, 
@@ -98,21 +186,31 @@ const WhereImGoing = () => {
                                 <span className="close-button" onClick={closeModal}>
                                     &times;
                                 </span>
-                                <form>
+                                <form onSubmit={addTrip}>
                                     <h2>Where I'm Going Form</h2>
                                     <label>
                                         Destination:
-                                        <input type="text" name="destination" />
+                                        <input type="text" 
+                                        name="destination" 
+                                        value={destination} 
+                                        onChange={(e) => setDestination(e.target.value)}/>
                                     </label>
                                     <br />
                                     <label>
                                         Date:
-                                        <input type="date" name="date" />
+                                        <input type="date" 
+                                        name="date" 
+                                        value={date} 
+                                        onChange={(e) => setDate(e.target.value)}/>
                                     </label>
                                     <br />
                                     <label>
                                         Upload Image:
-                                        <input type="file" name="image" accept="image/*" />
+                                        <input type="file" 
+                                        name="image" 
+                                        accept="image/*" 
+                                        value={image}
+                                        onChange={(e) => setImage(e.target.value)}/>
                                     </label>
                                     <br />
                                     <button type="submit">Submit</button>
