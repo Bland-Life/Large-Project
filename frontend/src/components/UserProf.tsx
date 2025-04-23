@@ -57,6 +57,7 @@ function UserProf() {
             ...prevData,
             profileimage: newProfileImage,
         }));
+        console.log(userData.profileimage);
         setIsModalOpen(false);
     };
 
