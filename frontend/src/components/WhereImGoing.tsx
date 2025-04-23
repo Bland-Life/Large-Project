@@ -71,17 +71,11 @@ const WhereImGoing = () => {
             body: jsTripData,
             headers: { "Content-Type": "application/json" },
           });
-
-          const response2 = await fetch(`https://ohtheplacesyoullgo.space/api/addusertocountries`, {
-            method: "POST",
-            body: JSON.stringify({username: "TEST"}),
-            headers: { "Content-Type": "application/json" },
-          });
     
           const res = JSON.parse(await response.text());
 
           if (res.status === "Success") {
-            window.location.reload();
+            //window.location.reload();
           }
     }
 
