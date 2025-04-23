@@ -307,12 +307,11 @@ app.post('/api/createemptygoing', async (req, res, next) => {
 
 app.put('/api/addtrip/:username', async (req, res, next) => {
     const username = req.params.username;
-    const { destination, date, plans, comments, image } = req.body;
+    const { destination, date, plans, image } = req.body;
     const tripData = {
         Destination: destination,
         Date: date,
         Plans: plans,
-        Comments: comments,
         Image: image
     };
     const db = client.db();
@@ -327,12 +326,11 @@ app.put('/api/addtrip/:username', async (req, res, next) => {
 
 app.put('/api/edittrip/:username', async (req, res, next) => {
     const username = req.params.username;
-    const { destination, date, newdate, newplans, newcomments, newimage } = req.body;
+    const { destination, date, newdate, newplans, newimage } = req.body;
     const newTripData = {
         Destination: destination,
         Date: newdate,
         Plans: newplans,
-        Comments: newcomments,
         Image: newimage
     };
     const db = client.db();
