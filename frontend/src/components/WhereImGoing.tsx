@@ -3,7 +3,7 @@ import "../css/WhereImGoing.css";
 
 const WhereImGoing = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedDest, setSelectedDest] = useState(false);
+    const [selectedDest, setSelectedDest] = useState<null | {id: number; title: string};>(null);
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -30,72 +30,74 @@ const WhereImGoing = () => {
         }
     ]
 
-    const destClick = (id) => {
+    const destClick = (id: number) => {
         const selectedDest = destData.find((destination) => destination.id === id);
         setSelectedDest(selectedDest);
     };
 
-    console.log("DEBUG");
+    console.log("DEBUG")
     return (
-        {selectedDest ? (
-            <div>You have reached the destination page</div>
-        ) : (
-            <div className="pageLayout">
-                <button className="addDestination" onClick={openModal}>
-                    +
-                </button>
+        <div>
+            {selectedDest ? (
+                <div>You have reached the destination page</div>
+            ) : (
+                <div className="pageLayout">
+                    <button className="addDestination" onClick={openModal}>
+                        +
+                    </button>
 
-                {isModalOpen && (
-                    <div className="modal">
-                        <div className="modal-content">
-                            <span className="close-button" onClick={closeModal}>
-                                &times;
-                            </span>
-                            <form>
-                                <h2>Where I'm Going Form</h2>
-                                <label>
-                                    Destination:
-                                    <input type="text" name="destination" />
-                                </label>
-                                <br />
-                                <label>
-                                    Date:
-                                    <input type="date" name="date" />
-                                </label>
-                                <br />
-                                <label>
-                                    Upload Image:
-                                    <input type="file" name="image" accept="image/*" />
-                                </label>
-                                <br />
-                                <button type="submit">Submit</button>
-                            </form>
+                    {isModalOpen && (
+                        <div className="modal">
+                            <div className="modal-content">
+                                <span className="close-button" onClick={closeModal}>
+                                    &times;
+                                </span>
+                                <form>
+                                    <h2>Where I'm Going Form</h2>
+                                    <label>
+                                        Destination:
+                                        <input type="text" name="destination" />
+                                    </label>
+                                    <br />
+                                    <label>
+                                        Date:
+                                        <input type="date" name="date" />
+                                    </label>
+                                    <br />
+                                    <label>
+                                        Upload Image:
+                                        <input type="file" name="image" accept="image/*" />
+                                    </label>
+                                    <br />
+                                    <button type="submit">Submit</button>
+                                </form>
+                            </div>
                         </div>
+                    )}
+
+                    <div className="destinationContainer">
+                        {destData.map((destination) => (
+                            <div className="destination" key={destination.id} onClick={() => destClick(destination.id)}>
+                                <h2 className="destinationTitle">{destination.title}</h2>
+                                <div className="imagePlaceholder"></div>
+                                <h3 className="destinationSubtitle">You've Planned:</h3>
+                                <ul className="destinationList">
+                                    {destination.activities && destination.activities.length > 0 && (
+                                        <li>{destination.activities.length} {destination.activities.length === 1 ? 'Activity' : 'Activities'}</li>
+                                    )}
+                                    {destination.restraunts && destination.restraunts.length > 0 && (
+                                        <li>{destination.restraunts.length} Restraunt{destination.restraunts.length >1 ? 's' : ''}</li>
+                                    )}
+                                    {destination.places && destination.places.length > 0 && (
+                                        <li>{destination.places.length} Place{destination.places.length >1 ? 's' : ''}</li>
+                                    )}
+                                    {destination.hotels && destination.hotels.length > 0 && (
+                                        <li>{destination.hotels.length} Hotel{destination.hotels.length >1 ? 's' : ''}</li>
+                                    )}
+                                </ul>
+                            </div>
+                        ))}
                     </div>
-                )}
-
-                <div className="destinationContainer">
-                    {destData.map((destination) => (
-                        <div className="destination" key={destination.id} onClick={() => destClick(destination.id)}>
-                            <h2 className="destinationTitle">{destination.title}</h2>
-                            <div className="imagePlaceholder"></div>
-                            <h3 className="destinationSubtitle">You've Planned:</h3>
-                            <ul className="destinationList">
-                                {destination.activities && destination.activities.length > 0 && (
-                                    <li>{destination.activities.length} {destination.activities.length === 1 ? 'Activity' : 'Activities'}</li>
-                                )}
-                                {destination.restraunts && destination.restraunts.length > 0 && (
-                                    <li>{destination.restraunts.length} Restraunt{destination.restraunts.length >1 ? 's' : ''}</li>
-                                )}
-                                {destination.places && destination.places.length > 0 && (
-                                    <li>{destination.places.length} Place{destination.places.length >1 ? 's' : ''}</li>
-                                )}
-                                {destination.hotels && destination.hotels.length > 0 && (
-                                    <li>{destination.hotels.length} Hotel{destination.hotels.length >1 ? 's' : ''}</li>
-                                )}
-                            </ul>
-                        </div>
-                    ))}
                 </div>
             )}
         </div>
