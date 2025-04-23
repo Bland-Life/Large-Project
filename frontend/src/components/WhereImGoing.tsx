@@ -35,7 +35,6 @@ const WhereImGoing = () => {
         setSelectedDest(selectedDest);
     };
 
-    console.log("DEBUG")
     return (
         <div>
             {selectedDest ? (
