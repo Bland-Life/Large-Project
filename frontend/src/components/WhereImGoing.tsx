@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import "../css/WhereImGoing.css";
 
-console.log("TESTING TIME");
-
 const WhereImGoing = () => {
-    console.log("STARTING WHEREIMGOING");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDest, setSelectedDest] = useState(false);
 
@@ -33,7 +30,6 @@ const WhereImGoing = () => {
         }
     ]
 
-    console.log('Perhaps here')
     const destClick = (id) => {setSelectedDest(id)};
 
     console.log('Done loading');
@@ -97,11 +93,14 @@ const WhereImGoing = () => {
                     </div>
                 </div>
             )}
+        </div>
 
+        <div>
             {selectedDest && (
                 <div>You have reached the destination page</div>
             )}
         </div>
+
     );
 };
 
