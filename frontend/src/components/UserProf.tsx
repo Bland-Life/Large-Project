@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/UserProfile.css';
 import '../css/WhereImGoing.css'; // Reuse modal styles from WhereImGoing.css
 
@@ -12,6 +12,13 @@ function UserProf() {
         email: ud.email,
         profileimage: ud.profileimage,
     });
+
+    useEffect(() => {
+        if (userData && Object.keys(userData).length > 0) {
+          localStorage.setItem('user_data', JSON.stringify(userData));
+          console.log("Saved to localStorage:", userData);
+        }
+      }, [userData]);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newProfileImage, setNewProfileImage] = useState('');
@@ -62,10 +69,11 @@ function UserProf() {
         });
 
         console.log(newProfileImage);
-        setUserData((prevData) => ({
+        await setUserData((prevData) => ({
             ...prevData,
             profileimage: newProfileImage,
         }));
+        console.log(userData.profileImage);
         localStorage.setItem('user_data', JSON.stringify(userData));
 
         setIsModalOpen(false);
