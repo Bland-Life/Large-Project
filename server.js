@@ -269,7 +269,12 @@ app.post('/api/upload', (req, res) => {
 
     const fileName = `image_${Date.now()}.${ext}`;
 
-    const filePath = `${__dirname}/frontend/public/images/${fileName}`;
+    const filePath = path.join(__dirname, 'frontend', 'public', 'images', fileName);
+    const dir = path.join(__dirname, 'frontend', 'public', 'images');
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+    }
+    console.log(filePath);
 
     fs.writeFile(filePath, buffer, (err) => {
         if (err) {
