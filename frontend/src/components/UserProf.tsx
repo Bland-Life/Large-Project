@@ -64,7 +64,7 @@ function UserProf() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(userData.profileimage),
+            body: JSON.stringify({profileimage: userData.profileimage}),
         });
 
         setIsModalOpen(false);
