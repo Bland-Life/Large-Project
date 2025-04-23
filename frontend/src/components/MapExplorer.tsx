@@ -1,12 +1,12 @@
 // src/components/MapExplorer.tsx
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-// import {
-//   ComposableMap,
-//   Geographies,
-//   Geography,
-//   Marker
-// } from "react-simple-maps";
+import {
+   ComposableMap,
+   Geographies,
+   Geography,
+   Marker
+ } from "react-simple-maps";
 
 const GEO_URL =
   "https://unpkg.com/world-atlas@2/countries-110m.json";
