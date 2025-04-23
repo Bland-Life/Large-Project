@@ -3,65 +3,39 @@ import "../css/WhereImGoing.css";
 
 const WhereImGoing = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedDest, setSelectedDest] = useState(false);
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
+
+    const destData = [
+        {id: 1, title: 'Greece', img: null, 
+            activities: [
+                {title: 'ACT1', img: null, desc: 'Sightseeing'},
+                {title: 'ACT2', img: null, desc: 'More Sightseeing'},
+                {title: 'ACT3', img: null, desc: 'Museum'}
+            ],
+            restraunts: [
+                {title: 'REST1', img: null, desc: 'Yummy food'},
+                {title: 'REST2', img: null, desc: 'Food'}
+            ],
+            places: [
+                {title: 'PLACE1', img: null, desc: 'place'},
+                {title: 'PLACE2', img: null, desc: 'more place'}
+            ],
+            hotels: [
+                {title: 'HOTEL1', img: null, desc: 'hotel'},
+                {title: 'HOTEL2', img: null, desc: 'Five stars'}
+            ]
+        }
+    ]
+    const destClick = (id) => {setSelectedDest(id)};
 
     return (
         <div className="pageLayout">
             <button className="addDestination" onClick={openModal}>
                 +
             </button>
-
-            <div className="destinationContainer">
-                <div className="destination">
-                    <h2 className="destinationTitle">Destination</h2>
-                    <div className="imagePlaceholder"></div>
-                    <h3 className="destinationSubtitle">You've Planned</h3>
-                    <ul className="destinationList">
-                        <li>3 Activities</li>
-                        <li>4 Restraunts</li>
-                        <li>2 Places</li>
-                        <li>2 Hotels</li>
-                    </ul>
-                </div>
-
-                <div className="destination">
-                    <h2 className="destinationTitle">Destination</h2>
-                    <div className="imagePlaceholder"></div>
-                    <h3 className="destinationSubtitle">You've Planned</h3>
-                    <ul className="destinationList">
-                        <li>3 Activities</li>
-                        <li>4 Restraunts</li>
-                        <li>2 Places</li>
-                        <li>2 Hotels</li>
-                    </ul>
-                </div>
-
-                <div className="destination">
-                    <h2 className="destinationTitle">Destination</h2>
-                    <div className="imagePlaceholder"></div>
-                    <h3 className="destinationSubtitle">You've Planned</h3>
-                    <ul className="destinationList">
-                        <li>3 Activities</li>
-                        <li>4 Restraunts</li>
-                        <li>2 Places</li>
-                        <li>2 Hotels</li>
-                    </ul>
-                </div>
-
-                <div className="destination">
-                    <h2 className="destinationTitle">Destination</h2>
-                    <div className="imagePlaceholder"></div>
-                    <h3 className="destinationSubtitle">You've Planned</h3>
-                    <ul className="destinationList">
-                        <li>3 Activities</li>
-                        <li>4 Restraunts</li>
-                        <li>2 Places</li>
-                        <li>2 Hotels</li>
-                    </ul>
-                </div>
-            </div>
 
             {isModalOpen && (
                 <div className="modal">
@@ -90,6 +64,34 @@ const WhereImGoing = () => {
                         </form>
                     </div>
                 </div>
+            )}
+
+            <div className="destinationContainer">
+                {destData.map((destination) => (
+                    <div className="destination" key={destination.id} onClick={() => destClick(destination.id)}>
+                        <h2 className="destinationTitle">{destination.title}</h2>
+                        <div className="imagePlaceholder"></div>
+                        <h3 className="destinationSubtitle">You've Planned:</h3>
+                        <ul className="destinationList">
+                            {destination.activities && destination.activities.length > 0 && (
+                                <li>{destination.activities.length} {destination.activities.length === 1 ? 'Activity' : 'Activities'}</li>
+                            )}
+                            {destination.restraunts && destination.restraunts.length > 0 && (
+                                <li>{destination.restraunts.length} Restraunt{destination.restraunts.length >1 ? 's' : ''}</li>
+                            )}
+                            {destination.places && destination.places.length > 0 && (
+                                <li>{destination.places.length} Place{destination.places.length >1 ? 's' : ''}</li>
+                            )}
+                            {destination.hotels && destination.hotels.length > 0 && (
+                                <li>{destination.hotels.length} Hotel{destination.hotels.length >1 ? 's' : ''}</li>
+                            )}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+
+            {selectedDest && (
+                <div>You have reached the destination page</div>
             )}
         </div>
     );
