@@ -43,7 +43,7 @@ function UserProf() {
 
                     const res = JSON.parse(await response.text());
                     if (res.filename != "") {
-                        setNewProfileImage(res.filename);
+                        setNewProfileImage("https://ohtheplacesyoullgo/images/" + res.filename);
                     }
                 }
             };
