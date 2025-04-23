@@ -20,3 +20,16 @@ export function getImageString(imageFile : File) : string {
     };
     return base64Image;
 }
+
+export async function uploadImage(_image: string) {
+    var image = {
+        image: _image
+    };
+    const response = await fetch('https://ohtheplacesyoullgo.space/api/upload', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(image),
+    });
+}

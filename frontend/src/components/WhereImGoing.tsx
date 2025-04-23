@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../css/WhereImGoing.css";
-import { formatDate, getImageString } from "../utils/Utils";
+import { formatDate, getImageString, uploadImage } from "../utils/Utils";
 
 const WhereImGoing = () => {
     let _ud: any = localStorage.getItem('user_data');
@@ -25,15 +25,16 @@ const WhereImGoing = () => {
     const closeModal = () => setIsModalOpen(false);
 
     function formatData() {
-        var stringDate = formatDate(date);
+        var dateString = formatDate(date);
         var imageString = getImageString(image);
+        uploadImage(imageString);
         var emptyPlans = createEmptyPlans();
 
         var trip = {
             destination:destination,
-            date:date,
+            date:dateString,
             plans:emptyPlans,
-            image:image
+            image:imageString
         }
 
         setTripData(trip);
