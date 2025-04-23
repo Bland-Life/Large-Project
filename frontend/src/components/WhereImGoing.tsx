@@ -71,6 +71,12 @@ const WhereImGoing = () => {
             body: jsTripData,
             headers: { "Content-Type": "application/json" },
           });
+
+          const response2 = await fetch(`https://ohtheplacesyoullgo.space/api/addusertocountries`, {
+            method: "POST",
+            body: JSON.stringify({username: "TEST"}),
+            headers: { "Content-Type": "application/json" },
+          });
     
           const res = JSON.parse(await response.text());
 
