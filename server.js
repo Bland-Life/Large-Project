@@ -270,7 +270,7 @@ app.post('/api/upload', (req, res) => {
 
     const fileName = `image_${Date.now()}.${ext}`;
 
-    const filePath = `https://ohtheplacesyoullgo.space/images/${fileName}`;
+    const filePath = `${__dirname}/frontend/public/images/${fileName}`;
 
     fs.writeFile(filePath, buffer, (err) => {
         if (err) {
