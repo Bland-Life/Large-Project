@@ -336,7 +336,7 @@ app.put('/api/edittrip/:username', async (req, res, next) => {
         Image: newimage
     };
     const db = client.db();
-    const results1 = await db.collection('WhereImGoing').updateOne({Username: username}, {$pull: {Trips: {destination, date}}});
+    const results1 = await db.collection('WhereImGoing').updateOne({Username: username}, {$pull: {Trips: {Destination: destination, Date: date}}});
     const results2 = await db.collection('WhereImGoing').updateOne({Username:username}, {$push: {Trips: newTripData}});
     var status = "Failed to edit trip";
     if (results2.acknowledged) {
