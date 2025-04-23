@@ -67,6 +67,9 @@ function UserProf() {
             body: JSON.stringify({profileimage: newProfileImage}),
         });
 
+        console.log(userData.profileimage);
+        localStorage.setItem('user_data', JSON.stringify(userData));
+
         setIsModalOpen(false);
     };
 
