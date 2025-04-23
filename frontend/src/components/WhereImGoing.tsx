@@ -80,6 +80,7 @@ const WhereImGoing = () => {
     }
 
     async function addTrip() : Promise<void> {
+        console.log("Adding Trip");
         formatData();
         sendData();
     }
@@ -187,7 +188,7 @@ const WhereImGoing = () => {
                                 <span className="close-button" onClick={closeModal}>
                                     &times;
                                 </span>
-                                <form onSubmit={addTrip}>
+                                <form>
                                     <h2>Where I'm Going Form</h2>
                                     <label>
                                         Destination:
@@ -214,7 +215,7 @@ const WhereImGoing = () => {
                                         onChange={(e) => setImage(e.target.value)}/>
                                     </label>
                                     <br />
-                                    <button type="submit">Submit</button>
+                                    <button type="submit" onclick={addTrip}>Submit</button>
                                 </form>
                             </div>
                         </div>
