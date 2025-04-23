@@ -42,15 +42,19 @@ const WhereImGoing = () => {
                     <div className="plansContainer">
                         <div className="plans">
                             <div className="plansTitle">Activities</div>
+                            <div className="cards">
+                                <div className="imagePlaceholder"></div>
+                                <p>There is an Activity here</p>
+                            </div>
                         </div>
                         <div className="plans">
-                            <h2>Restraunts</h2>
+                            <div className="plansTitle">Restraunts</div>
                         </div>
                         <div className="plans">
-                            <h2>Places</h2>
+                            <div className="plansTitle">Places</div>
                         </div>
                         <div className="plans">
-                            <h2>Hotels</h2>
+                            <div className="plansTitle">Hotels</div>
                         </div>
                     </div>
                 </div>
