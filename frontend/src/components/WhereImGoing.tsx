@@ -35,26 +35,55 @@ const WhereImGoing = () => {
         setSelectedDest(selectedDest);
     };
 
+    //Card carousel
+    const Carousel = ({ data, category }: {data: any[], category: string}) => {
+        const [currentIndex, setCurrentIndex] = useState(0);
+
+        const handleNext = () => {
+            setCurrentIndex((prevIndex: number) => (prevIndex + 1) % data.length);
+        };
+
+        const handlePrev = () => {
+            setCurrentIndex((prevIndex: number) => (prevIndex - 1 + data.length) % data.length);
+        };
+
+        if (!data || data.length === 0) return null;
+
+        const currentItem = data[currentIndex];
+
+        return (
+            <div className="plans">
+                <div className="plansTitle">{category}</div>
+                <div className="cards">
+                    {currentItem.img ? (
+                        <img src={currentItem.img} alt={currentItem.title || category}></img>
+                    ) : (
+                        <div className="imagePlaceholder"></div>
+                    )}
+
+                    <p>{currentItem.desc}</p>
+                </div>
+
+                <div className="controls">
+                    <button onClick={handlePrev}>&lt;</button>
+                    <button onClick={handleNext}>&gt;</button>
+                </div>
+            </div>
+        );
+    };
+
     return (
         <div>
             {selectedDest ? (
                 <div className="destinationLayout">
                     <div className="plansContainer">
-                        <div className="plans">
-                            <div className="plansTitle">Activities</div>
-                            <div className="cards">
-                                <p>There is an Activity here</p>
-                            </div>
-                        </div>
-                        <div className="plans">
-                            <div className="plansTitle">Restraunts</div>
-                        </div>
-                        <div className="plans">
-                            <div className="plansTitle">Places</div>
-                        </div>
-                        <div className="plans">
-                            <div className="plansTitle">Hotels</div>
-                        </div>
+                        <Carousel category="Activities" data={selectedDest.activities}></Carousel>
+
+                        <Carousel category="Restraunts" data={selectedDest.restraunts}></Carousel>
+
+                        <Carousel category="Places" data={selectedDest.places}></Carousel>
+
+                        <Carousel category="Hotels" data={selectedDest.hotels}></Carousel>
                     </div>
                 </div>
             ) : (
@@ -118,8 +147,6 @@ const WhereImGoing = () => {
                 </div>
             )}
         </div>
-
-
     );
 };
 

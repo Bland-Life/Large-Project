@@ -29,6 +29,8 @@
     align-items: center;
     color: black;
     position: relative;
+    overflow: hidden;
+    margin: 1rem auto;
 }
 
 .plansTitle {
@@ -45,8 +47,15 @@
     white-space: nowrap;
 }
 
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem;
+}
+
 .cards {
-    border: 10px solid;
+    border: 2px solid;
     border-image:linear-gradient(90deg,#FFA500 0%,#F1392F 30%,#4E00D5  100%) 1;
     border-radius: 10px;
     padding: 1rem;
