@@ -25,15 +25,12 @@ const MongoClient = require('mongodb').MongoClient;
 const url = process.env.MONGO_URI;
 const client = new MongoClient(url);
 client.connect();
-
+app.use(express.json({ limit: '10mb' }));
 app.use('/images', express.static(path.join(__dirname, 'frontend', 'public', 'images')));  
 
 app.use(cors());
 app.use('/webhook', express.raw({ type: 'application/json' }));
 app.use(bodyParser.json());
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -259,14 +256,6 @@ app.put('/api/updateprofileimage/:username', async (req, res, next) => {
 app.post('/api/upload', (req, res) => {
     const {image} = req.body;
     var ret;
-    let size = 0;
-    req.on('data', chunk => {
-      size += chunk.length;
-    });
-    req.on('end', () => {
-      console.log('Request size:', size / 1024, 'KB');
-      next();
-    });  
 
     const matches = image.match(/^data:(.+);base64,(.+)$/);
     if (!matches) {
