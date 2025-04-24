@@ -24,7 +24,7 @@ const WhereImGoing = () => {
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
-    async function formatData() {
+    async function formatData() : Promise<any>{
         const base64 = await getImageString(image);
         console.log(base64);
         uploadImage(base64);
@@ -37,7 +37,7 @@ const WhereImGoing = () => {
             image:base64
         }
 
-        setTripData(trip);
+        return trip;
     }
 
     function createEmptyPlans() : any {
@@ -63,8 +63,8 @@ const WhereImGoing = () => {
         return plans;
     }
 
-    async function sendData() {
-        var jsTripData = JSON.stringify(tripData);
+    async function sendData(data: any) {
+        var jsTripData = JSON.stringify(data);
         
         const response = await fetch(`https://ohtheplacesyoullgo.space/api/addtrip/${userData.username}`, {
             method: "PUT",
@@ -82,8 +82,8 @@ const WhereImGoing = () => {
     async function addTrip(event: React.FormEvent) : Promise<void> {
         console.log("Adding Trip");
         event.preventDefault()
-        await formatData();
-        sendData();
+        var formattedData = await formatData();
+        sendData(formattedData);
     }
 
     async function getTrips() : Promise<void> {
