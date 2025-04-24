@@ -251,22 +251,22 @@ const WhereImGoing = () => {
 
                     <div className="destinationContainer">
                         {currentTrips && currentTrips.map((trip) => (
-                            <div className="destination" key={trip.destination}>
-                                <h2 className="destinationTitle">{destination.title}</h2>
+                            <div className="destination" key={trip.Destination}>
+                                <h2 className="destinationTitle">{trip.Destination}</h2>
                                 <div className="imagePlaceholder"></div>
                                 <h3 className="destinationSubtitle">You've Planned:</h3>
                                 <ul className="destinationList">
-                                    {trip.plans.Activities && trip.plans.Activities.number > 0 && (
-                                        <li>{trip.plans.Activities.number} {trip.plans.Activities.number === 1 ? 'Activity' : 'Activities'}</li>
+                                    {trip.Plans.Activities && trip.Plans.Activities.number > 0 && (
+                                        <li>{trip.Plans.Activities.number} {trip.Plans.Activities.number === 1 ? 'Activity' : 'Activities'}</li>
                                     )}
-                                    {trip.plans.Restaurants && trip.plans.Restaurants.number > 0 && (
-                                        <li>{trip.plans.Restaurants.number} Restaurant{trip.plans.Restaurants.number >1 ? 's' : ''}</li>
+                                    {trip.Plans.Restaurants && trip.Plans.Restaurants.number > 0 && (
+                                        <li>{trip.Plans.Restaurants.number} Restaurant{trip.Plans.Restaurants.number >1 ? 's' : ''}</li>
                                     )}
-                                    {trip.plans.Places && trip.plans.Places.number > 0 && (
-                                        <li>{trip.plans.Places.number} Place{trip.plans.Places.number >1 ? 's' : ''}</li>
+                                    {trip.Plans.Places && trip.Plans.Places.number > 0 && (
+                                        <li>{trip.Plans.Places.number} Place{trip.Plans.Places.number >1 ? 's' : ''}</li>
                                     )}
-                                    {trip.plans.Hotels && trip.plans.Hotels.number > 0 && (
-                                        <li>{trip.plans.Hotels.number} Hotel{trip.plans.Hotels.number >1 ? 's' : ''}</li>
+                                    {trip.Plans.Hotels && trip.Plans.Hotels.number > 0 && (
+                                        <li>{trip.Plans.Hotels.number} Hotel{trip.Plans.Hotels.number >1 ? 's' : ''}</li>
                                     )}
                                 </ul>
                             </div>
