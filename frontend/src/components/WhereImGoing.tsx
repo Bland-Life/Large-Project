@@ -67,6 +67,7 @@ const WhereImGoing: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
+
   }
 
   // 5) GET /gettrips — treat 409 as “no trips”
@@ -85,6 +86,7 @@ const WhereImGoing: React.FC = () => {
     } catch {
       console.error("getTrips: invalid JSON:", text);
       throw new Error("Invalid JSON from getTrips()");
+
     }
 
     // 409 = “no trips yet” → return []
