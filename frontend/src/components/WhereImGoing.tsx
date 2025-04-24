@@ -774,5 +774,6 @@ const WhereImGoing: React.FC = () => {
   );
 
 };
+}
 
 export default WhereImGoing;
