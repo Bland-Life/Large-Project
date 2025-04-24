@@ -387,25 +387,33 @@ const WhereImGoing = () => {
                     <button onClick={handleNext}>&gt;</button>
                 </div>
 
-                <div className="cards">
-                    {isAddNew ? (
-                        <>
-                            <div className="imagePlaceholder"></div>
-                            <p>Add New</p>
-                        </>
-                    ) : (
-                        <>
-                            <h4>{currentItem.title}</h4>
-                            <div className="imagePlaceholder"
-                                style={{
-                                    background: currentItem.image
-                                        ? `#ccc url(${currentItem.image}) center/160% no-repeat`
-                                        : `#ccc`,
-                                    }}>
+                <div className="carousel">
+                    <div className="carouselTrack"
+                        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                    >
+                        {items.map((item, index) => (
+                            <div className={`cards ${index === currentIndex ? 'active' : ''}`} key={index} onClick={() => openEditModal(category)}>
+                                {isAddNew ? (
+                                    <>
+                                        <div className="imagePlaceholder"></div>
+                                        <p>Add New</p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <h4>{currentItem.title}</h4>
+                                        <div className="imagePlaceholder"
+                                            style={{
+                                                background: currentItem.image
+                                                    ? `#ccc url(${currentItem.image}) center/160% no-repeat`
+                                                    : `#ccc`,
+                                                }}>
+                                        </div>
+                                        <p>{currentItem.description}</p>
+                                    </>
+                                )}
                             </div>
-                            <p>{currentItem.description}</p>
-                        </>
-                    )}
+                        ))}
+                    </div>
                 </div>
             </div>
         );
