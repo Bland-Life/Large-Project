@@ -236,8 +236,10 @@ export default function TravelToolsPage({
     if (
       !newFlight.port1 ||
       !newFlight.port1Code ||
+      !newFlight.port1time ||
       !newFlight.port2 ||
       !newFlight.port2code ||
+      !newFlight.port2Time ||
       !newFlight.boardingday
     ) {
       alert("Please fill in all required fields");
