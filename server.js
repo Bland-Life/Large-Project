@@ -422,7 +422,7 @@ app.get('/api/getlist/:username', async (req, res, next) => {
     const { name } = req.body;
     const db = client.db();
     const results = await db.collection('TravelTools')
-    .findOne({Username:username, "PackingList.name":name},  { projection: { "PackingList.$": 1, _id: 0 } }).toArray();
+    .find({Username:username, "PackingList.name":name}, { projection: { PackingList: 1, _id: 0 } }).toArray();
     var status = "Failed to get list";
     var list;
     if (results.length > 0) {
