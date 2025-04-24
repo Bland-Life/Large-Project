@@ -61,21 +61,21 @@
     padding: 0.25rem;
 }
 
-.controls:hover {
-    background-color: gray;
-}
-
-.controls:first-of-type {
+.controls button {
     border: 2px solid black;
     border-radius: 50px;
     background-color: white;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+.controls button:first-of-type {
     transform: translateX(-50%);
     margin-left: 0.5rem;
 }
-.controls:last-of-type {
-    border: 2px solid black;
-    border-radius: 50px;
-    background-color: white;
+.controls button:last-of-type {
     transform: translateX(50%);
     margin-left: 0.5rem;
 }
