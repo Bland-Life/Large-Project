@@ -446,7 +446,7 @@ app.put('/api/addflight/:username', async (req, res, next) => {
 
     const flightdata = {
         depart: port1,
-        dapertcode: port1code,
+        departcode: port1code,
         departtime: port1time,
         arrive: port2,
         arrivecode: port2code,
@@ -468,9 +468,9 @@ app.get('/api/getflights/:username', async (req, res, next) => {
     const username = req.params.username;
     const db = client.db();
     const results = await db.collection('TravelTools').find({Username:username}).toArray();
-    var status = "Failed to add flight";
+    var status = "Failed to get flights";
     var flights = [];
-    if (results.acknowledged) {
+    if (results.length > 0) {
         flights = results[0].UpcomingFlights;
         status = "Success";
     }
