@@ -202,7 +202,7 @@ const WhereImGoing = () => {
             const oldPlans = oldTrip.Plans;
 
             const newPlans = { ...oldPlans };
-            const categoryKey = categoryName.toLowerCase() + "s"; // Convert "Activity" to "activities"
+            const categoryKey = categoryName.toLowerCase(); // Convert "Activity" to "activities"
             
             // Make sure the category exists in the plans
             if (!newPlans[categoryName]) {
