@@ -430,7 +430,7 @@ app.get('/api/getlist/:username', async (req, res, next) => {
     }
     var status = "Failed to get list";
     var list;
-    if (results.length > 0) {
+    if (results?.length > 0) {
         status = "Success";
         list = results?.[0]?.PackingList?.find(p => p.name === name)?.list || [];
 
