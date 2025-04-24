@@ -24,13 +24,10 @@ function App() {
   return (
     <Router>
       <Routes>
-
-
         <Route path="/" element={<HomePage />} />
         <Route path="/Login" element={<LoginPage />} />
         <Route path="/Signup" element={<SignupPage />} />
         {/* Wrap all routes with Layout so nav/sidebar shows */}
-        <Route element={<Layout />}>
           <Route path="/test-map" element={<TestMapPage />} />
           <Route path="/MyAccount" element={<MyAccount />} />
 
@@ -45,7 +42,6 @@ function App() {
           <Route path="/map" element={<MapExplorer />} />
           <Route path="/map/:countryCode" element={<MapExplorer />} />
           <Route path="/map/:countryCode/:cityId" element={<MapExplorer />} />
-        </Route>
       </Routes>
     </Router>
   );
