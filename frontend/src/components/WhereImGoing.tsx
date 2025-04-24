@@ -491,50 +491,86 @@ const WhereImGoing = () => {
         await updateTripDetails();
     }
 
-    async function deleteTrip(destination: string, date): Promise<void> {
+    async function deleteTrip(dst: string, dt: string) {
+        if (!userData) return;
         setIsLoading(true);
         setError(null);
-
+      
         try {
-            console.log("Deleting Trip");
-            const formattedData = { destination, date };
-            await deleteData(formattedData);
-            
-            if (userData) {
-                const trips = await getTrips(userData.username);
-                setCurrentTrips(trips);
+          // lowercase keys that the API expects:
+          const payload = {
+            destination: dst,
+            date:        dt
+          };
+          console.log("→ DELETE payload:", payload);
+      
+          const resp = await fetch(
+            `https://ohtheplacesyoullgo.space/api/deletetrip/${userData.username}`,
+            {
+              method:  "DELETE",
+              headers: { "Content-Type": "application/json" },
+              body:    JSON.stringify(payload),
             }
-        } catch(err) {
-            console.error("Error in deleteTrip:", err);
-            setError("Failed to delete trip. Please try again.");
+          );
+      
+          // log raw response in case it still errors
+          const text = await resp.text();
+          console.log("← DELETE raw response:", text);
+      
+          const body = JSON.parse(text);
+          if (resp.status !== 200 || body.status !== "Success") {
+            throw new Error(body.error || body.message || `deletetrip failed (${resp.status})`);
+          }
+      
+          // remove the trip from local state
+          setCurrentTrips(prev =>
+            prev.filter(t => !(t.Destination === dst && t.Date === dt))
+          );
+      
+        } catch (err: any) {
+          console.error("deleteTrip error:", err);
+          setError(err.message);
         } finally {
-            setIsLoading(false);
+          setIsLoading(false);
         }
-    }
+      }
 
-    async function addTrip(event: React.FormEvent): Promise<void> {
-        event.preventDefault();
+      async function addTrip(e: React.FormEvent) {
+        e.preventDefault();
+        if (!userData) return;
+    
         setIsLoading(true);
         setError(null);
-        
         try {
-            console.log("Adding Trip");
-            const formattedData = await formatData();
-            await sendData(formattedData);
-            closeAddModal();
-            
-            // Refresh the trips list
-            if (userData) {
-                const trips = await getTrips(userData.username);
-                setCurrentTrips(trips);
+          const payload = await formatNewTripPayload();
+    
+          const resp = await fetch(
+            `https://ohtheplacesyoullgo.space/api/addtrip/${userData.username}`,
+            {
+              method:  "PUT",
+              headers: { "Content-Type": "application/json" },
+              body:    JSON.stringify(payload),
             }
-        } catch (err) {
-            console.error("Error in addTrip:", err);
-            setError("Failed to add trip. Please try again.");
+          );
+          const body = await resp.json();
+          if (body.status !== "Success") {
+            throw new Error(body.message || "addtrip failed");
+          }
+    
+          // Optimistic UI: prepend the new trip
+          setCurrentTrips(prev => [payload, ...prev]);
+    
+          // clear & close form
+          resetAddForm();
+          setIsAddModalOpen(false);
+    
+        } catch (err: any) {
+          console.error("addTrip error:", err);
+          setError(err.message);
         } finally {
-            setIsLoading(false);
+          setIsLoading(false);
         }
-    }
+      }
 
     async function getTrips(user: string): Promise<Trip[]> {
         const url  = `https://ohtheplacesyoullgo.space/api/gettrips/${user}`;
@@ -929,7 +965,7 @@ const WhereImGoing = () => {
                     <div className="destinationContainer">
                         {currentTrips && currentTrips.length > 0 ? (
                             currentTrips.map((trip) => (
-                                <div className="destination" key={trip.Destination} onClick={() => {
+                                <div className="destination" key={`${trip.Destination}—${trip.Date}`} onClick={() => {
                                         console.log("CLICKED", trip.Destination);
                                         destClick(trip.Destination);
                                     }
