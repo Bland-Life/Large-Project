@@ -357,62 +357,69 @@ const WhereImGoing = () => {
     // Card carousel component
     const Carousel = ({ data, category }: { data: PlanCategory, category: string }) => {
         const [currentIndex, setCurrentIndex] = useState(0);
-
+    
         // Get the appropriate array based on category
-        const categoryKey = category.toLowerCase() === "restaurants" ? "restaurants" : 
-                        category.toLowerCase() === "activities" ? "activities" :
-                        category.toLowerCase() === "places" ? "places" :
-                        category.toLowerCase() === "hotels" ? "hotels" : "";
+        const categoryKey = category.toLowerCase() === "restaurants" ? "restaurants" :
+                            category.toLowerCase() === "activities" ? "activities" :
+                            category.toLowerCase() === "places" ? "places" :
+                            category.toLowerCase() === "hotels" ? "hotels" : "";
         
         const items = data[categoryKey] || [];
+        const carousel = [...items, { isAddNew: true }];
         const total = items.length + 1;
-
+    
         const handleNext = () => {
             setCurrentIndex((prevIndex) => (prevIndex + 1) % total);
         };
-
+    
         const handlePrev = () => {
             setCurrentIndex((prevIndex) => (prevIndex - 1 + total) % total);
         };
-
-        const isAddNew = currentIndex === items.length;
-        const currentItem = !isAddNew ? items[currentIndex] : null;
-
+    
         return (
             <div className="plans">
                 <div className="plansTitle">{category}</div>
-
+    
                 <div className="controls">
                     <button onClick={handlePrev}>&lt;</button>
                     <button onClick={handleNext}>&gt;</button>
                 </div>
-
+    
                 <div className="carousel">
-                    <div className="carouselTrack"
-                        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-                    >
-                        {items.map((item, index) => (
-                            <div className={`cards ${index === currentIndex ? 'active' : ''}`} key={index} onClick={() => openEditModal(category)}>
-                                {isAddNew ? (
-                                    <>
-                                        <div className="imagePlaceholder"></div>
-                                        <p>Add New</p>
-                                    </>
-                                ) : (
-                                    <>
-                                        <h4>{currentItem.title}</h4>
-                                        <div className="imagePlaceholder"
-                                            style={{
-                                                background: currentItem.image
-                                                    ? `#ccc url(${currentItem.image}) center/160% no-repeat`
-                                                    : `#ccc`,
-                                                }}>
-                                        </div>
-                                        <p>{currentItem.description}</p>
-                                    </>
-                                )}
-                            </div>
-                        ))}
+                    <div className="carouselTrack" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+                        {carousel.map((item, index) => {
+                            const thisIsAddNew = !!item.isAddNew;
+    
+                            return (
+                                <div
+                                    className={`cards ${index === currentIndex ? 'active' : ''}`}
+                                    key={index}
+                                    onClick={() => {
+                                        if (thisIsAddNew) openEditModal(category);
+                                    }}
+                                >
+                                    {thisIsAddNew ? (
+                                        <>
+                                            <div className="imagePlaceholder"></div>
+                                            <p>Add New</p>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <h4>{item.title}</h4>
+                                            <div
+                                                className="imagePlaceholder"
+                                                style={{
+                                                    background: item.image
+                                                        ? `#ccc url(${item.image}) center/160% no-repeat`
+                                                        : `#ccc`,
+                                                }}
+                                            />
+                                            <p>{item.description}</p>
+                                        </>
+                                    )}
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
