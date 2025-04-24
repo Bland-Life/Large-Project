@@ -103,6 +103,7 @@ const WhereImGoing = () => {
           if (res.status === "Success") {
             //window.location.reload();
           }
+    }
     
     async function editData(category: string, item: any) {
         if (!selectedDest || !userData){
@@ -143,7 +144,7 @@ const WhereImGoing = () => {
         }
     }
 
-    async function editPlans(event: React.FormEvent) : Promise<void> {
+    async function editTrip(event: React.FormEvent) : Promise<void> {
         console.log("Editing Trip");
         event.preventDefault();
 
