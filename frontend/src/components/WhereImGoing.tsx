@@ -11,12 +11,7 @@ const WhereImGoing = () => {
     const [currentTrips, setCurrentTrips] = useState(null);
     const [username, setUsername] = useState<string>("");
     const [tripData, setTripData] = useState(null);
-    const [userData, setUserData] = useState({
-            name: ud.firstName,
-            username: ud.username,
-            email: ud.email,
-            profileimage: ud.profileimage,
-        });
+    const [userData, setUserData] = useState(null);
     const [destination, setDestination] = useState<string>("");
     const [date, setDate] = useState<string>("");
     const [image, setImage] = useState<File>(null);
@@ -25,6 +20,19 @@ const WhereImGoing = () => {
     const closeModal = () => setIsModalOpen(false);
 
     useEffect(() => {
+        // fetch or set data
+        setTimeout(() => {
+            setUserData({
+                name: ud.firstName,
+                username: ud.username,
+                email: ud.email,
+                profileimage: ud.profileimage,
+            });
+        }, 1000);
+      }, []);
+      
+    useEffect(() => {
+        if (userData) {
         var trips;
         const fetchData = async () => {
             trips = await getTrips();
@@ -32,12 +40,12 @@ const WhereImGoing = () => {
         
           fetchData();
           setCurrentTrips(trips);
+        }
         
-      }, []); 
+      }, [userData]); 
 
     async function formatData() : Promise<any>{
         const base64 = await getImageString(image);
-        console.log(base64);
         var filename = await uploadImage(base64);
         var emptyPlans = createEmptyPlans();
 
@@ -115,7 +123,6 @@ const WhereImGoing = () => {
     function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
         if (event.target.files && event.target.files[0]) {
             setImage(event.target.files[0]);
-            console.log(event.target.files[0].name);
         }
     }
 

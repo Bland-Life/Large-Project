@@ -21,7 +21,6 @@ export function formatDate(date : Date) : string {
 // }
 
 export function getImageString(imageFile: File): Promise<string> {
-    console.log(imageFile.name);
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
 
