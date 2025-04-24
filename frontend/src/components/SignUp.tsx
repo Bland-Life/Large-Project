@@ -54,7 +54,7 @@ function SignUp(){
                 setMessage(res.error);
             }else {
                 setMessage('Signup Successful! Please log in.');
-                doBackgroundAPIs(username);
+                var ret = await doBackgroundAPIs(username);
                 window.location.href = '/login';
             }
         }catch (error: any) {
@@ -62,7 +62,7 @@ function SignUp(){
         }
     };
 
-    async function doBackgroundAPIs(_username: string) {
+    async function doBackgroundAPIs(_username: string) : Promise<void>{
         const user = {
             username: _username
         }
