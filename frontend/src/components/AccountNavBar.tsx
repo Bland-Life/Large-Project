@@ -63,6 +63,10 @@ const AccountNavBar = () =>
     return (
       <nav>
         <p>Hello, world!</p>
+        <a href="/MyAccount">Where I've Been</a>
+        <a href="WhereImGoing">Where I'm Going</a>
+        <a href="JoinMe">Join Me</a>
+        <a href="TravelTools">Travel Tools</a>
       </nav>
     );
 };
