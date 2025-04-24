@@ -81,9 +81,10 @@ const WhereImGoing = () => {
 
     async function addTrip(event: React.FormEvent) : Promise<void> {
         console.log("Adding Trip");
-        //event.preventDefault()
+        event.preventDefault()
         var formattedData = await formatData();
-        sendData(formattedData);
+        var response = await sendData(formattedData);
+        setIsModalOpen(false);
     }
 
     async function getTrips() : Promise<void> {
