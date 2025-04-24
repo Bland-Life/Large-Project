@@ -19,7 +19,7 @@ html, body {
 .account-map {
   width: 100%;
   max-width: 1600px;          /* optional: limit super-wide screens */
-  margin: 24px auto;          /* center + vertical spacing */
+  margin-bottom: 24px;          /* center + vertical spacing */
 }
 
 .account-map svg {
