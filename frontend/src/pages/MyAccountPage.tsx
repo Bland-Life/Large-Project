@@ -1,6 +1,5 @@
 // src/pages/MyAccountPage.tsx
 import React from "react";
-import AccountNavBar from "../components/AccountNavBar";
 import MapExplorer from "../components/MapExplorer";
 import "../css/AccountPage.css";
 
@@ -19,7 +18,7 @@ const MyAccountPage: React.FC = () => {
 
   return (
     <div className="account-page-root">
-      <AccountNavBar />
+      
 
       <section className="account-map">
         <MapExplorer userName={userName} />

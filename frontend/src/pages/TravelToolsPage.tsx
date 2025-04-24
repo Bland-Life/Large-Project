@@ -1,5 +1,4 @@
 import React, { useState, ChangeEvent } from "react";
-import AccountNavBar from "../components/AccountNavBar";
 import "../css/TravelTools.css";
 
 interface TravelToolsProps {
@@ -98,7 +97,7 @@ export default function TravelToolsPage({
 
   return (
     <div className={containerClass}>
-      <AccountNavBar />
+  
       <div className="content-container">
         <div className="sections-wrapper">
           {/* Upcoming Flights Section */}

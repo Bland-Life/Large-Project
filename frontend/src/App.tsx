@@ -4,50 +4,44 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./css/App.css";
 
-// Existing pages
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/SignUpPage";
-import MyAccount from "./pages/MyAccountPage";
-import WhereIveBeenPage from "./pages/WhereIveBeenPage";
-import WhereImGoingPage from "./pages/WhereImGoingPage";
-import JoinMePage from "./pages/JoinMePage";
-import TravelToolsPage from "./pages/TravelToolsPage";
-import UserProfilePage from "./pages/UserProfilePage";
-import TestMapPage from "./pages/TestMapPage";  
+// Pages
+import HomePage           from "./pages/HomePage";
+import LoginPage          from "./pages/LoginPage";
+import SignupPage         from "./pages/SignUpPage";
+import MyAccount          from "./pages/MyAccountPage";
+import WhereIveBeenPage   from "./pages/WhereIveBeenPage";
+import WhereImGoingPage   from "./pages/WhereImGoingPage";
+import JoinMePage         from "./pages/JoinMePage";
+import TravelToolsPage    from "./pages/TravelToolsPage";
+import UserProfilePage    from "./pages/UserProfilePage";
+import TestMapPage        from "./pages/TestMapPage";
 
-
-
-
-// Map component
-import MapExplorer from "./components/MapExplorer";
-
-// Layout component that includes the NavBar
-import Layout from "./components/Layout";
+// Components
+import MapExplorer        from "./components/MapExplorer";
+import Layout             from "./components/Layout";
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* All public routes are inside the Layout */}
-        <Route>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/Login" element={<LoginPage />} />
-          <Route path="/Signup" element={<SignupPage />} />
-          <Route path="/test-map" element={<TestMapPage />} />
-          {/* Account dashboard */}
-          <Route path="/MyAccount" element={<MyAccount />} />
+        {/* Wrap all routes with Layout so nav/sidebar shows */}
+        <Route element={<Layout />}>  
+          <Route path="/"                         element={<HomePage />} />
+          <Route path="/Login"                    element={<LoginPage />} />
+          <Route path="/Signup"                   element={<SignupPage />} />
+          <Route path="/test-map"                 element={<TestMapPage />} />
+          <Route path="/MyAccount"                element={<MyAccount />} />
 
           {/* Sub-sections */}
-          <Route path="/WhereIveBeen" element={<WhereIveBeenPage />} />
-          <Route path="/WhereImGoing" element={<WhereImGoingPage />} />
-          <Route path="/JoinMe" element={<JoinMePage />} />
-          <Route path="/TravelTools" element={<TravelToolsPage />} />
-          <Route path="/Profile" element={<UserProfilePage />} />
+          <Route path="/WhereIveBeen"             element={<WhereIveBeenPage />} />
+          <Route path="/WhereImGoing"             element={<WhereImGoingPage />} />
+          <Route path="/JoinMe"                   element={<JoinMePage />} />
+          <Route path="/TravelTools"              element={<TravelToolsPage />} />
+          <Route path="/Profile"                  element={<UserProfilePage />} />
 
-          {/* Map Explorer with drill-down routes */}
-          <Route path="/map" element={<MapExplorer />} />
-          <Route path="/map/:countryCode" element={<MapExplorer />} />
+          {/* Map Explorer with drill-down */}
+          <Route path="/map"                      element={<MapExplorer />} />
+          <Route path="/map/:countryCode"         element={<MapExplorer />} />
           <Route path="/map/:countryCode/:cityId" element={<MapExplorer />} />
         </Route>
       </Routes>

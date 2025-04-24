@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import NavBar from './NavBar';  // Assuming NavBar is in the same directory
+import NavBar from './AccountNavBar';  // Assuming NavBar is in the same directory
 
 const Layout = () => {
   return (
