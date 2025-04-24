@@ -87,6 +87,7 @@ const WhereImGoing = () => {
         setCategory("");
     };
 
+
     useEffect(() => {
         // fetch or set user data
         setTimeout(() => {
@@ -162,6 +163,10 @@ const WhereImGoing = () => {
                 hotels: []
             }
         };
+    }
+
+    async function deleteData(){
+
     }
 
     async function sendData(data: any) {
@@ -344,7 +349,7 @@ const WhereImGoing = () => {
     const destClick = (destination: string) => {
         if (!currentTrips) return;
         
-        const selectedDest = currentTrips.find((trip) => trip.Destination === destination);
+        const selectedDest = currentTrips.find((trip: Trip) => trip.Destination === destination);
         setSelectedDest(selectedDest || null);
         console.log(selectedDest);
     };
@@ -367,6 +372,7 @@ const WhereImGoing = () => {
                 <>
                     <div className="plans">
                         <div className="plansTitle">{category}</div>
+                        
                         <div className="cards" onClick={() => openEditModal(category)}>
                             <div className="imagePlaceholder"></div>
                             <p>Add New</p>
@@ -389,20 +395,23 @@ const WhereImGoing = () => {
         return (
             <div className="plans">
                 <div className="plansTitle">{category}</div>
-                <div className="cards">
-                    {currentItem.image ? (
-                        <img src={currentItem.image} alt={currentItem.title || category}></img>
-                    ) : (
-                        <div className="imagePlaceholder"></div>
-                    )}
-                    <h4>{currentItem.title}</h4>
-                    <p>{currentItem.description}</p>
-                </div>
 
                 <div className="controls">
                     <button onClick={handlePrev}>&lt;</button>
-                    <span>{currentIndex + 1} of {items.length}</span>
                     <button onClick={handleNext}>&gt;</button>
+                </div>
+
+                <div className="cards">
+                    <div className="imagePlaceholder"
+                        style={{
+                            background: currentItem.image
+                                ? `#ccc url(${currentItem.image}) center/160% no-repeat`
+                                : `#ccc`,
+                            }}>
+                    </div>
+
+                    <h4>{currentItem.title}</h4>
+                    <p>{currentItem.description}</p>
                 </div>
             </div>
         );
@@ -548,6 +557,10 @@ const WhereImGoing = () => {
                                         destClick(trip.Destination);
                                     }
                                 }>
+                                    <span className="close-button" onClick={deleteData}>
+                                        &times;
+                                    </span>
+
                                     <h2 className="destinationTitle">{trip.Destination}</h2>
                                     <div className="imagePlaceholder"
                                         style={{
@@ -559,17 +572,25 @@ const WhereImGoing = () => {
 
                                     <h3 className="destinationSubtitle">You've Planned:</h3>
                                     <ul className="destinationList">
-                                        {trip.Plans.Activities && trip.Plans.Activities.number > 0 && (
+                                        {trip.Plans.Activities && trip.Plans.Activities.number > 0 ? (
                                             <li>{trip.Plans.Activities.number} {trip.Plans.Activities.number === 1 ? 'Activity' : 'Activities'}</li>
+                                        ) : (
+                                            <li>&nbsp;</li>
                                         )}
-                                        {trip.Plans.Restaurants && trip.Plans.Restaurants.number > 0 && (
+                                        {trip.Plans.Restaurants && trip.Plans.Restaurants.number > 0 ? (
                                             <li>{trip.Plans.Restaurants.number} Restaurant{trip.Plans.Restaurants.number > 1 ? 's' : ''}</li>
+                                        ) : (
+                                            <li>&nbsp;</li>
                                         )}
-                                        {trip.Plans.Places && trip.Plans.Places.number > 0 && (
+                                        {trip.Plans.Places && trip.Plans.Places.number > 0 ? (
                                             <li>{trip.Plans.Places.number} Place{trip.Plans.Places.number > 1 ? 's' : ''}</li>
+                                        ) : (
+                                            <li>&nbsp;</li>
                                         )}
-                                        {trip.Plans.Hotels && trip.Plans.Hotels.number > 0 && (
+                                        {trip.Plans.Hotels && trip.Plans.Hotels.number > 0 ? (
                                             <li>{trip.Plans.Hotels.number} Hotel{trip.Plans.Hotels.number > 1 ? 's' : ''}</li>
+                                        ) : (
+                                            <li>&nbsp;</li>
                                         )}
                                     </ul>
                                 </div>
