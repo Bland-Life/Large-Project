@@ -362,7 +362,7 @@ const WhereImGoing = () => {
         // If no items, show the "Add New" card
         if (!items.length) {
             return (
-                <div>
+                <>
                     <div className="plans">
                         <div className="plansTitle">{category}</div>
                         <div className="cards" onClick={() => openEditModal(category)}>
@@ -421,7 +421,7 @@ const WhereImGoing = () => {
                             </div>
                         </div>
                     )}
-                </div>
+                </>
             );
         }
 
