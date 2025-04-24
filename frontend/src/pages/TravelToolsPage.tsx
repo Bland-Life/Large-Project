@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
+import "../css/TravelToolsFlights.css";
 import "../css/TravelTools.css";
 
 interface TravelToolsProps {
@@ -54,7 +55,7 @@ export default function TravelToolsPage({
       arrivalCode: "ATH",
       arrivalTime: "06:10 PM",
       boardingDate: "March 1, 2026",
-      imageUrl: "/images/Beach.jpg"
+      imageUrl: "/images/1.jpg"
     },
     {
       id: 2,
@@ -76,7 +77,7 @@ export default function TravelToolsPage({
       arrivalCode: "TYO",
       arrivalTime: "10:05 AM",
       boardingDate: "May 22, 2026",
-      imageUrl: "/images/New York.jpg"
+      imageUrl: "/images/Paris.jpg"
     },
     {
       id: 4,
