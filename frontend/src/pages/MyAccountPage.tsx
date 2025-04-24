@@ -18,9 +18,9 @@ const MyAccountPage: React.FC = () => {
           <span>
             <strong>{countryCount}</strong> / 195 countries visited
           </span>
-          <span>
+          {/* <span>
             <strong>{continentCount}</strong> / 7 continents visited
-          </span>
+          </span> */}
         </div>
       </section>
 
