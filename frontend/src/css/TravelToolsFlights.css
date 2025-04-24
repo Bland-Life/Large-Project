@@ -57,14 +57,14 @@
   
   .card-content .plane {
     position: absolute;
-    width: 100%;
-    height: auto;
-    max-height: 100px;
-    top: -60px;
-    left: 0;
+    width: 240px; /* Set a fixed width instead of 100% */
+    height: auto; /* Maintain aspect ratio */
+    top: -157px;
+    left: 50%; /* Center the plane */
+    transform: translateX(-50%); /* Center the plane */
     filter: drop-shadow(5px 5px 3px rgba(0,0,0,0.25));
-  }
-  
+    z-index: 20; /* Ensure it's above other elements */
+}
   .card-content .flight-details {
     display: flex;
     align-items: center;
@@ -108,11 +108,11 @@
   
   .footer-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 0 15px;
-    background: rgba(255,255,255,0.9);
-    margin-top: auto;
+    /* background: rgba(255,255,255,0.9); */
+    margin-top: 70px;
     height: 60px;
   }
   
@@ -123,13 +123,13 @@
   }
   
   .footer-content .date-title {
-    font-size: 10px;
+    font-size: 15px;
     text-transform: uppercase;
     color: #e43e9c;
   }
   
   .footer-content .travel-day {
-    font-size: 16px;
+    font-size: 25px;
     font-weight: 700;
   }
   
