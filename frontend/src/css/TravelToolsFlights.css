@@ -100,7 +100,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 15px 15px 0;
-    margin-top: 50px;
+    margin-top: 70px;
     font-family: "Monsterrat", sans-serif;
 }
 
@@ -146,7 +146,7 @@
     align-items: center;
     padding: 0 15px;
     /* background: rgba(255,255,255,0.9); */
-    margin-top: 70px;
+    margin-top: 30px;
     height: 60px;
 }
 
