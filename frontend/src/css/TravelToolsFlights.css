@@ -147,7 +147,12 @@
 .footer-content .date-title {
     font-size: 15px;
     text-transform: uppercase;
-    color: #e43e9c;
+    color: white; /* Fill color */
+    text-shadow: 
+        -1px -1px 0 #e43e9c,  
+         1px -1px 0 #e43e9c,
+        -1px  1px 0 #e43e9c,
+         1px  1px 0 #e43e9c;
     font-weight: 400;
 }
 
