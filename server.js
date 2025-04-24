@@ -305,6 +305,25 @@ app.post('/api/createemptygoing', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
+app.delete('api/deletetrip/:username', async (req, res, next) => {
+    const username = req.params.username;
+    const { destination, date } = req.body;
+
+    if (!destination || !date){
+        return res.status(400).json({error: "Destination and date are required"});
+    }
+
+    const db = client.db();
+    const results = await db.collection('WhereImGoing').updateOne({Username: username}, {$pull: {Trips: {Destination: destination, Date: date}}});
+
+    var status = "Failed to delete trip";
+    if (results.acknowledged) {
+        status = "Success";
+    }
+    var ret = {status: status};
+    res.status(200).json(ret);
+});
+
 app.put('/api/addtrip/:username', async (req, res, next) => {
     const username = req.params.username;
     const { destination, date, plans, image } = req.body;

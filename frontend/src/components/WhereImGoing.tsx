@@ -72,7 +72,6 @@ const WhereImGoing = () => {
         setEditingCategory(cat);
         
         if (item && index !== undefined) {
-            console.log("MORE EDITING");
             // We're editing an existing item
             setIsEditing(true);
             setCurrentItemIndex(index);
@@ -80,7 +79,6 @@ const WhereImGoing = () => {
             setDescription(item.description);
             setImagePreview(item.image || "");
         } else {
-            console.log("GOING IN TO ADDING");
             // We're adding a new item
             setIsEditing(false);
             setCurrentItemIndex(null);
@@ -89,9 +87,6 @@ const WhereImGoing = () => {
         }
         
         setIsEditModalOpen(true);
-        console.log(isEditModalOpen);
-        console.log(category);
-        console.log(editingCategory);
     };
     
     const closeEditModal = () => {
@@ -226,8 +221,28 @@ const WhereImGoing = () => {
         };
     }
 
-    async function deleteData() {
-        // Implement delete functionality
+    async function deleteData(data: any[]) {
+        try {
+            const jsTripData = JSON.stringify(data);
+
+            const response = await fetch(`https://ohtheplacesyoullgo.space/api/deletetrip/${userData.username}`, {
+                method: "DELETE",
+                body: jsTripData,
+                headers: { "Content-Type": "application/json"}
+            });
+
+            const res = JSON.parse(await response.text());
+
+            if (res.status !== "Success"){
+                throw new Error(res.message || "Failed to delete trip");
+            }
+
+            return res;
+        } catch (err){
+            console.error("Error sending data:", err);
+            setError("Failed to delete trip. Please try again.");
+            throw err;
+        }
     }
 
     async function sendData(data: any) {
@@ -422,6 +437,27 @@ const WhereImGoing = () => {
     async function handleTripEditSubmit(event: React.FormEvent): Promise<void> {
         event.preventDefault();
         await updateTripDetails();
+    }
+
+    async function deleteTrip(destination: string, date): Promise<void> {
+        setIsLoading(true);
+        setError(null);
+
+        try {
+            console.log("Deleting Trip");
+            const formattedData = await [{ destination, date }];
+            await deleteData(formattedData);
+            
+            if (userData) {
+                const trips = await getTrips(userData.username);
+                setCurrentTrips(trips);
+            }
+        } catch(err) {
+            console.error("Error in deleteTrip:", err);
+            setError("Failed to delete trip. Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     async function addTrip(event: React.FormEvent): Promise<void> {
@@ -826,7 +862,7 @@ const WhereImGoing = () => {
                                         destClick(trip.Destination);
                                     }
                                 }>
-                                    <span className="close-button" onClick={deleteData}>
+                                    <span className="close-button" onClick={deleteTrip(trip.destination, trip.date)}>
                                         &times;
                                     </span>
 
