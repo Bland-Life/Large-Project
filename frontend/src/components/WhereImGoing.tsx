@@ -141,6 +141,8 @@ const WhereImGoing = () => {
     const Carousel = ({ data, category }: {data: any[], category: string}) => {
         const [currentIndex, setCurrentIndex] = useState(0);
 
+        if (!data || data.length === 0) return null;
+
         const handleNext = () => {
             setCurrentIndex((prevIndex: number) => (prevIndex + 1) % data.length);
         };
@@ -148,8 +150,6 @@ const WhereImGoing = () => {
         const handlePrev = () => {
             setCurrentIndex((prevIndex: number) => (prevIndex - 1 + data.length) % data.length);
         };
-
-        if (!data || data.length === 0) return null;
 
         const currentItem = data[currentIndex];
 
@@ -179,13 +179,13 @@ const WhereImGoing = () => {
             {selectedDest ? (
                 <div className="destinationLayout">
                     <div className="plansContainer">
-                        <Carousel category="Activities" data={selectedDest.Activities}></Carousel>
+                        <Carousel category="Activities" data={selectedDest.Plans.Activities.activities}></Carousel>
 
-                        <Carousel category="Restraunts" data={selectedDest.Restraunts}></Carousel>
+                        <Carousel category="Restraunts" data={selectedDest.Plans.Restaurants.restaurants}></Carousel>
 
-                        <Carousel category="Places" data={selectedDest.Places}></Carousel>
+                        <Carousel category="Places" data={selectedDest.Plans.Places}></Carousel>
 
-                        <Carousel category="Hotels" data={selectedDest.Hotels}></Carousel>
+                        <Carousel category="Hotels" data={selectedDest.Plans.Hotels}></Carousel>
                     </div>
                 </div>
             ) : (
