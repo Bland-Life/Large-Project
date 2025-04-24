@@ -54,12 +54,42 @@ function SignUp(){
                 setMessage(res.error);
             }else {
                 setMessage('Signup Successful! Please log in.');
+                doBackgroundAPIs(username);
                 window.location.href = '/login';
             }
         }catch (error: any) {
             alert(error.toString());
         }
     };
+
+    async function doBackgroundAPIs(_username: string) {
+        const user = {
+            username: _username
+        }
+        const response1 = await fetch('https://ohtheplacesyoullgo.space/api/addusertocountries', {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers: {'Content-Type': 'application/json'}
+        });
+
+        const res1 = JSON.parse(await response1.text());
+
+        const response2 = await fetch('https://ohtheplacesyoullgo.space/api/addemptytravelstats', {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers: {'Content-Type': 'application/json'}
+        });
+
+        const res2 = JSON.parse(await response2.text());
+
+        const response3 = await fetch('https://ohtheplacesyoullgo.space/api/createemptygoing', {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers: {'Content-Type': 'application/json'}
+        });
+
+        const res3 = JSON.parse(await response3.text());
+    }
 
     return(
         <div className="signupContainer">
