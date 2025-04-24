@@ -503,8 +503,8 @@ app.put('/api/deleteflight/:username', async (req, res, next) => {
 
     const db = client.db();
     const results = await db.collection('TravelTools')
-    .updateOne({Username:username}, { $pull: { flights: { departcode: departcode, arrivecode: arrivecode } } });
-    var status = "Failed to add flight";
+    .updateOne({Username:username}, { $pull: { UpcomingFlights: { departcode: departcode, arrivecode: arrivecode } } });
+    var status = "Failed to delete flight";
     if (results.acknowledged) {
         status = "Success";
     }
