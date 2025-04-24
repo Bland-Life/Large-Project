@@ -25,7 +25,7 @@ function App() {
     <Router>
       <Routes>
         {/* Wrap all routes with Layout so nav/sidebar shows */}
-        <Route element={<Layout />}>  
+        <Route>  
           <Route path="/"                         element={<HomePage />} />
           <Route path="/Login"                    element={<LoginPage />} />
           <Route path="/Signup"                   element={<SignupPage />} />
