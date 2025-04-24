@@ -21,6 +21,10 @@
     margin-right:24px;
   }
 
+  #acount-nav__linkdiv {
+    margin: auto;
+  }
+
   
   /* centre tab row pushed right */
   .account-nav__tabs{
@@ -34,7 +38,7 @@
     color:#fff;
     font-weight:600;
     text-decoration:none;
-    font-size:1rem;
+    font-size:2rem;
     padding: 5px 5px; 
   }
   .account-nav__item:hover{
