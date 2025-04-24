@@ -1,7 +1,7 @@
 /* AccountNavBar.tsx (components) */
 
 import React, { useState } from 'react';
-// import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import balloon from "../assets/balloon.png";
 import "../css/AccountNavBar.css";
 
@@ -13,17 +13,7 @@ import "../css/AccountNavBar.css";
 //   { label: "Travel Tools",    to: "/TravelTools" }
 // ];
 
-// export default function AccountNavBar() {
-//   let _ud: any = localStorage.getItem('user_data');
-//   let ud = JSON.parse(_ud);
-
-//   const [userData, setUserData] = useState({
-//       name: ud.firstName,
-//       username: ud.username,
-//       email: ud.email,
-//       profileimage: ud.profileimage,
-//   });
-  
+// export default function AccountNavBar() {  
 //   const location = useLocation();
 //   const currentPath = location.pathname;
 
@@ -45,21 +35,22 @@ import "../css/AccountNavBar.css";
 //       </div>
 
 //       {/*avatar link */}
-//       <Link to="/Profile">
-//         <div 
-//           className="account-nav__avatar" 
-//           style={{
-//               background: userData.profileimage
-//                   ? `#ccc url(${userData.profileimage}) center/160% no-repeat`
-//                   : `#ccc`,
-//           }}/>
-//       </Link>
 //     </nav>
 //   );
 // }
 
 const AccountNavBar = () =>
   {
+    let _ud: any = localStorage.getItem('user_data');
+    let ud = JSON.parse(_ud);
+  
+    const [userData, setUserData] = useState({
+        name: ud.firstName,
+        username: ud.username,
+        email: ud.email,
+        profileimage: ud.profileimage,
+    });
+    
     return (
       <nav className='account-nav'>
         <a href="/"><img src={balloon} alt="logo" className="account-nav__logo" /></a>
@@ -69,7 +60,15 @@ const AccountNavBar = () =>
           <a href="/JoinMe" className='account-nav__item'>Join Me</a>
           <a href="/TravelTools" className='account-nav__item'>Travel Tools</a>
         </div>
-        
+        <Link to="/Profile">
+        <div 
+          className="account-nav__avatar" 
+          style={{
+              background: userData.profileimage
+                  ? `#ccc url(${userData.profileimage}) center/160% no-repeat`
+                  : `#ccc`,
+          }}/>
+      </Link>
       </nav>
     );
 };
