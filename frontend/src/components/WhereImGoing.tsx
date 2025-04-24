@@ -156,6 +156,27 @@ const WhereImGoing = () => {
         }
     }, [userData]); 
 
+    const formatDateString = (dateString) => {
+        if (!dateString) return '';
+        
+        try {
+          const date = new Date(dateString);
+          if (isNaN(date.getTime())) {
+            // If date is invalid, just return the original string
+            return dateString;
+          }
+          
+          return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+        } catch (e) {
+          // If there's any error, return the original string
+          return dateString;
+        }
+      };
+
     async function formatData(): Promise<any> {
         try {
             let filename = "";
