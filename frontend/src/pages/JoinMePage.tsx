@@ -1,6 +1,5 @@
 // src/pages/JoinMePage.tsx
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/JoinMe.css";
 
 interface Post {
@@ -11,59 +10,61 @@ interface Post {
   caption: string;
 }
 
-// dummy data you can swap out later
 const dummyPosts: Post[] = [
   {
     id: 1,
     user: "Jane Doe",
-    avatar: "https://via.placeholder.com/50",
-    image: "https://via.placeholder.com/600x400",
+    avatar: "/images/avatar-1.png",      // ← no “joinme” folder
+    image:  "/images/post-1.jpg",        // ← matches post-1.jpg
     caption: "Exploring the mountains! Can’t wait for company 🏞️",
   },
   {
     id: 2,
     user: "John Smith",
-    avatar: "https://via.placeholder.com/50",
-    image: "https://via.placeholder.com/600x400",
+    avatar: "/images/avatar-2.png",
+    image:  "/images/post-2.jpg",
     caption: "Beach trip planned for next week — DM me to join! 🌊☀️",
   },
   {
     id: 3,
     user: "TravelGuru",
-    avatar: "https://via.placeholder.com/50",
-    image: "https://via.placeholder.com/600x400",
+    avatar: "/images/avatar-3.png",
+    image:  "/images/post-1.jpg",        // ← or add a post-3.jpg if you have one
     caption: "Road trip vibes 🚗💨 #JoinMe",
   },
 ];
 
-const JoinMePage: React.FC = () => {
-  return (
-    <div className="container py-4">
-      <h2 className="mb-4">Join Me Feed</h2>
-      <div className="row">
-        {dummyPosts.map((post) => (
-          <div key={post.id} className="col-md-6 mb-4">
-            <div className="card">
-              <div className="card-header d-flex align-items-center">
-                <img
-                  src={post.avatar}
-                  alt={`${post.user} avatar`}
-                  className="rounded-circle mr-3"
-                  style={{ width: 50, height: 50 }}
-                />
-                <strong className="ml-2">{post.user}</strong>
-              </div>
-              <img src={post.image} className="card-img-top" alt="Trip" />
-              <div className="card-body">
-                <p className="card-text">{post.caption}</p>
-                <button className="btn btn-primary btn-sm">Join Trip</button>
-              </div>
-            </div>
+
+
+const JoinMePage: React.FC = () => (
+  <div className="joinme-page">
+    <h2 className="feed-title">Join Me Feed</h2>
+    <div className="feed">
+      {dummyPosts.map((post) => (
+        <div key={post.id} className="post-card">
+          <div className="post-header">
+            <img
+              src={post.avatar}
+              alt={`${post.user} avatar`}
+              className="avatar"
+            />
+            <span className="username">{post.user}</span>
           </div>
-        ))}
-      </div>
+          <img
+            src={post.image}
+            alt="Trip preview"
+            className="post-image"
+          />
+          <div className="post-body">
+            <p className="caption">
+              <strong>{post.user}</strong> {post.caption}
+            </p>
+            <button className="join-btn">Join Trip</button>
+          </div>
+        </div>
+      ))}
     </div>
-  );
-};
+  </div>
+);
 
 export default JoinMePage;
