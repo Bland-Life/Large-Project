@@ -72,6 +72,7 @@ const WhereImGoing = () => {
         setEditingCategory(cat);
         
         if (item && index !== undefined) {
+            console.log("MORE EDITING");
             // We're editing an existing item
             setIsEditing(true);
             setCurrentItemIndex(index);
@@ -79,6 +80,7 @@ const WhereImGoing = () => {
             setDescription(item.description);
             setImagePreview(item.image || "");
         } else {
+            console.log("GOING IN TO ADDING");
             // We're adding a new item
             setIsEditing(false);
             setCurrentItemIndex(null);
