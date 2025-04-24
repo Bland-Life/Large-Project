@@ -59,7 +59,9 @@
     border: 2px solid;
     border-image:linear-gradient(90deg,#FFA500 0%,#F1392F 30%,#4E00D5  100%) 1;
     border-radius: 10px;
+    width: 30%;
     padding: 1rem 0;
+    box-sizing: border-box;
     text-align: center;
 }
 
@@ -121,7 +123,7 @@
 .imagePlaceholder {
     width: 90%;
     height: 150px;
-    background-color: #fff; /* White box */
+    background-color: #2600ff; /* White box */
     border-radius: 10px;
     margin-bottom: 0.5rem;
 }
