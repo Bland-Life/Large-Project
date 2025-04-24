@@ -530,8 +530,10 @@ const WhereImGoing = () => {
                             if (idx !== 1) return;
                             
                             if (item.isAddNew) {
+                                console.log("Adding New");
                                 openEditModal(category);
                             } else {
+                                console.log("Editing");
                                 const itemIndex = actualIndex < items.length ? actualIndex : null;
                                 openEditModal(category, item, itemIndex);
                             }
