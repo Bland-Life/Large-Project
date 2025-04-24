@@ -63,10 +63,13 @@ const AccountNavBar = () =>
     return (
       <nav className='account-nav'>
         <img src={balloon} alt="logo" className="account-nav__logo" />
-        <a href="/MyAccount" className='account-nav__item'>Where I've Been</a>
-        <a href="WhereImGoing" className='account-nav__item'>Where I'm Going</a>
-        <a href="JoinMe" className='account-nav__item'>Join Me</a>
-        <a href="TravelTools" className='account-nav__item'>Travel Tools</a>
+        <div id='acount-nav__linkdiv'>
+          <a href="/MyAccount" className='account-nav__item'>Where I've Been</a>
+          <a href="WhereImGoing" className='account-nav__item'>Where I'm Going</a>
+          <a href="JoinMe" className='account-nav__item'>Join Me</a>
+          <a href="TravelTools" className='account-nav__item'>Travel Tools</a>
+        </div>
+        
       </nav>
     );
 };
