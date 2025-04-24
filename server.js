@@ -408,7 +408,7 @@ app.put('/api/addtopacking/:username', async (req, res, next) => {
     const username = req.params.username;
     const { name, packinglist } = req.body
     const db = client.db();
-    const results = await db.collection('TravelTools').updateOne({Username:username, "PackingList.name": name}, {$set: {list:packinglist}});
+    const results = await db.collection('TravelTools').updateOne({Username:username, "PackingList.name": name}, {$set: {"PackingList.$.list":packinglist}});
     var status = "Failed to add list";
     if (results.acknowledged) {
         status = "Success";
