@@ -277,7 +277,7 @@ export default function TravelToolsPage({
                     className={`card ${activeFlightId === flight.id ? 'active' : ''}`}
                     onClick={() => toggleFlightCard(flight.id)}
                   >
-                    <div className="card-img">
+                    <div className="card-img object-fit: cover">
                       <img src={flight.imageUrl} alt={flight.departureCity} />
                     </div>
                     <div className="card-content">
