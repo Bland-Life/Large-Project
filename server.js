@@ -136,7 +136,7 @@ app.get('/api/getcountries/:username', async (req, res, next) => {
 
 app.put('/api/addcountry/:username', async (req, res, next) => {
     const username = req.params.username;
-    const country = req.body;
+    const { country } = req.body;
     const db = client.db();
     const results = await
     db.collection('Countries').updateOne({ Username:username }, {$push: {Countries: country}});
