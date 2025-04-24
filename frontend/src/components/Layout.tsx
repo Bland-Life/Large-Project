@@ -7,7 +7,11 @@ const Layout = () => {
     <div>
       {/* NavBar is shared across all pages */}
       <NavBar />
-      <Outlet />
+      
+      {/* Outlet renders the current page component */}
+      <div className="content">
+        <Outlet />
+      </div>
     </div>
   );
 };
