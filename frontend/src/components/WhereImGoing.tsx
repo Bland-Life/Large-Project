@@ -55,8 +55,6 @@ const WhereImGoing = () => {
     const [date, setDate] = useState<string>("");
     const [image, setImage] = useState<File | null>(null);
 
-
-
     // Modal control functions
     const openAddModal = () => setIsAddModalOpen(true);
     const closeAddModal = () => {
@@ -253,7 +251,7 @@ const WhereImGoing = () => {
         }
     }
 
-    async function editTrip(event: React.FormEvent): Promise<void> {
+    async function handleEditFormSubmit(event: React.FormEvent): Promise<void> {
         event.preventDefault();
         
         if (!title.trim()) {
@@ -379,10 +377,7 @@ const WhereImGoing = () => {
                                 <span className="close-button" onClick={closeEditModal}>
                                     &times;
                                 </span>
-                                <form onSubmit={(e) => {
-                                    e.preventDefault();
-                                    editTrip(e);
-                                }}>
+                                <form onSubmit={handleEditFormSubmit}>
                                     <h2>Add {category}</h2>
                                     <label>
                                         Title:
@@ -391,6 +386,7 @@ const WhereImGoing = () => {
                                             name="title" 
                                             value={title} 
                                             onChange={(e) => setTitle(e.target.value)}
+                                            required
                                         />
                                     </label>
                                     <br />
@@ -498,35 +494,42 @@ const WhereImGoing = () => {
                                 <span className="close-button" onClick={closeAddModal}>
                                     &times;
                                 </span>
-                                <form>
+                                <form onSubmit={addTrip}>
                                     <h2>Where I'm Going Form</h2>
                                     <label>
                                         Destination:
-                                        <input type="text" 
-                                        name="destination" 
-                                        value={destination} 
-                                        onChange={(e) => setDestination(e.target.value)}/>
+                                        <input 
+                                            type="text" 
+                                            name="destination" 
+                                            value={destination} 
+                                            onChange={(e) => setDestination(e.target.value)}
+                                            required
+                                        />
                                     </label>
                                     <br />
                                     <label>
                                         Date:
-                                        <input type="date" 
-                                        name="date" 
-                                        value={date} 
-                                        onChange={(e) => setDate(e.target.value)}/>
+                                        <input 
+                                            type="date" 
+                                            name="date" 
+                                            value={date} 
+                                            onChange={(e) => setDate(e.target.value)}
+                                            required
+                                        />
                                     </label>
                                     <br />
                                     <label>
                                         Upload Image:
-                                        <input type="file" 
-                                        name="image" 
-                                        accept="image/*" 
-                                        onChange={handleImageChange}/>
+                                        <input 
+                                            type="file" 
+                                            name="image" 
+                                            accept="image/*" 
+                                            onChange={handleImageChange}
+                                        />
                                     </label>
                                     <br />
                                     <button 
                                         type="submit" 
-                                        onClick={addTrip}
                                         disabled={isLoading}
                                     >
                                         {isLoading ? 'Submitting...' : 'Submit'}
