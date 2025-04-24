@@ -1,8 +1,22 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import "../css/TravelTools.css";
 
 interface TravelToolsProps {
   pageType?: string;
+}
+
+// Define currency data structure
+interface Currency {
+  code: string;
+  name: string;
+  flag: string;
+}
+
+// For real implementation, you'd use an API for live rates
+interface ConversionRates {
+  [key: string]: {
+    [key: string]: number;
+  };
 }
 
 export default function TravelToolsPage({
@@ -11,8 +25,33 @@ export default function TravelToolsPage({
   const [amount, setAmount] = useState("1.00");
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("KRW");
-  const [conversionRate] = useState(1423.9607);
-  const [inverseRate] = useState(0.00070267);
+  const [conversionRate, setConversionRate] = useState(1423.9607);
+  const [inverseRate, setInverseRate] = useState(0.00070267);
+  const [convertedAmount, setConvertedAmount] = useState(1423.9607);
+
+  // Currencies data
+  const currencies: Currency[] = [
+    { code: "USD", name: "US Dollar", flag: "🇺🇸" },
+    { code: "EUR", name: "Euro", flag: "🇪🇺" },
+    { code: "GBP", name: "British Pound", flag: "🇬🇧" },
+    { code: "JPY", name: "Japanese Yen", flag: "🇯🇵" },
+    { code: "KRW", name: "South Korean Won", flag: "🇰🇷" },
+    { code: "CAD", name: "Canadian Dollar", flag: "🇨🇦" },
+    { code: "AUD", name: "Australian Dollar", flag: "🇦🇺" },
+    { code: "CNY", name: "Chinese Yuan", flag: "🇨🇳" },
+  ];
+
+  // Sample conversion rates (in a real app, you'd fetch these from an API)
+  const rates: ConversionRates = {
+    USD: { USD: 1, EUR: 0.91, GBP: 0.79, JPY: 153.24, KRW: 1423.96, CAD: 1.38, AUD: 1.52, CNY: 7.25 },
+    EUR: { USD: 1.10, EUR: 1, GBP: 0.87, JPY: 168.64, KRW: 1566.98, CAD: 1.52, AUD: 1.67, CNY: 7.98 },
+    GBP: { USD: 1.27, EUR: 1.15, GBP: 1, JPY: 194.19, KRW: 1804.76, CAD: 1.75, AUD: 1.93, CNY: 9.19 },
+    JPY: { USD: 0.0065, EUR: 0.0059, GBP: 0.0052, JPY: 1, KRW: 9.29, CAD: 0.009, AUD: 0.0099, CNY: 0.047 },
+    KRW: { USD: 0.00070, EUR: 0.00064, GBP: 0.00055, JPY: 0.11, KRW: 1, CAD: 0.00097, AUD: 0.0011, CNY: 0.0051 },
+    CAD: { USD: 0.72, EUR: 0.66, GBP: 0.57, JPY: 111.04, KRW: 1032.58, CAD: 1, AUD: 1.10, CNY: 5.26 },
+    AUD: { USD: 0.66, EUR: 0.60, GBP: 0.52, JPY: 100.95, KRW: 938.71, CAD: 0.91, AUD: 1, CNY: 4.78 },
+    CNY: { USD: 0.14, EUR: 0.13, GBP: 0.11, JPY: 21.13, KRW: 196.41, CAD: 0.19, AUD: 0.21, CNY: 1 },
+  };
 
   // Packing list state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,8 +74,41 @@ export default function TravelToolsPage({
     { from: "LHR", to: "DXB", departure: "London", arrival: "Dubai" },
   ];
 
+  // Find currency by code
+  const getCurrencyByCode = (code: string): Currency => {
+    return currencies.find(currency => currency.code === code) || currencies[0];
+  };
+
+  // Update conversion rates when currencies change
+  useEffect(() => {
+    const from = fromCurrency;
+    const to = toCurrency;
+    const rate = rates[from][to];
+    const inverse = rates[to][from];
+    
+    setConversionRate(rate);
+    setInverseRate(inverse);
+    calculateConversion(amount, rate);
+  }, [fromCurrency, toCurrency]);
+
+  // Calculate the converted amount
+  const calculateConversion = (value: string, rate: number) => {
+    const numValue = parseFloat(value) || 0;
+    setConvertedAmount(numValue * rate);
+  };
+
   const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setAmount(e.target.value);
+    const value = e.target.value;
+    setAmount(value);
+    calculateConversion(value, conversionRate);
+  };
+
+  const handleFromCurrencyChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setFromCurrency(e.target.value);
+  };
+
+  const handleToCurrencyChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setToCurrency(e.target.value);
   };
 
   const handlePackingItemChange = (index: number, value: string) => {
@@ -95,9 +167,12 @@ export default function TravelToolsPage({
       ? "page-container no-scroll"
       : "page-container";
 
+  // Get current currencies
+  const fromCurrencyObj = getCurrencyByCode(fromCurrency);
+  const toCurrencyObj = getCurrencyByCode(toCurrency);
+
   return (
     <div className={containerClass}>
-  
       <div className="content-container">
         <div className="sections-wrapper">
           {/* Upcoming Flights Section */}
@@ -149,17 +224,16 @@ export default function TravelToolsPage({
                       <select
                         className="form-select"
                         value={fromCurrency}
-                        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                          setFromCurrency(e.target.value)
-                        }
+                        onChange={handleFromCurrencyChange}
                       >
-                        <option value="USD">USD - US Dollar</option>
-                        <option value="EUR">EUR - Euro</option>
-                        <option value="GBP">GBP - British Pound</option>
-                        <option value="JPY">JPY - Japanese Yen</option>
+                        {currencies.map((currency) => (
+                          <option key={currency.code} value={currency.code}>
+                            {currency.code} - {currency.name}
+                          </option>
+                        ))}
                       </select>
                       <div className="form-select-icon">
-                        <span>🇺🇸</span>
+                        <span>{fromCurrencyObj.flag}</span>
                       </div>
                     </div>
                   </div>
@@ -169,24 +243,23 @@ export default function TravelToolsPage({
                       <select
                         className="form-select"
                         value={toCurrency}
-                        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                          setToCurrency(e.target.value)
-                        }
+                        onChange={handleToCurrencyChange}
                       >
-                        <option value="KRW">KRW - South Korean Won</option>
-                        <option value="EUR">EUR - Euro</option>
-                        <option value="GBP">GBP - British Pound</option>
-                        <option value="JPY">JPY - Japanese Yen</option>
+                        {currencies.map((currency) => (
+                          <option key={currency.code} value={currency.code}>
+                            {currency.code} - {currency.name}
+                          </option>
+                        ))}
                       </select>
                       <div className="form-select-icon">
-                        <span>🇰🇷</span>
+                        <span>{toCurrencyObj.flag}</span>
                       </div>
                     </div>
                   </div>
                   <div className="form-group">
                     <label className="form-label">Amount</label>
                     <div className="form-input-container">
-                      <span className="form-input-prefix">$</span>
+                      <span className="form-input-prefix">{fromCurrencyObj.code}</span>
                       <input
                         type="text"
                         className="form-input"
@@ -198,18 +271,20 @@ export default function TravelToolsPage({
                 </div>
                 <div className="currency-result">
                   <div className="conversion-display">
-                    <div className="conversion-from">{amount} US Dollar =</div>
+                    <div className="conversion-from">
+                      {amount} {fromCurrencyObj.name} =
+                    </div>
                     <div className="conversion-result">
                       <span className="conversion-result-number">
-                        {(parseFloat(amount) * conversionRate).toFixed(4)}
+                        {convertedAmount.toFixed(4)}
                       </span>
                       <span className="conversion-result-currency">
                         {" "}
-                        South Korean Won
+                        {toCurrencyObj.name}
                       </span>
                     </div>
                     <div className="conversion-rate">
-                      1 KRW = {inverseRate} USD
+                      1 {toCurrencyObj.code} = {inverseRate.toFixed(6)} {fromCurrencyObj.code}
                     </div>
                   </div>
                 </div>
@@ -255,7 +330,7 @@ export default function TravelToolsPage({
               <>
                 {packingItems.map((item, index) => (
                   <div key={index} className="packing-item">
-                    <span>{index + 1}. </span> {/* Display the item number */}
+                    <span>{index + 1}. </span>
                     <input
                       type="text"
                       value={item}
@@ -277,7 +352,7 @@ export default function TravelToolsPage({
                 <ul>
                   {packingItems.map((item, index) => (
                     <li key={index}>
-                      {index + 1}. {item} {/* Display the item number */}
+                      {index + 1}. {item}
                     </li>
                   ))}
                 </ul>
