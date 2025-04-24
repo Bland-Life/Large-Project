@@ -66,6 +66,7 @@ export default function MapExplorer({
 
   // toggle a country, persist, and notify parent of new count
   const toggle = (code: string) => {
+    console.log(visited instanceof Set); 
     setVisited(async prev => {
       const next = new Set(prev);
       if (next.has(code)) {
