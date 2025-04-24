@@ -365,8 +365,72 @@ app.get('/api/gettrips/:username', async (req, res, next) => {
     }
     var ret = {trips: trips, status: status};
     res.status(200).json(ret);
-})
+});
 
+app.post('/api/createtraveltools', async (req, res, next) => {
+    const { username } = req.body;
+    const userDocument = {
+        Username: username,
+        UpcomingFlights: [],
+        PackingList: [{
+            name: "General Packing",
+            list: []
+        }]
+    };
+    const db = client.db();
+    const results = await db.collection('TravelTools').insertOne(userDocument);
+    var status = "Failed to add user";
+    if (results.acknowledged) {
+        status = "Success";
+    }
+    var ret = {status: status};
+    res.status(200).json(ret);
+});
+
+app.put('/api/addpackinglist/:username', async (req, res, next) => {
+    const username = req.params.username;
+    const { name } = req.body
+    const packinglist = {
+        name: name,
+        list: []
+    }
+    const db = client.db();
+    const results = await db.collection('TravelTools').updateOne({Username:username}, {$push: {PackingList:packinglist}});
+    var status = "Failed to add list";
+    if (results.acknowledged) {
+        status = "Success";
+    }
+    var ret = {status: status};
+    res.status(200).json(ret);
+});
+
+app.put('/api/addtopacking/:username', async (req, res, next) => {
+    const username = req.params.username;
+    const { name, packinglist } = req.body
+    const db = client.db();
+    const results = await db.collection('TravelTools').updateOne({Username:username, "PackingList.name": name}, {$set: {list:packinglist}});
+    var status = "Failed to add list";
+    if (results.acknowledged) {
+        status = "Success";
+    }
+    var ret = {status: status};
+    res.status(200).json(ret);
+});
+
+app.get('/api/getlist/:username', async (req, res, next) => {
+    const username = req.params.username;
+    const { name } = req.body;
+    const db = client.db();
+    const results = await db.collection('TravelTools').find({Username:username, "PackingList.name":name}).toArray();
+    var status = "Failed to get list";
+    var list;
+    if (results.length > 0) {
+        status = "Success";
+        list = results[0].list;
+    }
+    var ret = {list: list, status: status};
+    res.status(200).json(ret);
+});
 
 app.post('/webhook', express.raw({ type: '*/*' }),  (req, res) => {
     console.log('🚨 Received webhook POST request!');
