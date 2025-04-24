@@ -152,11 +152,6 @@ const WhereImGoing = () => {
                             <p>Add New</p>
                         </div>
                     </div>
-
-                    <div className="controls">
-                        <button onClick={handlePrev}>&lt;</button>
-                        <button onClick={handleNext}>&gt;</button>
-                    </div>
                 </div>
             )
         }
@@ -181,6 +176,11 @@ const WhereImGoing = () => {
                         <div className="imagePlaceholder"></div>
                     )}
                     <p>{currentItem.desc}</p>
+                </div>
+
+                <div className="controls">
+                    <button onClick={handlePrev}>&lt;</button>
+                    <button onClick={handleNext}>&gt;</button>
                 </div>
             </div>
         );
