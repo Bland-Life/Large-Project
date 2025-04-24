@@ -171,6 +171,30 @@ export default function TravelToolsPage({
   const fromCurrencyObj = getCurrencyByCode(fromCurrency);
   const toCurrencyObj = getCurrencyByCode(toCurrency);
 
+  // CSS styles for form elements
+  const inputStyles = {
+    containerStyle: {
+      display: 'flex',
+      alignItems: 'center',
+      border: '1px solid #ccc',
+      borderRadius: '4px',
+      overflow: 'hidden'
+    },
+    prefixStyle: {
+      padding: '8px 12px',
+      backgroundColor: '#f5f5f5',
+      borderRight: '1px solid #ccc',
+      minWidth: '60px',
+      textAlign: 'center' as const
+    },
+    inputStyle: {
+      flex: '1',
+      border: 'none',
+      padding: '8px 12px',
+      outline: 'none'
+    }
+  };
+
   return (
     <div className={containerClass}>
       <div className="content-container">
@@ -258,11 +282,11 @@ export default function TravelToolsPage({
                   </div>
                   <div className="form-group">
                     <label className="form-label">Amount</label>
-                    <div className="form-input-container">
-                      <span className="form-input-prefix">{fromCurrencyObj.code}</span>
+                    <div style={inputStyles.containerStyle}>
+                      <div style={inputStyles.prefixStyle}>{fromCurrencyObj.code}</div>
                       <input
                         type="text"
-                        className="form-input"
+                        style={inputStyles.inputStyle}
                         value={amount}
                         onChange={handleAmountChange}
                       />
