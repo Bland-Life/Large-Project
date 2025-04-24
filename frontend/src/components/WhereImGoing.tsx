@@ -131,7 +131,7 @@ const WhereImGoing = () => {
 
     console.log("DATA");
 
-    const destClick = (destinationName: string) => {
+    const destClick = (destination: string) => {
         const selectedDest = currentTrips.find((trip) => trip.Destination === destination);
         setSelectedDest(selectedDest);
     };
