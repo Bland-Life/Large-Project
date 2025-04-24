@@ -537,24 +537,34 @@ const WhereImGoing = () => {
     }
 
     async function getTrips(user: string): Promise<Trip[]> {
-        try {
-            const response = await fetch(`https://ohtheplacesyoullgo.space/api/gettrips/${user}`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json" },
-            });
-        
-            const res = JSON.parse(await response.text());
+        const url  = `https://ohtheplacesyoullgo.space/api/gettrips/${user}`;
+        const resp = await fetch(url, {
+        method:  "GET",
+        headers: { "Content-Type": "application/json" },
+        });
 
-            if (res.status === "Success") {
-                return res.trips;
-            }
-            
-            throw new Error(res.message || "Failed to get trips");
-        } catch (err) {
-            console.error("Error getting trips:", err);
-            setError("Failed to load trips. Please try again.");
-            throw err;
+        // parse body safely
+        const text = await resp.text();
+        let body: any;
+        try {
+        body = JSON.parse(text);
+        } catch {
+        console.error("getTrips: invalid JSON:", text);
+        throw new Error("Invalid JSON from getTrips()");
+
         }
+
+        // 409 = “no trips yet” → return []
+        if (resp.status === 409) {
+        return [];
+        }
+        if (!resp.ok) {
+        throw new Error(body.message || `getTrips failed (${resp.status})`);
+        }
+        if (body.status === "Success" && Array.isArray(body.trips)) {
+        return body.trips;
+        }
+        throw new Error(body.message || "getTrips returned bad payload");
     }
 
     function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
