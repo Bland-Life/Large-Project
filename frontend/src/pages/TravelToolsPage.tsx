@@ -77,7 +77,7 @@ export default function TravelToolsPage({
       arrivalCode: "TYO",
       arrivalTime: "10:05 AM",
       boardingDate: "May 22, 2026",
-      imageUrl: "/images/New York.jpg"
+      imageUrl: "/images/NewYork.jpg"
     },
     {
       id: 4,
