@@ -88,6 +88,7 @@ const WhereImGoing = () => {
         }
         
         setIsEditModalOpen(true);
+        console.log(isEditModalOpen);
     };
     
     const closeEditModal = () => {
