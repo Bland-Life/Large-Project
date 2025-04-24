@@ -144,11 +144,18 @@ const WhereImGoing = () => {
         const items = data?.items || [];
         if (!items.length){
             return (
-                <div className="plansTitle">{category}</div>
-                <div className="plans">
-                    <div className="cards">
-                        <div className="imagePlaceholder"></div>
-                        <p>Add New</p>
+                <div>
+                    <div className="plansTitle">{category}</div>
+                    <div className="plans">
+                        <div className="cards">
+                            <div className="imagePlaceholder"></div>
+                            <p>Add New</p>
+                        </div>
+                    </div>
+
+                    <div className="controls">
+                        <button onClick={handlePrev}>&lt;</button>
+                        <button onClick={handleNext}>&gt;</button>
                     </div>
                 </div>
             )
