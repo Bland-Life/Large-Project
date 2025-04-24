@@ -41,6 +41,7 @@ const WhereImGoing = () => {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedDest, setSelectedDest] = useState<Trip | null>(null);
+    const [editingCategory, setEditingCategory] = useState("");
     const [currentTrips, setCurrentTrips] = useState<Trip[] | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -54,6 +55,8 @@ const WhereImGoing = () => {
     const [date, setDate] = useState<string>("");
     const [image, setImage] = useState<File | null>(null);
 
+
+
     // Modal control functions
     const openAddModal = () => setIsAddModalOpen(true);
     const closeAddModal = () => {
@@ -63,6 +66,7 @@ const WhereImGoing = () => {
 
     const openEditModal = (cat: string) => {
         setCategory(cat);
+        setEditingCategory(cat);
         setIsEditModalOpen(true);
     };
     
@@ -251,11 +255,17 @@ const WhereImGoing = () => {
 
     async function editTrip(event: React.FormEvent): Promise<void> {
         event.preventDefault();
+        
+        if (!title.trim()) {
+            setError("Title is required");
+            return;
+        }
+        
         setIsLoading(true);
         setError(null);
         
         try {
-            console.log("Editing Trip");
+            console.log("Editing Trip for category:", category);
             
             // Prepare the item to add
             let imageUrl = "";
@@ -269,7 +279,7 @@ const WhereImGoing = () => {
                 description: description,
                 image: imageUrl
             };
-
+    
             await editData(category, item);
             closeEditModal();
         } catch (err) {
@@ -362,42 +372,50 @@ const WhereImGoing = () => {
                             <p>Add New</p>
                         </div>
                     </div>
-
-                    {isEditModalOpen && category === category && (
+        
+                    {isEditModalOpen && category === editingCategory && (
                         <div className="modal">
                             <div className="modal-content">
                                 <span className="close-button" onClick={closeEditModal}>
                                     &times;
                                 </span>
-                                <form>
-                                    <h2>{category}</h2>
+                                <form onSubmit={(e) => {
+                                    e.preventDefault();
+                                    editTrip(e);
+                                }}>
+                                    <h2>Add {category}</h2>
                                     <label>
                                         Title:
-                                        <input type="text" 
-                                        name="title" 
-                                        value={title} 
-                                        onChange={(e) => setTitle(e.target.value)}/>
+                                        <input 
+                                            type="text" 
+                                            name="title" 
+                                            value={title} 
+                                            onChange={(e) => setTitle(e.target.value)}
+                                        />
                                     </label>
                                     <br />
                                     <label>
                                         Description:
-                                        <input type="text" 
-                                        name="description" 
-                                        value={description} 
-                                        onChange={(e) => setDescription(e.target.value)}/>
+                                        <input 
+                                            type="text" 
+                                            name="description" 
+                                            value={description} 
+                                            onChange={(e) => setDescription(e.target.value)}
+                                        />
                                     </label>
                                     <br />
                                     <label>
                                         Upload Image:
-                                        <input type="file" 
-                                        name="image" 
-                                        accept="image/*" 
-                                        onChange={handleImageChange}/>
+                                        <input 
+                                            type="file" 
+                                            name="image" 
+                                            accept="image/*" 
+                                            onChange={handleImageChange}
+                                        />
                                     </label>
                                     <br />
                                     <button 
                                         type="submit" 
-                                        onClick={editTrip}
                                         disabled={isLoading}
                                     >
                                         {isLoading ? 'Submitting...' : 'Submit'}
