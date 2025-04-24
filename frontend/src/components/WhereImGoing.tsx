@@ -33,9 +33,10 @@ const WhereImGoing = () => {
       
     useEffect(() => {
         if (userData) {
-        var trips;
-        const fetchData = async () => {
-            trips = await getTrips();
+            console.log(userData.username)
+            var trips;
+            const fetchData = async () => {
+            trips = await getTrips(userData.username);
           };
         
           fetchData();
@@ -106,8 +107,8 @@ const WhereImGoing = () => {
         setIsModalOpen(false);
     }
 
-    async function getTrips() : Promise<any> {
-        const response = await fetch(`https://ohtheplacesyoullgo.space/api/gettrips/${username}`, {
+    async function getTrips(user: string) : Promise<any> {
+        const response = await fetch(`https://ohtheplacesyoullgo.space/api/gettrips/${user}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
           });

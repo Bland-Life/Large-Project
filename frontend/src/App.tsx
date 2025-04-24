@@ -1,3 +1,5 @@
+//App.tsx (pages) please dont delete this comment
+
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./css/App.css";
