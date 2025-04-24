@@ -31,7 +31,8 @@
     position: relative;
     padding-top: 1.5rem;
     overflow: visible;
-    margin: 1rem auto;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .plansTitle {
@@ -67,6 +68,11 @@
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
+}
+
+.cards:hover {
+    transform: scale(1.05);
+    transform: transform 02s ease;
 }
 
 .pageLayout {
