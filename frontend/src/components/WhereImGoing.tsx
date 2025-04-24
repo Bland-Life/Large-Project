@@ -37,10 +37,10 @@ const WhereImGoing = () => {
             var trips;
             const fetchData = async () => {
             trips = await getTrips(userData.username);
+            setCurrentTrips(trips);
           };
         
           fetchData();
-          setCurrentTrips(trips);
         }
         
       }, [userData]); 
