@@ -44,5 +44,6 @@
 }
 
 body {
-  background-color: black;
+  background-color: #aba2c8;
+  background-image: linear-gradient(to right, #aba2c8, #aba2c8);
 }
