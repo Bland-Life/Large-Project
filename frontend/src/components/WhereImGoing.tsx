@@ -170,9 +170,15 @@ const WhereImGoing: React.FC = () => {
     if (!userData) return;
     setIsLoading(true);
     setError(null);
-
+  
     try {
-      const payload = { Destination: dst, Date: dt };
+      // lowercase keys that the API expects:
+      const payload = {
+        destination: dst,
+        date:        dt
+      };
+      console.log("→ DELETE payload:", payload);
+  
       const resp = await fetch(
         `https://ohtheplacesyoullgo.space/api/deletetrip/${userData.username}`,
         {
@@ -181,13 +187,21 @@ const WhereImGoing: React.FC = () => {
           body:    JSON.stringify(payload),
         }
       );
-      const body = await resp.json();
-      if (body.status !== "Success") {
-        throw new Error(body.message || "deletetrip failed");
+  
+      // log raw response in case it still errors
+      const text = await resp.text();
+      console.log("← DELETE raw response:", text);
+  
+      const body = JSON.parse(text);
+      if (resp.status !== 200 || body.status !== "Success") {
+        throw new Error(body.error || body.message || `deletetrip failed (${resp.status})`);
       }
-
-      // refresh the list
-      setCurrentTrips(prev => prev.filter(t => !(t.Destination === dst && t.Date === dt)));
+  
+      // remove the trip from local state
+      setCurrentTrips(prev =>
+        prev.filter(t => !(t.Destination === dst && t.Date === dt))
+      );
+  
     } catch (err: any) {
       console.error("deleteTrip error:", err);
       setError(err.message);
@@ -195,6 +209,8 @@ const WhereImGoing: React.FC = () => {
       setIsLoading(false);
     }
   }
+  
+  
 
   // 11) File input → preview
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
