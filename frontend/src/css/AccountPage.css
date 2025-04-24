@@ -1,123 +1,82 @@
-/*AccountPage.css (Css) please dont delete this comment
+/* AccountPage.css — please keep this comment */
 
-/* ----------  GENERAL  ---------- */
-body, html {
-  height: 100%;
+/* -------  GENERAL RESET  ------- */
+html, body {
   margin: 0;
   padding: 0;
-  /* don't disable scroll here — this affects all pages */
+  /* allow scrolling everywhere by default */
 }
 
-/* ----------  ACCOUNT PAGE ROOT ---------- */
+/* -------  PAGE WRAPPER  ------- */
 .account-page-root {
-  position: fixed;       /* lock to viewport */
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100vh;
-  overflow-y: hidden;    /* prevent vertical scroll */
+  min-height: 100vh;          /* grow as tall as it needs */
   display: flex;
   flex-direction: column;
-  background-color: #fff; /* optional: prevent transparency issues */
+  background: #fff;
 }
 
-/* ----------  ACCOUNT PAGE CONTENT ---------- */
-.account-page-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 0 24px;
-  box-sizing: border-box;
-}
-
-/* ----------  MAP SECTION  ---------- */
+/* -------  MAP SECTION  ------- */
 .account-map {
   width: 100%;
-  margin: 24px 0 8px; /* leave only 8px gap above stats so it peeks */
+  max-width: 1600px;          /* optional: limit super-wide screens */
+  margin: 24px auto;          /* center + vertical spacing */
 }
 
-.map-placeholder {
+.account-map svg {
   width: 100%;
-  height: 67vh;
-  background: #E0E0E0;
-  border: 2px solid #C0C0C0;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  color: #555;
+  height: auto;               /* keeps aspect ratio */
 }
 
-/* ----------  SMALL‑SCREEN TWEAKS  ---------- */
-@media (max-width: 900px) {
-  .map-placeholder { height: 62vh; }
-}
-
-@media (max-width: 680px) {
-  .map-placeholder { height: 58vh; }
-  .stat-grid { gap: 16px; font-size: 1.05rem; }
-}
-
-/* ----------  TRAVEL STATS BOX  ---------- */
+/* -------  TRAVEL STATS  ------- */
 .travel-stats {
   width: 100%;
-  padding: 20px;
-  margin-top: 10px;
-  background-color: #fff;
-  overflow: hidden;
-  
-  background: 
-    linear-gradient(white, white) padding-box,
-    linear-gradient(90deg, #9932CC 0%, #F05 50%, #FFA500 100%) border-box;
+  max-width: 1200px;
+  margin: 0 auto 60px;        /* give some breathing room at bottom */
+  padding: 24px 20px;
+  box-sizing: border-box;
 
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(90deg, #9932cc 0%, #ff0055 50%, #ffa500 100%) border-box;
   border: 3px solid transparent;
   border-radius: 20px;
-  background-clip: padding-box, border-box;
-
-  margin-bottom: -24px;
-  padding-bottom: 110px;
 }
 
 .travel-stats h2 {
-  color: #0c0104;
-  font-size: 2.5rem;
-  margin: 0;
-  padding: 10px 0;
+  margin: 0 0 16px;
   text-align: center;
+  font-size: 2.2rem;
   font-weight: bold;
-  display: inline-block;
+  color: #0c0104;
 }
 
+/* -------  GRID  ------- */
 .stat-grid {
   display: flex;
   justify-content: space-around;
-  padding: 10px 16px 20px;
   flex-wrap: wrap;
+  gap: 1rem 2rem;
 }
 
 .stat-grid span {
-  font-size: 1.5rem;
-  color: #333;
-  padding: 0 10px;
+  font-size: 1.4rem;
   white-space: nowrap;
+  color: #333;
 }
 
-/* individual stat colors */
 .stat-grid strong {
-  font-size: 2.5rem;
-  color: #FF7043;
+  font-size: 2.4rem;
   font-weight: bold;
+  color: #ff7043;
 }
 
-.stat-grid span:nth-child(2) strong {
-  color: #E91E63;
-}
+.stat-grid span:nth-child(2) strong { color: #e91e63; }
+.stat-grid span:nth-child(3) strong { color: #9c27b0; }
+.stat-grid span:nth-child(4) strong { color: #673ab7; }
 
-.stat-grid span:nth-child(3) strong {
-  color: #9C27B0;
-}
-
-.stat-grid span:nth-child(4) strong {
-  color: #673AB7;
+/* -------  RESPONSIVE  ------- */
+@media (max-width: 680px) {
+  .stat-grid span { font-size: 1.2rem; }
+  .stat-grid strong { font-size: 2rem; }
 }
