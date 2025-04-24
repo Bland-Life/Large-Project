@@ -71,7 +71,7 @@ html, body {
     border-color: black;
     width: 115px;
     text-align: center;
-    border: black;
+    border: black 1px solid;
 }
 
 .button:hover {
