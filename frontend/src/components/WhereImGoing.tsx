@@ -99,6 +99,12 @@ const WhereImGoing = () => {
           }
     }
 
+    function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
+        if (event.target.files && event.target.files[0]) {
+            setImage(event.target.files[0]);
+        }
+    }
+
     const destData = [
         {id: 1, title: 'Greece', img: null, 
             activities: [
@@ -212,7 +218,7 @@ const WhereImGoing = () => {
                                         <input type="file" 
                                         name="image" 
                                         accept="image/*" 
-                                        onChange={(e) => setImage(e.target.files?.[0])}/>
+                                        onChange={handleImageChange}/>
                                     </label>
                                     <br />
                                     <button type="submit" onClick={addTrip}>Submit</button>
