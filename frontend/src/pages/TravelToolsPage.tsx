@@ -15,15 +15,19 @@ export default function TravelToolsPage({
   const [conversionRate] = useState(1423.9607);
   const [inverseRate] = useState(0.00070267);
 
-  const destinations = [
+  // Packing list state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPackingList, setSelectedPackingList] = useState<string | null>(
+    null
+  );
+  const [packingItems, setPackingItems] = useState<string[]>([""]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [destinations, setDestinations] = useState([
     { name: "General Vacation" },
-    { name: "Thailand" },
-    { name: "Alaska" },
-    { name: "Zimbabwe" },
-    { name: "Lake Tahoe" },
-    { name: "Germany" },
-    { name: "California" },
-  ];
+  ]);
+  const [isAddDestinationModalOpen, setIsAddDestinationModalOpen] =
+    useState(false);
+  const [newDestinationName, setNewDestinationName] = useState("");
 
   const flights = [
     { from: "LHR", to: "NYC", departure: "London", arrival: "New York" },
@@ -34,6 +38,57 @@ export default function TravelToolsPage({
 
   const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
     setAmount(e.target.value);
+  };
+
+  const handlePackingItemChange = (index: number, value: string) => {
+    const updatedItems = [...packingItems];
+    updatedItems[index] = value;
+    setPackingItems(updatedItems);
+  };
+
+  const addPackingItem = () => {
+    setPackingItems([...packingItems, ""]);
+  };
+
+  const removePackingItem = (index: number) => {
+    const updatedItems = packingItems.filter((_, i) => i !== index);
+    setPackingItems(updatedItems);
+  };
+
+  const openModal = (listName: string) => {
+    setSelectedPackingList(listName);
+    setIsModalOpen(true);
+    setIsEditing(false); // Start in view mode
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedPackingList(null);
+    setPackingItems([""]);
+  };
+
+  const startEditing = () => {
+    setIsEditing(true);
+  };
+
+  const stopEditing = () => {
+    setIsEditing(false);
+  };
+
+  const openAddDestinationModal = () => {
+    setIsAddDestinationModalOpen(true);
+  };
+
+  const closeAddDestinationModal = () => {
+    setIsAddDestinationModalOpen(false);
+    setNewDestinationName("");
+  };
+
+  const addDestination = () => {
+    if (newDestinationName.trim() !== "") {
+      setDestinations([...destinations, { name: newDestinationName }]);
+      closeAddDestinationModal();
+    }
   };
 
   const containerClass =
@@ -169,15 +224,91 @@ export default function TravelToolsPage({
               <div className="section-title">Packing Lists</div>
               <div className="packing-lists-grid">
                 {destinations.map((d, i) => (
-                  <div key={i} className="packing-list-card">
+                  <div
+                    key={i}
+                    className="packing-list-card"
+                    onClick={() => openModal(d.name)}
+                  >
                     <div className="packing-list-name">{d.name}</div>
                   </div>
                 ))}
+                <button
+                  className="add-destination-button"
+                  onClick={openAddDestinationModal}
+                >
+                  +
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Packing List Modal */}
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close-button" onClick={closeModal}>
+              &times;
+            </span>
+            <h2>{selectedPackingList} Packing List</h2>
+            {isEditing ? (
+              <>
+                {packingItems.map((item, index) => (
+                  <div key={index} className="packing-item">
+                    <span>{index + 1}. </span> {/* Display the item number */}
+                    <input
+                      type="text"
+                      value={item}
+                      onChange={(e) =>
+                        handlePackingItemChange(index, e.target.value)
+                      }
+                      placeholder="Enter item"
+                    />
+                    <button onClick={() => removePackingItem(index)}>
+                      Remove
+                    </button>
+                  </div>
+                ))}
+                <button onClick={addPackingItem}>Add Item</button>
+                <button onClick={stopEditing}>Save</button>
+              </>
+            ) : (
+              <>
+                <ul>
+                  {packingItems.map((item, index) => (
+                    <li key={index}>
+                      {index + 1}. {item} {/* Display the item number */}
+                    </li>
+                  ))}
+                </ul>
+                <button onClick={startEditing}>Edit</button>
+                <button onClick={closeModal}>Close</button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Add Destination Modal */}
+      {isAddDestinationModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close-button" onClick={closeAddDestinationModal}>
+              &times;
+            </span>
+            <h2>Add New Destination</h2>
+            <input
+              type="text"
+              value={newDestinationName}
+              onChange={(e) => setNewDestinationName(e.target.value)}
+              placeholder="Enter destination name"
+            />
+            <button onClick={addDestination}>Add</button>
+            <button onClick={closeAddDestinationModal}>Cancel</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
