@@ -305,7 +305,7 @@ app.post('/api/createemptygoing', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-app.delete('api/deletetrip/:username', async (req, res, next) => {
+app.delete('/api/deletetrip/:username', async (req, res, next) => {
     const username = req.params.username;
     const { destination, date } = req.body;
 

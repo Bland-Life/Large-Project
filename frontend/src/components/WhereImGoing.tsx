@@ -221,7 +221,7 @@ const WhereImGoing = () => {
         };
     }
 
-    async function deleteData(data: any[]) {
+    async function deleteData(data: { destination: string, date: string }) {
         try {
             const jsTripData = JSON.stringify(data);
 
@@ -445,7 +445,7 @@ const WhereImGoing = () => {
 
         try {
             console.log("Deleting Trip");
-            const formattedData = await [{ destination, date }];
+            const formattedData = { destination, date };
             await deleteData(formattedData);
             
             if (userData) {
@@ -862,7 +862,7 @@ const WhereImGoing = () => {
                                         destClick(trip.Destination);
                                     }
                                 }>
-                                    <span className="close-button" onClick={deleteTrip(trip.destination, trip.date)}>
+                                    <span className="close-button" onClick={() => deleteTrip(trip.destination, trip.date)}>
                                         &times;
                                     </span>
 
