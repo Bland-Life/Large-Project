@@ -3,7 +3,7 @@ import React from "react";
 import WhereImGoing from "../components/WhereImGoing";
 import "../css/WhereImGoing.css";
 
-const WhereImGoingPage = () => {
+const WhereImGoingPage: React.FC = () => {
   return (
     <div>
       <WhereImGoing />
