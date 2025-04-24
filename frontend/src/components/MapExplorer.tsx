@@ -52,6 +52,7 @@ export default function MapExplorer({
               const fetchData = async () => {
                   try {
                       const countries = await getCountries(userData.username);
+                      console.log(countries);
                       setVisited(new Set(countries));
                   } catch (err) {
                       console.error("Error fetching trips:", err);
@@ -104,7 +105,7 @@ export default function MapExplorer({
     });
 
     const res = JSON.parse(await response.text());
-    return res;
+    return res.countries;
     }
     catch (err) {
       console.error("Error sending data:", err);
