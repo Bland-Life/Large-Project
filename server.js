@@ -355,12 +355,10 @@ app.get('/api/gettrips/:username', async (req, res, next) => {
         return res.status(409).json(ret);
     }
 
-    const results = await
-    db.collection('WhereImGoing').find({ Username:username }).toArray();
     var trips = []
     var status = "Failed to get trips"
-    if (results.length > 0) {
-        trips = results[0].Trips;
+    if (user.length > 0) {
+        trips = user[0].Trips;
         status = "Success";
     }
     var ret = {trips: trips, status: status};
