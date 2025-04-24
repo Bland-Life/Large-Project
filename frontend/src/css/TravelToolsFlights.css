@@ -19,7 +19,6 @@
     /* Ensures rounded corners and hides overflow */
     background-color: white;
     font-family: "Montserrat", sans-serif;
-    /* Fixed typo: "Monsterrat" → "Montserrat" */
 }
 
 .card-img,
@@ -52,7 +51,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.6);
     transform: translateY(calc(100% - 90px));
     transition: all 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
     z-index: 10;
@@ -69,7 +68,7 @@
     transform: translateX(-50%);
     width: 70%;
     height: 20px;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.6);
 }
 
 .card-content .plane {
