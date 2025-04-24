@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/WhereImGoing.css";
 import { formatDate, getImageString, uploadImage } from "../utils/utils.tsx";
 
@@ -24,6 +24,17 @@ const WhereImGoing = () => {
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
+    useEffect(() => {
+        var trips;
+        const fetchData = async () => {
+            trips = await getTrips();
+          };
+        
+          fetchData();
+          setCurrentTrips(trips);
+        
+      }, []); 
+
     async function formatData() : Promise<any>{
         const base64 = await getImageString(image);
         console.log(base64);
@@ -46,9 +57,9 @@ const WhereImGoing = () => {
                 number: 0,
                 activities:[]
             },
-            Restaraunts: {
+            Restaurants: {
                 number: 0,
-                restaraunts: []
+                restaurants: []
             },
             Places: {
                 number: 0,
@@ -87,7 +98,7 @@ const WhereImGoing = () => {
         setIsModalOpen(false);
     }
 
-    async function getTrips() : Promise<void> {
+    async function getTrips() : Promise<any> {
         const response = await fetch(`https://ohtheplacesyoullgo.space/api/gettrips/${username}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -96,8 +107,9 @@ const WhereImGoing = () => {
           const res = JSON.parse(await response.text());
 
           if (res.status === "Success") {
-            setCurrentTrips(res.trips);
+            return res.trips;
           }
+          return null;
     }
 
     function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -230,23 +242,23 @@ const WhereImGoing = () => {
                     )}
 
                     <div className="destinationContainer">
-                        {destData.map((destination) => (
-                            <div className="destination" key={destination.id} onClick={() => destClick(destination.id)}>
+                        {currentTrips.map((trip) => (
+                            <div className="destination" key={trip.destination}>
                                 <h2 className="destinationTitle">{destination.title}</h2>
                                 <div className="imagePlaceholder"></div>
                                 <h3 className="destinationSubtitle">You've Planned:</h3>
                                 <ul className="destinationList">
-                                    {destination.activities && destination.activities.length > 0 && (
-                                        <li>{destination.activities.length} {destination.activities.length === 1 ? 'Activity' : 'Activities'}</li>
+                                    {trip.plans.Activities && trip.plans.Activities.number > 0 && (
+                                        <li>{trip.plans.Activities.number} {trip.plans.Activities.number === 1 ? 'Activity' : 'Activities'}</li>
                                     )}
-                                    {destination.restraunts && destination.restraunts.length > 0 && (
-                                        <li>{destination.restraunts.length} Restraunt{destination.restraunts.length >1 ? 's' : ''}</li>
+                                    {trip.plans.Restaurants && trip.plans.Restaurants.number > 0 && (
+                                        <li>{trip.plans.Restaurants.number} Restaurant{trip.plans.Restaurants.number >1 ? 's' : ''}</li>
                                     )}
-                                    {destination.places && destination.places.length > 0 && (
-                                        <li>{destination.places.length} Place{destination.places.length >1 ? 's' : ''}</li>
+                                    {trip.plans.Places && trip.plans.Places.number > 0 && (
+                                        <li>{trip.plans.Places.number} Place{trip.plans.Places.number >1 ? 's' : ''}</li>
                                     )}
-                                    {destination.hotels && destination.hotels.length > 0 && (
-                                        <li>{destination.hotels.length} Hotel{destination.hotels.length >1 ? 's' : ''}</li>
+                                    {trip.plans.Hotels && trip.plans.Hotels.number > 0 && (
+                                        <li>{trip.plans.Hotels.number} Hotel{trip.plans.Hotels.number >1 ? 's' : ''}</li>
                                     )}
                                 </ul>
                             </div>
