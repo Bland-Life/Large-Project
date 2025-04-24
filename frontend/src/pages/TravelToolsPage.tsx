@@ -54,7 +54,7 @@ export default function TravelToolsPage({
       arrivalCode: "ATH",
       arrivalTime: "06:10 PM",
       boardingDate: "March 1, 2026",
-      imageUrl: "/images/1.jpg"
+      imageUrl: "/images/Beach.jpg"
     },
     {
       id: 2,
@@ -76,7 +76,7 @@ export default function TravelToolsPage({
       arrivalCode: "TYO",
       arrivalTime: "10:05 AM",
       boardingDate: "May 22, 2026",
-      imageUrl: "/images/Paris.jpg"
+      imageUrl: "/images/New York.jpg"
     },
     {
       id: 4,
