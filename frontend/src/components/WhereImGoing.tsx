@@ -231,8 +231,6 @@ const WhereImGoing = () => {
                 headers: { "Content-Type": "application/json"}
             });
 
-            const text = await response.text();
-            console.log("RAW:", text);
             const res = JSON.parse(await response.text());
 
             if (res.status !== "Success"){
