@@ -138,10 +138,21 @@ const WhereImGoing = () => {
     };
 
     //Card carousel
-    const Carousel = ({ data, category }: {data: any[], category: string}) => {
+    const Carousel = ({ data, category }: {data: { number: number, items: any[] }, category: string}) => {
         const [currentIndex, setCurrentIndex] = useState(0);
 
-        if (!data || data.length === 0) return null;
+        const items = data?.items || [];
+        if (!items.length){
+            return (
+                <div className="plans">
+                    <div className="plansTitle">{category}</div>
+                    <div className="cards">
+                        <div className="imagePlaceholder"></div>
+                        <p>Add New</p>
+                    </div>
+                </div>
+            )
+        }
 
         const handleNext = () => {
             setCurrentIndex((prevIndex: number) => (prevIndex + 1) % data.length);
@@ -162,7 +173,6 @@ const WhereImGoing = () => {
                     ) : (
                         <div className="imagePlaceholder"></div>
                     )}
-
                     <p>{currentItem.desc}</p>
                 </div>
 
@@ -179,9 +189,9 @@ const WhereImGoing = () => {
             {selectedDest ? (
                 <div className="destinationLayout">
                     <div className="plansContainer">
-                        <Carousel category="Activities" data={selectedDest.Plans.Activities.activities}></Carousel>
+                        <Carousel category="Activities" data={selectedDest.Plans.Activities}></Carousel>
 
-                        <Carousel category="Restraunts" data={selectedDest.Plans.Restaurants.restaurants}></Carousel>
+                        <Carousel category="Restraunts" data={selectedDest.Plans.Restaurants}></Carousel>
 
                         <Carousel category="Places" data={selectedDest.Plans.Places}></Carousel>
 
