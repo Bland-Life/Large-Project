@@ -107,10 +107,10 @@ export default function TravelToolsPage({
     port1: "",
     port1Code: "",
     port1time: "",
-     port2: "",
-     port2code: "",
+    port2: "",          // Removed space
+    port2code: "",      // Removed space
     port2Time: "",
-     boardingday: "",
+    boardingday: "",    // Removed space
     imageCategory: "City"
   });
 
@@ -179,7 +179,7 @@ export default function TravelToolsPage({
     const to = toCurrency;
     const rate = rates[from][to];
     const inverse = rates[to][from];
-    
+
     setConversionRate(rate);
     setInverseRate(inverse);
     calculateConversion(amount, rate);
@@ -224,10 +224,10 @@ export default function TravelToolsPage({
       port1: "",
       port1Code: "",
       port1time: "",
-       port2: "",
-       port2code: "",
+      port2: "",
+      port2code: "",
       port2Time: "",
-       boardingday: "",
+      boardingday: "",
       imageCategory: "City"
     });
   };
@@ -236,9 +236,9 @@ export default function TravelToolsPage({
     if (
       !newFlight.port1 ||
       !newFlight.port1Code ||
-      !newFlight. port2 ||
-      !newFlight. port2code ||
-      !newFlight. boardingday
+      !newFlight.port2 ||
+      !newFlight.port2code ||
+      !newFlight.boardingday
     ) {
       alert("Please fill in all required fields");
       return;
@@ -314,37 +314,37 @@ export default function TravelToolsPage({
   const username = ud?.username || "guest_user"; // Fallback to "guest_user" if no username is found
 
   useEffect(() => {
-        // fetch or set user data
-        setTimeout(() => {
-            if (ud) {
-                setUserData({
-                    name: ud.firstName,
-                    username: ud.username,
-                    email: ud.email,
-                    profileimage: ud.profileimage,
-                });
-            }
-        }, 1000);
-        }, []);
+    // fetch or set user data
+    setTimeout(() => {
+      if (ud) {
+        setUserData({
+          name: ud.firstName,
+          username: ud.username,
+          email: ud.email,
+          profileimage: ud.profileimage,
+        });
+      }
+    }, 1000);
+  }, []);
 
   // Fetch packing lists from the API
   useEffect(() => {
     if (userData) {
-    const fetchData = async () => {
-      var data = await fetchPackingLists(userData.username, "");
-      if (data)
-        setDestinations(data.list.map((list: any) => ({ name: list.name })));
-    };
+      const fetchData = async () => {
+        var data = await fetchPackingLists(userData.username, "");
+        if (data)
+          setDestinations(data.list.map((list: any) => ({ name: list.name })));
+      };
 
-    fetchData();
-  }
+      fetchData();
+    }
   }, [userData]);
 
   const openModal = async (name: string) => {
     try {
       const response = await fetch(`https://ohtheplacesyoullgo.space/api/getlist/${userData.username}`, {
         method: "PUT",
-        body: JSON.stringify({name}),
+        body: JSON.stringify({ name }),
         headers: { "Content-Type": "application/json" },
       });
       const data = await response.json();
@@ -436,11 +436,11 @@ export default function TravelToolsPage({
     }
   };
 
-  const fetchPackingLists = async (_username: string, name : string) => {
+  const fetchPackingLists = async (_username: string, name: string) => {
     try {
       const response = await fetch(`https://ohtheplacesyoullgo.space/api/getlist/${_username}`, {
         method: "PUT",
-        body: JSON.stringify({name}),
+        body: JSON.stringify({ name }),
         headers: { "Content-Type": "application/json" },
       });
       const data = await response.json();
@@ -502,13 +502,13 @@ export default function TravelToolsPage({
               <div className="section-title">Upcoming Flights</div>
               <div className="cards-wrap">
                 {flights.map((flight) => (
-                  <div 
-                    key={flight.id} 
+                  <div
+                    key={flight.id}
                     className={`card ${activeFlightId === flight.id ? 'active' : ''}`}
                     onClick={() => toggleFlightCard(flight.id)}
                   >
                     <div className="card-img object-fit: cover">
-                      <img src={getImageUrl(flight.imageCategory)} alt={flight. port2} />
+                      <img src={getImageUrl(flight.imageCategory)} alt={flight.port2} />
                     </div>
                     <div className="card-content">
                       <img src="/images/plane.png" className="plane" alt="Airplane" />
@@ -522,21 +522,21 @@ export default function TravelToolsPage({
                           <img src="/images/planeIcon.png" alt="Flight icon" />
                         </div>
                         <div className="flight-info">
-                          <span className="city">{flight. port2}</span>
-                          <span className="city-code">{flight. port2code}</span>
-                          <span className="time">{flight. port2Time}</span>
+                          <span className="city">{flight.port2}</span>
+                          <span className="city-code">{flight.port2code}</span>
+                          <span className="time">{flight.port2Time}</span>
                         </div>
                       </div>
                       <div className="dash-line"></div>
                       <div className="footer-content">
                         <div className="travel-date">
                           <span className="date-title">Boarding On:</span>
-                          <span className="travel-day">{flight. boardingday}</span>
+                          <span className="travel-day">{flight.boardingday}</span>
                           <span className="extended">.</span>
                           <span className="extended">.</span>
                         </div>
                         {activeFlightId === flight.id && (
-                          <button 
+                          <button
                             className="remove-flight-button"
                             onClick={(e) => {
                               e.stopPropagation();
@@ -550,7 +550,7 @@ export default function TravelToolsPage({
                     </div>
                   </div>
                 ))}
-                <button 
+                <button
                   className="add-flight-button"
                   onClick={openAddFlightModal}
                 >
@@ -674,7 +674,7 @@ export default function TravelToolsPage({
               &times;
             </span>
             <h2>Add New Flight</h2>
-            
+
             <div className="flight-form">
               <div className="form-group">
                 <label>Departure City</label>
@@ -686,7 +686,7 @@ export default function TravelToolsPage({
                   placeholder="e.g., New York"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label>Departure Airport Code</label>
                 <input
@@ -697,7 +697,7 @@ export default function TravelToolsPage({
                   placeholder="e.g., JFK"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label>Departure Time</label>
                 <input
@@ -708,51 +708,40 @@ export default function TravelToolsPage({
                   placeholder="e.g., 09:45 AM"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label>Arrival City</label>
                 <input
                   type="text"
-                  name=" port2"
-                  value={newFlight. port2}
+                  name="port2"          // Removed space
+                  value={newFlight.port2}
                   onChange={handleFlightInputChange}
                   placeholder="e.g., London"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label>Arrival Airport Code</label>
                 <input
                   type="text"
-                  name=" port2code"
-                  value={newFlight. port2code}
+                  name="port2code"      // Removed space
+                  value={newFlight.port2code}
                   onChange={handleFlightInputChange}
                   placeholder="e.g., LHR"
                 />
               </div>
-              
-              <div className="form-group">
-                <label>Arrival Time</label>
-                <input
-                  type="text"
-                  name=" port2Time"
-                  value={newFlight. port2Time}
-                  onChange={handleFlightInputChange}
-                  placeholder="e.g., 10:30 PM"
-                />
-              </div>
-              
+
               <div className="form-group">
                 <label>Boarding Date</label>
                 <input
                   type="text"
-                  name=" boardingday"
-                  value={newFlight. boardingday}
+                  name="boardingday"    // Removed space
+                  value={newFlight.boardingday}
                   onChange={handleFlightInputChange}
                   placeholder="e.g., March 15, 2026"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label>Destination Image Category</label>
                 <select
@@ -767,7 +756,7 @@ export default function TravelToolsPage({
                   ))}
                 </select>
               </div>
-              
+
               <div className="form-buttons">
                 <button onClick={addFlight}>Add Flight</button>
                 <button onClick={closeAddFlightModal}>Cancel</button>
