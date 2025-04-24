@@ -392,9 +392,8 @@ const WhereImGoing = () => {
                             <div
                                 className={`cards ${position}`}
                                 key={idx}
-                                onClick={() => {
-                                    if (item.isAddNew) openEditModal(category);
-                                }}
+                                onClick={idx === 1 && item.isAddNew ? () => openEditModal(category) : undefined}
+                                style={{ cursor: idx === 1 && item.isAddNew ? 'pointer' : 'default' }}
                             >
                                 {item.isAddNew ? (
                                     <>

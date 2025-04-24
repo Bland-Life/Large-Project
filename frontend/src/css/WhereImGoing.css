@@ -119,8 +119,13 @@
     align-items: center;
 }
 
-.cards .active {
-    opacity: 1;
+.cards.prev,
+.cards.next {
+    pointer-events: none;
+}
+
+.cards.active {
+    pointer-events: auto;
     transform: scale(1);
 }
 
