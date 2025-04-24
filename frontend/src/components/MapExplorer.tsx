@@ -77,7 +77,6 @@ export default function MapExplorer({
         next.add(code);
         var res = await addCountry(userData.username, code);
       }
-      next.has(code) ? next.delete(code) : next.add(code);
       localStorage.setItem("demoVisited", JSON.stringify([...next]));
       onVisitedChange && onVisitedChange(next.size);
       return next;
