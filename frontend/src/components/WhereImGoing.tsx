@@ -25,6 +25,19 @@ const WhereImGoing = () => {
     const closeModal = () => setIsModalOpen(false);
 
     useEffect(() => {
+        // fetch or set data
+        setTimeout(() => {
+            setUserData({
+                name: ud.firstName,
+                username: ud.username,
+                email: ud.email,
+                profileimage: ud.profileimage,
+            });
+        }, 1000);
+      }, []);
+      
+    useEffect(() => {
+        if (userData) {
         var trips;
         const fetchData = async () => {
             trips = await getTrips();
@@ -32,6 +45,7 @@ const WhereImGoing = () => {
         
           fetchData();
           setCurrentTrips(trips);
+        }
         
       }, [userData]); 
 
