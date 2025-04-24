@@ -242,7 +242,7 @@ const WhereImGoing = () => {
                     )}
 
                     <div className="destinationContainer">
-                        {currentTrips.map((trip) => (
+                        {currentTrips && currentTrips.map((trip) => (
                             <div className="destination" key={trip.destination}>
                                 <h2 className="destinationTitle">{destination.title}</h2>
                                 <div className="imagePlaceholder"></div>
