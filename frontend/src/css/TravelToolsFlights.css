@@ -1,4 +1,10 @@
-/* body {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -7,7 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  } */
+  }
   
   .cards-wrap {
     display: flex;
@@ -45,9 +51,11 @@
     top: 0;
     left: 0;
     background: rgba(255,255,255,0.85);
-    transform: translateY(-40px);
+    transform: translateY(calc(100% - 90px));
     transition: all 0.4s cubic-bezier(0.075,0.82,0.165,1);
     z-index: 10;
+    display: flex;
+    flex-direction: column;
   }
   
   /* tiny box behind plane */
@@ -65,9 +73,10 @@
   .card-content .plane {
     position: absolute;
     width: 100%;
-    bottom: 72%;
+    height: auto;
+    max-height: 100px;
+    top: -60px;
     left: 0;
-    right: 0;
     filter: drop-shadow(5px 5px 3px rgba(0,0,0,0.25));
   }
   
@@ -75,7 +84,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 140px 15px 0;
+    padding: 15px 15px 0;
+    margin-top: 10px;
   }
   
   .card-content .flight-info {
@@ -116,8 +126,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 15px;
-    background: rgba(255,255,255,0.7);
-    margin-top: 33px;
+    background: rgba(255,255,255,0.9);
+    margin-top: auto;
     height: 60px;
   }
   
@@ -162,9 +172,9 @@
   }
   
   .card:hover .card-content {
-    transform: translateY(-80px);
+    transform: translateY(0);
   }
   
   .card.active .card-content {
-    transform: translateY(-290px);
+    transform: translateY(0);
   }
