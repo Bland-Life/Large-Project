@@ -473,7 +473,8 @@ const WhereImGoing = () => {
                     </div>
                     
                     
-                    <div className="destinationLayout">
+                    <div className="plansContainer">
+
                         <Carousel category="Activities" data={selectedDest.Plans.Activities}></Carousel>
                         <Carousel category="Restaurants" data={selectedDest.Plans.Restaurants}></Carousel>
                         <Carousel category="Places" data={selectedDest.Plans.Places}></Carousel>
