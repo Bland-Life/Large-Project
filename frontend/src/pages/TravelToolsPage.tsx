@@ -732,6 +732,17 @@ export default function TravelToolsPage({
               </div>
 
               <div className="form-group">
+                <label>Arrival Time</label>
+                <input
+                  type="text"
+                  name="port2Time"
+                  value={newFlight.port2Time}
+                  onChange={handleFlightInputChange}
+                  placeholder="e.g., 10:30 PM"
+                />
+              </div>
+
+              <div className="form-group">
                 <label>Boarding Date</label>
                 <input
                   type="text"
