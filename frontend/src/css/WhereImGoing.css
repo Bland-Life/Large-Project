@@ -103,7 +103,7 @@
     display: flex;
     opacity: 0.5;
     transform: scale(0.95);
-    transition: opacity 0.3s, transform 0.3s;
+    transition: transform 0.3s;
     flex-direction: column;
     padding: 1rem;
     box-sizing: border-box;
@@ -114,6 +114,7 @@
 .cards.prev,
 .cards.next {
     pointer-events: none;
+    opacity: 0.5;
 }
 
 .cards.active {
