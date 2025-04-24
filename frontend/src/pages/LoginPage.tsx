@@ -6,7 +6,7 @@ const LoginPage = () =>
 {
 	return (
 		<div className='page-content'>
-			<video src={videoBack} autoPlay loop muted />
+			<video src={videoBack} autoPlay loop muted preload="auto" />
 			<Login />
 		</div>
 	);
