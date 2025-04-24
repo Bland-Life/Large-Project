@@ -82,7 +82,7 @@ const WhereImGoing = () => {
     async function addTrip(event: React.FormEvent) : Promise<void> {
         console.log("Adding Trip");
         event.preventDefault()
-        formatData();
+        await formatData();
         sendData();
     }
 
