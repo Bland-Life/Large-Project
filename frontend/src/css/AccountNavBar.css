@@ -1,7 +1,7 @@
 /* ----------  ACCOUNT NAV‑BAR  ---------- */
 .account-nav{
     width:100%;
-    height:56px;                     /* thinner bar (≈25 % less)            */
+    height:3rem;                     /* thinner bar (≈25 % less)            */
     display:flex;
     align-items:center;
     padding:6px 24px;                /* gradient shows above & below text   */
@@ -20,6 +20,7 @@
     flex-shrink:0;
     margin-right:24px;
   }
+
   
   /* centre tab row pushed right */
   .account-nav__tabs{
