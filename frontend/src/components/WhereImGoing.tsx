@@ -468,12 +468,10 @@ const WhereImGoing = () => {
             
             {selectedDest ? (
                 <div className="destinationLayout">
-                    <div className="backButton" onClick={() => setSelectedDest(null)}>
-                        &larr; Back to all destinations
+                    <div className="addDestination" onClick={() => setSelectedDest(null)}>
+                        &lt;
                     </div>
                     
-                    <h1>{selectedDest.Destination}</h1>
-                    <p>{selectedDest.Date}</p>
                     
                     <div className="plansContainer">
                         <Carousel category="Activities" data={selectedDest.Plans.Activities}></Carousel>
