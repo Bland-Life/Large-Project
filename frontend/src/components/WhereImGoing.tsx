@@ -368,13 +368,12 @@ const WhereImGoing = () => {
         const carousel = [...items, { isAddNew: true }];
         const total = items.length + 1;
     
-        const handleNext = () => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % total);
-        };
-    
-        const handlePrev = () => {
-            setCurrentIndex((prevIndex) => (prevIndex - 1 + total) % total);
-        };
+        const prevIndex = (currentIndex - 1 + total) % total;
+        const nextIndex = (currentIndex + 1) % total;
+        const handleNext = () => {setCurrentIndex(nextIndex)};
+        const handlePrev = () => {setCurrentIndex(prevIndex)};
+
+        const visible = [carousel[prevIndex], carousel[currentIndex], carousel[nextIndex]];
     
         return (
             <div className="plans">
@@ -386,41 +385,39 @@ const WhereImGoing = () => {
                 </div>
     
                 <div className="carousel">
-                    <div className="carouselTrack" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-                        {carousel.map((item, index) => {
-                            const thisIsAddNew = !!item.isAddNew;
-    
-                            return (
-                                <div
-                                    className={`cards ${index === currentIndex ? 'active' : ''}`}
-                                    key={index}
-                                    onClick={() => {
-                                        if (thisIsAddNew) openEditModal(category);
-                                    }}
-                                >
-                                    {thisIsAddNew ? (
-                                        <>
-                                            <div className="imagePlaceholder"></div>
-                                            <p>Add New</p>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <h4>{item.title}</h4>
-                                            <div
-                                                className="imagePlaceholder"
-                                                style={{
-                                                    background: item.image
-                                                        ? `#ccc url(${item.image}) center/160% no-repeat`
-                                                        : `#ccc`,
-                                                }}
-                                            />
-                                            <p>{item.description}</p>
-                                        </>
-                                    )}
-                                </div>
-                            );
-                        })}
-                    </div>
+                    {visible.map((item, idx) => {
+                        const position = idx === 0 ? "prev" : idx === 1 ? "active" : "next";
+
+                        return (
+                            <div
+                                className={`cards ${position}`}
+                                key={idx}
+                                onClick={() => {
+                                    if (item.isAddNew) openEditModal(category);
+                                }}
+                            >
+                                {item.isAddNew ? (
+                                    <>
+                                        <div className="imagePlaceholder"></div>
+                                        <p>Add New</p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <h4>{item.title}</h4>
+                                        <div
+                                            className="imagePlaceholder"
+                                            style={{
+                                                background: item.image
+                                                    ? `#ccc url(${item.image}) center/160% no-repeat`
+                                                    : `#ccc`,
+                                            }}
+                                        />
+                                        <p>{item.description}</p>
+                                    </>
+                                )}
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         );
