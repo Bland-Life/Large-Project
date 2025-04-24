@@ -410,6 +410,7 @@ const WhereImGoing: React.FC = () => {
     }
 
   }
+}
 
   // 13) Card click → detail view
   function destClick(dest: string) {
@@ -774,6 +775,5 @@ const WhereImGoing: React.FC = () => {
   );
 
 };
-}
 
 export default WhereImGoing;
