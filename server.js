@@ -428,7 +428,7 @@ app.get('/api/getlist/:username', async (req, res, next) => {
         .find({Username:username}, { projection: { PackingList: 1, _id: 0 } }).toArray();
         if (results?.length > 0) {
             status = "Success";
-            list = results[0].list.PackingList;
+            list = results[0].PackingList;
         }
     }else {
         const results = await db.collection('TravelTools')
