@@ -10,31 +10,21 @@ html, body {
 /* -------  PAGE WRAPPER  ------- */
 .account-page-root {
   width: 100%;
-  min-height: 100vh;          /* grow as tall as it needs */
+  min-height: 100vh;         
   display: flex;
   flex-direction: column;
-}
-
-/* -------  MAP SECTION  ------- */
-.account-map {
-  width: 100%;
-  max-width: 1600px;          /* optional: limit super-wide screens */
-  margin: 24px auto;          /* center + vertical spacing */
-}
-
-.account-map svg {
-  width: 100%;
-  height: auto;               /* keeps aspect ratio */
+  align-items: center;
 }
 
 /* -------  TRAVEL STATS  ------- */
 .travel-stats {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto 60px;        /* give some breathing room at bottom */
+  margin: 0 auto 16px;       /* 16px gap so map sits close */
   padding: 24px 20px;
   box-sizing: border-box;
 
+  /* white interior + gradient border */
   background:
     linear-gradient(white, white) padding-box,
     linear-gradient(90deg, #9932cc 0%, #ff0055 50%, #ffa500 100%) border-box;
@@ -50,7 +40,6 @@ html, body {
   color: #0c0104;
 }
 
-/* -------  GRID  ------- */
 .stat-grid {
   display: flex;
   justify-content: space-around;
@@ -74,8 +63,31 @@ html, body {
 .stat-grid span:nth-child(3) strong { color: #9c27b0; }
 .stat-grid span:nth-child(4) strong { color: #673ab7; }
 
+/* -------  MAP SECTION  ------- */
+.account-map {
+  width: 100%;
+  max-width: 1600px;         
+  margin: 0 auto;           
+  padding: 3px;             
+  box-sizing: border-box;
+
+  /* white interior + gradient border to match stats card */
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(90deg, #9932cc 0%, #ff0055 50%, #ffa500 100%) border-box;
+  border: 3px solid transparent;
+  border-radius: 20px;
+}
+
+.account-map svg {
+  display: block;
+  width: 100%;
+  height: auto;              
+  background-color: #a4dbf5; /* ocean-blue background */
+}
+
 /* -------  RESPONSIVE  ------- */
 @media (max-width: 680px) {
-  .stat-grid span { font-size: 1.2rem; }
+  .stat-grid span   { font-size: 1.2rem; }
   .stat-grid strong { font-size: 2rem; }
 }
