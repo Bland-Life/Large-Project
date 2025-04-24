@@ -1,19 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    background-color: #f0bae2;
-    font-family: "Montserrat", sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+
   
   .cards-wrap {
     display: flex;
