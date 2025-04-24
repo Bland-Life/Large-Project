@@ -30,7 +30,7 @@
     color: black;
     position: relative;
     padding-top: 1.5rem;
-    overflow: hidden;
+    overflow: visible;
     margin: 1rem auto;
 }
 
