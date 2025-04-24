@@ -11,12 +11,7 @@ const WhereImGoing = () => {
     const [currentTrips, setCurrentTrips] = useState(null);
     const [username, setUsername] = useState<string>("");
     const [tripData, setTripData] = useState(null);
-    const [userData, setUserData] = useState({
-            name: ud.firstName,
-            username: ud.username,
-            email: ud.email,
-            profileimage: ud.profileimage,
-        });
+    const [userData, setUserData] = useState(null);
     const [destination, setDestination] = useState<string>("");
     const [date, setDate] = useState<string>("");
     const [image, setImage] = useState<File>(null);
