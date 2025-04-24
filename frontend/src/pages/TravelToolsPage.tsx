@@ -198,7 +198,7 @@ export default function TravelToolsPage({
 
   // Fetch packing lists from the API
   useEffect(() => {
-    fetchPackingLists();
+    fetchPackingLists("");
   }, [username]);
 
   const openModal = async (listName: string) => {
@@ -296,10 +296,11 @@ export default function TravelToolsPage({
     }
   };
 
-  const fetchPackingLists = async () => {
+  const fetchPackingLists = async (name : string) => {
     try {
       const response = await fetch(`https://ohtheplacesyoullgo.space/api/getlist/${username}`, {
         method: "GET",
+        body: JSON.stringify({name}),
         headers: { "Content-Type": "application/json" },
       });
       const data = await response.json();
