@@ -144,6 +144,9 @@
     gap: 1rem;
 }
 
+.editTripButton {
+
+}
 
 .destinationContainer {
     flex-grow: 1;
@@ -214,8 +217,10 @@
     margin-bottom: 0.5rem;
 }
 
-
-.addDestination {
+.tripInfo {
+    color: white;
+}
+.buttton {
     align-self: flex-start;
     margin-top: 1rem;
     font-size: 2rem;

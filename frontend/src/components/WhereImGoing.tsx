@@ -572,20 +572,21 @@ const WhereImGoing = () => {
             {selectedDest ? (
                 <div className="destinationLayout">
                     <div className="tripHeader">
-                        <div className="backButton" onClick={() => setSelectedDest(null)}>
+                        <div className="buttton" onClick={() => setSelectedDest(null)}>
                             &lt;
                         </div>
+                        <br />
                         
                         <div className="tripDetails">
                             <div className="tripInfo">
-                                <h2>{selectedDest.Destination}</h2>
-                                <p>{formatDateString(selectedDest.Date)}</p>
                                 <button 
-                                    className="editTripButton" 
+                                    className="buttton" 
                                     onClick={openTripEditModal}
-                                >
-                                    Edit Trip Details
+                                >🖉
                                 </button>
+
+                                <h2>{selectedDest.Destination}</h2>
+                                <p>{formatDate(selectedDest.Date)}</p>
                             </div>
                             
                             {selectedDest.Image && (
@@ -732,7 +733,7 @@ const WhereImGoing = () => {
                 </div>
             ) : (
                 <div className="pageLayout">
-                    <button className="addDestination" onClick={openAddModal}>
+                    <button className="buttton" onClick={openAddModal}>
                         +
                     </button>
 
