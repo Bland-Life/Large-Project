@@ -8,7 +8,7 @@ import '../css/HomePage.css'
 const HomePage = () => {
     return (
         <div className="page-content">
-            <video src={videoBack} autoPlay loop muted />
+            <video src={videoBack} autoPlay loop muted preload="auto" />
             <div className="content-box">
                 {/* <h2 className="subheading">Whether You're on a Plane or on a Train...</h2> */}
                 <img src={logoImage} alt="The website logo. Oh The Places You'll Go!" className = "logo" />
