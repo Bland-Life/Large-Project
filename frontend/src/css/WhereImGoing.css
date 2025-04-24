@@ -90,6 +90,17 @@
     transform: translateX(50%);
 }
 
+.carousel {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+
+.carouselTrack {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+}
+
 
 .cards {
     border: 2px solid;
@@ -97,7 +108,6 @@
     border-radius: 10px;
     width: 30%;
     display: flex;
-    flex: 0 0 100%;
     opacity: 0.5;
     transform: scale(0.95);
     transition: opacity 0.3s, transform 0.3s;
