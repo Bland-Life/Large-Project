@@ -65,19 +65,24 @@
     border: 2px solid black;
     border-radius: 50px;
     background-color: white;
+    width: 2rem;
+    height: 2rem;
+    color: black;
     justify-content: center;
     align-items: center;
     text-align: center;
     cursor: pointer;
 }
 
+.controls button:hover {
+    background-color: gray;
+}
+
 .controls button:first-of-type {
     transform: translateX(-50%);
-    margin-left: 0.5rem;
 }
 .controls button:last-of-type {
     transform: translateX(50%);
-    margin-left: 0.5rem;
 }
 
 .cards {
