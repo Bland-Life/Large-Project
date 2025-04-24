@@ -105,6 +105,8 @@ const WhereImGoing = () => {
         var formattedData = await formatData();
         var response = await sendData(formattedData);
         setIsModalOpen(false);
+        var trips = await getTrips(userData.username);
+        setCurrentTrips(trips);
     }
 
     async function getTrips(user: string) : Promise<any> {
