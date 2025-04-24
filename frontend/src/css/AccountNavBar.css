@@ -1,7 +1,7 @@
 /* ----------  ACCOUNT NAV‑BAR  ---------- */
 .account-nav{
     max-width:100%;
-    height:6rem;                     /* thinner bar (≈25 % less)            */
+    height:10vh;                     /* thinner bar (≈25 % less)            */
     display:flex;
     align-items:center;
     padding:6px 24px;                /* gradient shows above & below text   */
