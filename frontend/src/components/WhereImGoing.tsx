@@ -365,7 +365,7 @@ const WhereImGoing = () => {
                 <div>
                     <div className="plans">
                         <div className="plansTitle">{category}</div>
-                        <div className="cards" onClick={() => openEditModal(category)}>
+                        <div className="cards" onClick={openEditModal(category)}>
                             <div className="imagePlaceholder"></div>
                             <p>Add New</p>
                         </div>
@@ -473,7 +473,7 @@ const WhereImGoing = () => {
                     </div>
                     
                     
-                    <div className="plansContainer">
+                    <div className="destinationLayout">
                         <Carousel category="Activities" data={selectedDest.Plans.Activities}></Carousel>
                         <Carousel category="Restaurants" data={selectedDest.Plans.Restaurants}></Carousel>
                         <Carousel category="Places" data={selectedDest.Plans.Places}></Carousel>
