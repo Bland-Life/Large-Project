@@ -7,7 +7,7 @@ const WhereImGoing = () => {
     let ud = JSON.parse(_ud);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedDest, setSelectedDest] = useState<null | { id: number; title: string }>(null);
+    const [selectedDest, setSelectedDest] = useState<any>(null)
     const [currentTrips, setCurrentTrips] = useState(null);
     const [username, setUsername] = useState<string>("");
     const [tripData, setTripData] = useState(null);
@@ -129,30 +129,9 @@ const WhereImGoing = () => {
         }
     }
 
-    const destData = [
-        {id: 1, title: 'Greece', img: null, 
-            activities: [
-                {title: 'ACT1', img: null, desc: 'Sightseeing'},
-                {title: 'ACT2', img: null, desc: 'More Sightseeing'},
-                {title: 'ACT3', img: null, desc: 'Museum'}
-            ],
-            restraunts: [
-                {title: 'REST1', img: null, desc: 'Yummy food'},
-                {title: 'REST2', img: null, desc: 'Food'}
-            ],
-            places: [
-                {title: 'PLACE1', img: null, desc: 'place'},
-                {title: 'PLACE2', img: null, desc: 'more place'}
-            ],
-            hotels: [
-                {title: 'HOTEL1', img: null, desc: 'hotel'},
-                {title: 'HOTEL2', img: null, desc: 'Five stars'}
-            ]
-        }
-    ]
 
-    const destClick = (id: number) => {
-        const selectedDest = destData.find((destination) => destination.id === id);
+    const destClick = (destinationName: string) => {
+        const selectedDest = currentTrips.find((trip) => trip.Destination === destination);
         setSelectedDest(selectedDest);
     };
 
@@ -253,14 +232,16 @@ const WhereImGoing = () => {
 
                     <div className="destinationContainer">
                         {currentTrips && currentTrips.map((trip) => (
-                            <div className="destination" key={trip.Destination}>
+                            <div className="destination" key={trip.Destination} onClick={() => destClick(trip.Destination)}>
                                 <h2 className="destinationTitle">{trip.Destination}</h2>
                                 <div className="imagePlaceholder"
-                                style={{
-                                    background: trip.Image
-                                        ? `#ccc url(${trip.Image}) center/160% no-repeat`
-                                        : `#ccc`,
-                                }}></div>
+                                    style={{
+                                        background: trip.Image
+                                            ? `#ccc url(${trip.Image}) center/160% no-repeat`
+                                            : `#ccc`,
+                                    }}>
+                                </div>
+
                                 <h3 className="destinationSubtitle">You've Planned:</h3>
                                 <ul className="destinationList">
                                     {trip.Plans.Activities && trip.Plans.Activities.number > 0 && (
