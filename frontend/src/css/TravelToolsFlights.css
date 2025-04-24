@@ -1,52 +1,57 @@
-/* body {
+body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
     background-color: #f0bae2;
-    font-family: "Monsterrat", sans-serif;
+    font-family: "Montserrat", sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
-} */
-
-.cards-wrap{
+  }
+  
+  .cards-wrap {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     gap: 30px;
-}
-
-.card {
+    padding: 20px;
+  }
+  
+  .card {
     position: relative;
-    width: 200px;
-    height: 250px;
+    width: 240px;
+    height: 280px;
     border-radius: 20px;
     box-shadow: 0px 5px 15px rgba(0,0,0,0.35);
     cursor: pointer;
     overflow: hidden;
-}
-.card-img,
-.card-content {
+    background-color: white;
+  }
+  
+  .card-img, .card-content {
     width: 100%;
     height: 100%;
-
-}
-.card-img img{
+  }
+  
+  .card-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-
-}
-.card-content {
-    position: relative;
-    background: rgba(255,255,255,0.7);
+  }
+  
+  .card-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255,255,255,0.85);
     transform: translateY(-40px);
-    transition: all 0.3s cubic-bezier(0.075,0.82,0.165,1);
+    transition: all 0.4s cubic-bezier(0.075,0.82,0.165,1);
     z-index: 10;
-}
-/* tiny box behind plane */
-.card-content::before{
+  }
+  
+  /* tiny box behind plane */
+  .card-content::before {
     content: "";
     position: absolute;
     top: -20px;
@@ -55,93 +60,111 @@
     width: 70%;
     height: 20px;
     background: rgba(255,255,255,0.8);
-}
-.card-content .plane{
+  }
+  
+  .card-content .plane {
     position: absolute;
     width: 100%;
     bottom: 72%;
-    filter: drop-shadow(5px 5px 3px rgba(0,0,0,0.25))
-}
-
-.card-content .flight-details {
+    left: 0;
+    right: 0;
+    filter: drop-shadow(5px 5px 3px rgba(0,0,0,0.25));
+  }
+  
+  .card-content .flight-details {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 140px 15px 0;
-}
-.card-content .flight-info {
+  }
+  
+  .card-content .flight-info {
     display: flex;
     flex-direction: column;
-}
-.flight-info .city,
-.flight-info .city-code,
-.flight-info .time{
+    white-space: nowrap;
+    max-width: 45%;
+  }
+  
+  .flight-info .city, 
+  .flight-info .city-code, 
+  .flight-info .time {
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
-}
-.flight-info .city-code{
-    font-size: 32px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .flight-info .city-code {
+    font-size: 24px;
     font-weight: 700;
-
-}
-.flight-icon img{
+  }
+  
+  .flight-icon img {
     width: 25px;
-
-}
-.card-content .dash-line{
+  }
+  
+  .card-content .dash-line {
     width: 100%;
     height: 2px;
-    margin: 12px 0;
+    margin: 10px 0;
     border-top: 2px dashed #000000;
-}
-.footer-content{
+  }
+  
+  .footer-content {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    padding: 0 15px;
     background: rgba(255,255,255,0.7);
-    margin-top: 30px;
-}
-.footer-content .travel-date {
+    margin-top: 33px;
+    height: 60px;
+  }
+  
+  .footer-content .travel-date {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-.footer-content .date-title {
-    font-size: 12px;
+  }
+  
+  .footer-content .date-title {
+    font-size: 10px;
     text-transform: uppercase;
-    color:#e43e9c;
-}
-.footer-content .travel-day {
-    font-size: 18px;
+    color: #e43e9c;
+  }
+  
+  .footer-content .travel-day {
+    font-size: 16px;
     font-weight: 700;
-}
-.footer-content .extended {
+  }
+  
+  .footer-content .extended {
     font-size: 18px;
     font-weight: 700;
     color: rgba(0,0,0,0.01);
-}
-.footer-content .button {
-    padding: 8px 12px;
+  }
+  
+  .footer-content .button {
+    padding: 6px 10px;
     color: #FFFFFF;
     background-color: #e43e9c;
     border-radius: 50px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     line-height: 140%;
     text-decoration: none;
     transition: background-color 0.3s ease;
     text-transform: uppercase;
-}
-.footer-content .button:hover {
+  }
+  
+  .footer-content .button:hover {
     background-color: #8f225f;
-}
-
-.card:hover .card-content{
+  }
+  
+  .card:hover .card-content {
     transform: translateY(-80px);
-}
-
-.card.active .card-content {
+  }
+  
+  .card.active .card-content {
     transform: translateY(-290px);
-}
+  }
