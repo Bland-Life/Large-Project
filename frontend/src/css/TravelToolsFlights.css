@@ -1,6 +1,4 @@
-
-  
-  .cards-wrap {
+.cards-wrap {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,46 +6,62 @@
     gap: 30px;
     padding: 20px;
     font-family: "Monsterrat", sans-serif;
-  }
-  
-  .card {
+}
+
+.card {
     position: relative;
     width: 240px;
     height: 280px;
     border-radius: 20px;
-    box-shadow: 0px 5px 15px rgba(0,0,0,0.35);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.35);
     cursor: pointer;
     overflow: hidden;
+    /* Ensures rounded corners and hides overflow */
     background-color: white;
-    font-family: "Monsterrat", sans-serif;
-  }
-  
-  .card-img, .card-content {
+    font-family: "Montserrat", sans-serif;
+    /* Fixed typo: "Monsterrat" → "Montserrat" */
+}
+
+.card-img,
+.card-content {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  
-  .card-img img {
+}
+
+.card-img {
+    position: absolute;
+    /* Take it out of normal flow */
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  
-  .card-content {
+}
+
+.card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ensures full coverage, cropping if needed */
+    display: block;
+    /* Removes extra space under the image */
+}
+
+.card-content {
     position: absolute;
     top: 0;
     left: 0;
-    background: rgba(255,255,255,0.85);
+    background: rgba(255, 255, 255, 0.85);
     transform: translateY(calc(100% - 90px));
-    transition: all 0.4s cubic-bezier(0.075,0.82,0.165,1);
+    transition: all 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
     z-index: 10;
     display: flex;
     flex-direction: column;
-  }
-  
-  /* tiny box behind plane */
-  .card-content::before {
+}
+
+/* tiny box behind plane */
+.card-content::before {
     content: "";
     position: absolute;
     top: -20px;
@@ -55,61 +69,67 @@
     transform: translateX(-50%);
     width: 70%;
     height: 20px;
-    background: rgba(255,255,255,0.8);
-  }
-  
-  .card-content .plane {
-    position: absolute;
-    width: 240px; /* Set a fixed width instead of 100% */
-    height: auto; /* Maintain aspect ratio */
-    top: -157px;
-    left: 50%; /* Center the plane */
-    transform: translateX(-50%); /* Center the plane */
-    filter: drop-shadow(5px 5px 3px rgba(0,0,0,0.25));
-    z-index: 20; /* Ensure it's above other elements */
+    background: rgba(255, 255, 255, 0.8);
 }
-  .card-content .flight-details {
+
+.card-content .plane {
+    position: absolute;
+    width: 240px;
+    /* Set a fixed width instead of 100% */
+    height: auto;
+    /* Maintain aspect ratio */
+    top: -157px;
+    left: 50%;
+    /* Center the plane */
+    transform: translateX(-50%);
+    /* Center the plane */
+    filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.25));
+    z-index: 20;
+    /* Ensure it's above other elements */
+}
+
+.card-content .flight-details {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 15px 15px 0;
     margin-top: 10px;
-  }
-  
-  .card-content .flight-info {
+}
+
+.card-content .flight-info {
     display: flex;
     flex-direction: column;
     white-space: nowrap;
     max-width: 45%;
-  }
-  
-  .flight-info .city, 
-  .flight-info .city-code, 
-  .flight-info .time {
+}
+
+.flight-info .city,
+.flight-info .city-code,
+.flight-info .time {
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-  
-  .flight-info .city-code {
+}
+
+.flight-info .city-code {
     font-size: 24px;
     font-weight: 700;
-  }
-  
-  .flight-icon img {
+}
+
+.flight-icon img {
     width: 25px;
-  }
-  
-  .card-content .dash-line {
+}
+
+.card-content .dash-line {
     width: 100%;
     height: 2px;
     margin: 10px 0;
     border-top: 2px dashed #000000;
-  }
-  
-  .footer-content {
+}
+
+.footer-content {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -117,32 +137,32 @@
     /* background: rgba(255,255,255,0.9); */
     margin-top: 70px;
     height: 60px;
-  }
-  
-  .footer-content .travel-date {
+}
+
+.footer-content .travel-date {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .footer-content .date-title {
+}
+
+.footer-content .date-title {
     font-size: 15px;
     text-transform: uppercase;
     color: #e43e9c;
-  }
-  
-  .footer-content .travel-day {
+}
+
+.footer-content .travel-day {
     font-size: 25px;
     font-weight: 700;
-  }
-  
-  .footer-content .extended {
+}
+
+.footer-content .extended {
     font-size: 18px;
     font-weight: 700;
-    color: rgba(0,0,0,0.01);
-  }
-  
-  .footer-content .button {
+    color: rgba(0, 0, 0, 0.01);
+}
+
+.footer-content .button {
     padding: 6px 10px;
     color: #FFFFFF;
     background-color: #e43e9c;
@@ -153,16 +173,16 @@
     text-decoration: none;
     transition: background-color 0.3s ease;
     text-transform: uppercase;
-  }
-  
-  .footer-content .button:hover {
+}
+
+.footer-content .button:hover {
     background-color: #8f225f;
-  }
-  
-  .card:hover .card-content {
+}
+
+.card:hover .card-content {
     transform: translateY(0);
-  }
-  
-  .card.active .card-content {
+}
+
+.card.active .card-content {
     transform: translateY(0);
-  }
+}
