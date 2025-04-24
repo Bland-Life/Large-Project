@@ -5,8 +5,7 @@ import NavBar from './AccountNavBar';  // Assuming NavBar is in the same directo
 const Layout = () => {
   return (
     <div>
-      {/* NavBar is shared across all pages */}
-      <NavBar />
+
       
       {/* Outlet renders the current page component */}
       <div className="content">
