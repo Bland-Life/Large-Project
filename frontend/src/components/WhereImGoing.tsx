@@ -134,6 +134,7 @@ const WhereImGoing = () => {
     const destClick = (destination: string) => {
         const selectedDest = currentTrips.find((trip) => trip.Destination === destination);
         setSelectedDest(selectedDest);
+        console.log(selectedDest);
     };
 
     //Card carousel
