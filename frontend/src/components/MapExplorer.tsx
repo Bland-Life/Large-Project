@@ -1,57 +1,50 @@
-// src/components/MapExplorer.tsx
 import React, { useState, useEffect } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
 const GEO_URL = "https://unpkg.com/world-atlas@2/countries-110m.json";
 
 interface MapExplorerProps {
-  userName?: string; // for future API calls if you like
+  userName?: string;
+  onVisitedChange?: (newCount: number) => void;
 }
 
-export default function MapExplorer({ userName }: MapExplorerProps) {
+export default function MapExplorer({
+  userName,
+  onVisitedChange
+}: MapExplorerProps) {
   const [visited, setVisited] = useState<Set<string>>(new Set());
 
-  // load saved list from localStorage
+  // load saved visits and notify parent of initial count
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem("demoVisited") || "[]");
-    setVisited(new Set(saved));
-  }, []);
+    const saved: string[] = JSON.parse(localStorage.getItem("demoVisited") || "[]");
+    const set = new Set(saved);
+    setVisited(set);
+    onVisitedChange && onVisitedChange(set.size);
+  }, [onVisitedChange]);
 
-  // toggle any country (geo.id is a string, e.g. "840")
+  // toggle a country, persist, and notify parent of new count
   const toggle = (code: string) => {
     setVisited(prev => {
       const next = new Set(prev);
       next.has(code) ? next.delete(code) : next.add(code);
       localStorage.setItem("demoVisited", JSON.stringify([...next]));
+      onVisitedChange && onVisitedChange(next.size);
       return next;
     });
 
-    // optional: POST to your backend
+    // If you have a backend toggle endpoint, you could also:
     // if (userName) {
-    //   fetch(
-    //     `https://ohtheplacesyoullgo.space/api/toggleCountry/${userName}/${code}`,
-    //     { method: "POST" }
-    //   );
+    //   fetch(`https://ohtheplacesyoullgo.space/api/toggleCountry/${userName}/${code}`, {
+    //     method: "POST"
+    //   });
     // }
   };
 
   return (
-    <div
-      // full-width container, height comes from CSS below
-      style={{
-        width: "100%",
-        border: "2px solid #333",
-        margin: "0 auto",
-      }}
-    >
+    <div style={{ width: "100%", border: "2px solid #333", margin: "0 auto" }}>
       <ComposableMap
         projectionConfig={{ scale: 140 }}
-        style={{
-          width: "100%",
-          height: "100%",
-          pointerEvents: "auto",
-          userSelect: "none",
-        }}
+        style={{ width: "100%", height: "100%", pointerEvents: "auto", userSelect: "none" }}
       >
         <Geographies geography={GEO_URL}>
           {({ geographies }) =>
@@ -66,21 +59,21 @@ export default function MapExplorer({ userName }: MapExplorerProps) {
                   onClick={() => toggle(code)}
                   style={{
                     default: {
-                      fill: isVisited ? "#ff0066" : "#dddddd",
-                      stroke: "#666",
-                      outline: "none",
+                      fill:    isVisited ? "#ff0066" : "#dddddd",
+                      stroke:  "#666",
+                      outline: "none"
                     },
                     hover: {
-                      fill: isVisited ? "#ff6699" : "#aaaaaa",
-                      stroke: "#666",
+                      fill:    isVisited ? "#ff6699" : "#aaaaaa",
+                      stroke:  "#666",
                       outline: "none",
-                      cursor: "pointer",
+                      cursor: "pointer"
                     },
                     pressed: {
-                      fill: isVisited ? "#ff0066" : "#dddddd",
-                      stroke: "#666",
-                      outline: "none",
-                    },
+                      fill:    isVisited ? "#ff0066" : "#dddddd",
+                      stroke:  "#666",
+                      outline: "none"
+                    }
                   }}
                 />
               );
