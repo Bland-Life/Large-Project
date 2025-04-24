@@ -220,6 +220,7 @@ export default function TravelToolsPage({
 
   // Fetch packing lists from the API
   useEffect(() => {
+    if (userData) {
     const fetchData = async () => {
       var data = await fetchPackingLists(userData.username, "");
       if (data)
@@ -227,6 +228,7 @@ export default function TravelToolsPage({
     };
 
     fetchData();
+  }
   }, [userData]);
 
   const openModal = async (listName: string) => {
