@@ -24,7 +24,7 @@
   #acount-nav__linkdiv {
     margin: auto;
     display: flex;
-    justify-content: space-between;
+    gap: 2rem;
   }
 
   
