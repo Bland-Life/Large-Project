@@ -6,6 +6,7 @@
     align-items:center;
     padding:6px 24px;                /* gradient shows above & below text   */
     margin:0.3rem;                  /* pulls bar very close to top          */
+    margin-bottom: 0;
     background:linear-gradient(90deg,#FFA500 0%,#F1392F 30%,#4E00D5  100%);
     border-radius:16px;
     box-sizing:border-box;
