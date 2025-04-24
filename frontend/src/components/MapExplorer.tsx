@@ -1,4 +1,4 @@
-// MapExplorer.tsx — fixes “undefined” issue
+// MapExplorer.tsx — click country to mark/un-mark (localStorage + API)
 
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,55 +9,48 @@ import {
   Marker
 } from "react-simple-maps";
 
-const GEO_URL = "https://unpkg.com/world-atlas@2/countries-110m.json";
+const GEO_URL   = "https://unpkg.com/world-atlas@2/countries-110m.json";
+const VALID_ISO = /^[A-Z]{3}$/;   // three capital letters, e.g. USA
 
+/* ----------  types  ---------- */
 type Props = { userName?: string };
-type City = {
-  id: string;
-  name: string;
-  latitude: number;
-  longitude: number;
-};
-
-/* ---------- helper ---------- */
-const VALID_ISO = /^[A-Z]{3}$/;            // exactly 3 capital letters
+type City  = { id: string; latitude: number; longitude: number };
 
 export default function MapExplorer({ userName }: Props) {
+  /* ----------  router / user  ---------- */
   const { countryCode } = useParams<{ countryCode?: string }>();
-  const navigate = useNavigate();
-  const username = userName || localStorage.getItem("username") || "guest";
+  const navigate  = useNavigate();
+  const username  = userName || localStorage.getItem("username") || "guest";
 
-  /* ---- city list ---- */
+  /* ----------  city list for a country  ---------- */
   const [cities, setCities] = useState<City[]>([]);
   useEffect(() => {
-    if (countryCode) {
-      fetch(`/api/countries/${countryCode}/cities`)
-        .then(r => r.json())
-        .then((d: City[]) => setCities(d))
-        .catch(() => setCities([]));
-    } else {
-      setCities([]);
-    }
+    if (!countryCode) return setCities([]);
+    fetch(`/api/countries/${countryCode}/cities`)
+      .then(r => r.json())
+      .then((d: City[]) => setCities(d))
+      .catch(() => setCities([]));
   }, [countryCode]);
 
-  /* ---- visited ---- */
+  /* ----------  visited set  ---------- */
   const [visited, setVisited] = useState<Set<string>>(new Set());
+
+  // 1) load from localStorage immediately
   useEffect(() => {
-    fetch(`https://ohtheplacesyoullgo.space/api/getcountries/${username}`)
-      .then(r => r.ok ? r.json() : [])
-      .then((arr: string[]) => setVisited(new Set(arr)))
-      .catch(() => setVisited(new Set()));
+    const local = JSON.parse(localStorage.getItem(`visited_${username}`) || "[]");
+    setVisited(new Set(local));
   }, [username]);
 
-  /* ---- toggle ---- */
-  function toggleCountry(code: string) {
-    if (!VALID_ISO.test(code)) return;          // ignore bad codes
+  // 2) overlay with server copy (if reachable)
+  useEffect(() => {
+    fetch(`https://ohtheplacesyoullgo.space/api/getcountries/${username}`)
+      .then(r => (r.ok ? r.json() : []))
+      .then((arr: string[]) => setVisited(new Set(arr)))
+      .catch(() => {}); // silently ignore if offline
+  }, [username]);
 
-    const next = new Set(visited);
-    const nowVisited = !next.has(code);
-    nowVisited ? next.add(code) : next.delete(code);
-    setVisited(next);
-
+  /* ----------  save helper  ---------- */
+  const syncToServer = (iso: string, nowVisited: boolean) => {
     const base = "https://ohtheplacesyoullgo.space/api";
     const endpoint = nowVisited ? "addcountry" : "deletecountry";
     const method   = nowVisited ? "POST"       : "DELETE";
@@ -65,35 +58,60 @@ export default function MapExplorer({ userName }: Props) {
     fetch(`${base}/${endpoint}/${username}`, {
       method,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ country: code })
-    }).catch(console.error);
-  }
+      body: JSON.stringify({ country: iso })
+    }).catch(() => {});
+  };
 
-  /* ---- render ---- */
+  /* ----------  click handler  ---------- */
+  const handleClick = (iso: string) => {
+    if (!VALID_ISO.test(iso)) return;     // ignore Antarctica etc.
+
+    setVisited(prev => {
+      const next = new Set(prev);
+      const nowVisited = !next.has(iso);
+      nowVisited ? next.add(iso) : next.delete(iso);
+
+      // persist locally
+      localStorage.setItem(`visited_${username}`, JSON.stringify([...next]));
+
+      // fire-and-forget to server
+      syncToServer(iso, nowVisited);
+      return next;                        // important: return *new* Set
+    });
+  };
+
+  /* --------------------  render  -------------------- */
   return (
     <ComposableMap>
       <Geographies geography={GEO_URL}>
         {({ geographies }) =>
           geographies.map(geo => {
-            const iso: string | undefined = geo.properties.ISO_A3;
-            const hasValidIso = iso && VALID_ISO.test(iso);
-            const isVisited   = hasValidIso && visited.has(iso);
+            // robust ISO lookup
+            const iso =
+              geo.properties.ISO_A3 ||
+              geo.properties.iso_a3 ||
+              (geo.id as string);
+
+            const goodIso   = VALID_ISO.test(iso);
+            const isVisited = goodIso && visited.has(iso);
 
             return (
               <Geography
                 key={geo.rsmKey}
                 geography={geo}
+
+                /* 👉 THIS prop is what triggers colour changes */
                 fill={isVisited ? "#F05" : "#DDD"}
-                stroke="#FFF"
+
                 style={{
                   default: { outline: "none" },
-                  hover:   { fill: isVisited ? "#ff4f8a" : "#AAA", outline: "none", cursor: hasValidIso ? "pointer" : "default" },
+                  hover:   { fill: isVisited ? "#ff4f8a" : "#AAA", outline: "none", cursor: goodIso ? "pointer" : "default" },
                   pressed: { fill: "#F05", outline: "none" }
                 }}
                 onClick={() => {
-                  if (!hasValidIso) return;        // Antarctica etc.
-                  toggleCountry(iso!);
-                  if (!countryCode) navigate(`/map/${iso}`);
+                  if (!goodIso) return;
+                  handleClick(iso);
+                  if (!countryCode) navigate(`/map/${iso}`); // keep drill-down
                 }}
               />
             );
@@ -101,6 +119,7 @@ export default function MapExplorer({ userName }: Props) {
         }
       </Geographies>
 
+      {/* city markers stay unchanged */}
       {countryCode && cities.map(c => (
         <Marker
           key={c.id}
