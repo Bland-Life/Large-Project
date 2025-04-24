@@ -415,7 +415,7 @@ app.put('/api/addtopacking/:username', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
-app.get('/api/getlist/:username', async (req, res, next) => {
+app.put('/api/getlist/:username', async (req, res, next) => {
     const username = req.params.username;
     const { name } = req.body;
     const db = client.db();

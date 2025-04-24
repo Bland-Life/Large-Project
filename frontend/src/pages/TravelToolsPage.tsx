@@ -222,7 +222,8 @@ export default function TravelToolsPage({
   useEffect(() => {
     const fetchData = async () => {
       var data = await fetchPackingLists(userData.username, "");
-      setDestinations(data.list.map((list: any) => ({ name: list.name })));
+      if (data)
+        setDestinations(data.list.map((list: any) => ({ name: list.name })));
     };
 
     fetchData();
@@ -326,7 +327,7 @@ export default function TravelToolsPage({
   const fetchPackingLists = async (_username: string, name : string) => {
     try {
       const response = await fetch(`https://ohtheplacesyoullgo.space/api/getlist/${_username}`, {
-        method: "GET",
+        method: "PUT",
         body: JSON.stringify({name}),
         headers: { "Content-Type": "application/json" },
       });
