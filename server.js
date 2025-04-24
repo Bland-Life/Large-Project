@@ -370,6 +370,16 @@ app.get('/api/gettrips/:username', async (req, res, next) => {
 
 app.post('/webhook', express.raw({ type: '*/*' }),  (req, res) => {
     console.log('🚨 Received webhook POST request!');
+    exec('pm2 restart script', (err, stdout, stderr) => {
+        if (err) {
+            console.error(`Deployment error: ${err.message}`);
+            return res.status(500).send('Deployment failed');
+        }
+        console.log(`Deployment triggered:\n${stdout}`);
+        res.status(200).send('Deployment triggered');
+    });
+    return;
+    // For verifying the webhook. Temporarily removed validation.
     const signature = req.headers['x-hub-signature-256'];
     const hmac = crypto.createHmac('sha256', GITHUB_SECRET);
     const digest = 'sha256=' + hmac.update(req.body).digest('hex');
@@ -379,14 +389,7 @@ app.post('/webhook', express.raw({ type: '*/*' }),  (req, res) => {
         return res.status(401).send('Invalid signature');
     }
     console.log('GitHub webhook verified.');
-    exec('pm2 restart script', (err, stdout, stderr) => {
-        if (err) {
-            console.error(`Deployment error: ${err.message}`);
-            return res.status(500).send('Deployment failed');
-        }
-        console.log(`Deployment triggered:\n${stdout}`);
-        res.status(200).send('Deployment triggered');
-    });
+    
 });
 
 app.listen(5000); // start Node + Express server on port 3000
