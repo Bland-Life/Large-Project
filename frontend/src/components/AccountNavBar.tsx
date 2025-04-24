@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 // import { Link, useLocation } from "react-router-dom";
-// import balloon from "../assets/balloon.png";
-// import "../css/AccountNavBar.css";
+import balloon from "../assets/balloon.png";
+import "../css/AccountNavBar.css";
 
 
 // const tabs = [
@@ -61,8 +61,8 @@ import React, { useState } from 'react';
 const AccountNavBar = () =>
   {
     return (
-      <nav>
-        <p>Hello, world!</p>
+      <nav className='account-nav'>
+        <img src={balloon} alt="logo" className="account-nav__logo" />
         <a href="/MyAccount">Where I've Been</a>
         <a href="WhereImGoing">Where I'm Going</a>
         <a href="JoinMe">Join Me</a>
