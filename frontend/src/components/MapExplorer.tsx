@@ -65,22 +65,22 @@ export default function MapExplorer({
       }, [userData]);
 
   // toggle a country, persist, and notify parent of new count
-  const toggle = (code: string) => {
+  const toggle = async (code: string) => {
     console.log(visited instanceof Set); 
-    setVisited(async prev => {
-      const next = new Set(prev);
-      if (next.has(code)) {
-        next.delete(code);
-        var res = await removeCountry(userData.username, code);
-      }
-      else {
-        next.add(code);
-        var res = await addCountry(userData.username, code);
-      }
-      localStorage.setItem("demoVisited", JSON.stringify([...next]));
-      onVisitedChange && onVisitedChange(next.size);
-      return next;
-    });
+    const next = new Set(visited);
+    if (next.has(code)) {
+      next.delete(code);
+      await removeCountry(userData.username, code);
+    }
+    else {
+      next.add(code);
+      await addCountry(userData.username, code);
+    }
+
+    localStorage.setItem("demoVisited", JSON.stringify([...next]));
+    onVisitedChange && onVisitedChange(next.size);
+    setVisited(next)
+    return next;
     // If you have a backend toggle endpoint, you could also:
     // if (userName) {
     //   fetch(`https://ohtheplacesyoullgo.space/api/toggleCountry/${userName}/${code}`, {
@@ -157,7 +157,7 @@ export default function MapExplorer({
           {({ geographies }) =>
             geographies.map(geo => {
               const code = geo.id as string;
-              const isVisited = visited?.has(code);
+              const isVisited = visited.has(code);
 
               return (
                 <Geography
