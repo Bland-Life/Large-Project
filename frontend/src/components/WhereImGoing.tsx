@@ -179,13 +179,13 @@ const WhereImGoing = () => {
             {selectedDest ? (
                 <div className="destinationLayout">
                     <div className="plansContainer">
-                        <Carousel category="Activities" data={selectedDest.activities}></Carousel>
+                        <Carousel category="Activities" data={selectedDest.Activities}></Carousel>
 
-                        <Carousel category="Restraunts" data={selectedDest.restraunts}></Carousel>
+                        <Carousel category="Restraunts" data={selectedDest.Restraunts}></Carousel>
 
-                        <Carousel category="Places" data={selectedDest.places}></Carousel>
+                        <Carousel category="Places" data={selectedDest.Places}></Carousel>
 
-                        <Carousel category="Hotels" data={selectedDest.hotels}></Carousel>
+                        <Carousel category="Hotels" data={selectedDest.Hotels}></Carousel>
                     </div>
                 </div>
             ) : (
