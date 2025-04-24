@@ -27,14 +27,14 @@ const WhereImGoing = () => {
     async function formatData() : Promise<any>{
         const base64 = await getImageString(image);
         console.log(base64);
-        uploadImage(base64);
+        var filename = await uploadImage(base64);
         var emptyPlans = createEmptyPlans();
 
         var trip = {
             destination:destination,
             date:date,
             plans:emptyPlans,
-            image:base64
+            image:filename
         }
 
         return trip;
