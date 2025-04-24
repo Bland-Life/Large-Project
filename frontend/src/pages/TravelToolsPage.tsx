@@ -12,6 +12,19 @@ interface Currency {
   flag: string;
 }
 
+// Flight interface for the new interactive flights
+interface Flight {
+  id: number;
+  departureCity: string;
+  departureCode: string;
+  departureTime: string;
+  arrivalCity: string;
+  arrivalCode: string;
+  arrivalTime: string;
+  boardingDate: string;
+  imageUrl: string;
+}
+
 // For real implementation, you'd use an API for live rates
 interface ConversionRates {
   [key: string]: {
@@ -28,6 +41,55 @@ export default function TravelToolsPage({
   const [conversionRate, setConversionRate] = useState(1423.9607);
   const [inverseRate, setInverseRate] = useState(0.00070267);
   const [convertedAmount, setConvertedAmount] = useState(1423.9607);
+  const [activeFlightId, setActiveFlightId] = useState<number | null>(null);
+
+  // Interactive flights data
+  const interactiveFlights: Flight[] = [
+    {
+      id: 1,
+      departureCity: "Las Vegas",
+      departureCode: "LAS",
+      departureTime: "01:10 PM",
+      arrivalCity: "Athens",
+      arrivalCode: "ATH",
+      arrivalTime: "06:10 PM",
+      boardingDate: "March 1, 2026",
+      imageUrl: "/images/1.jpg"
+    },
+    {
+      id: 2,
+      departureCity: "London",
+      departureCode: "LHR",
+      departureTime: "09:45 AM",
+      arrivalCity: "New York",
+      arrivalCode: "NYC",
+      arrivalTime: "12:30 PM",
+      boardingDate: "April 15, 2026",
+      imageUrl: "/images/London.jpg"
+    },
+    {
+      id: 3,
+      departureCity: "Paris",
+      departureCode: "CDG",
+      departureTime: "02:20 PM",
+      arrivalCity: "Tokyo",
+      arrivalCode: "TYO",
+      arrivalTime: "10:05 AM",
+      boardingDate: "May 22, 2026",
+      imageUrl: "/images/Paris.jpg"
+    },
+    {
+      id: 4,
+      departureCity: "Dubai",
+      departureCode: "DXB",
+      departureTime: "11:30 PM",
+      arrivalCity: "Sydney",
+      arrivalCode: "SYD",
+      arrivalTime: "07:15 PM",
+      boardingDate: "June 10, 2026",
+      imageUrl: "/images/Dubai.jpg"
+    }
+  ];
 
   // Currencies data
   const currencies: Currency[] = [
@@ -67,16 +129,18 @@ export default function TravelToolsPage({
     useState(false);
   const [newDestinationName, setNewDestinationName] = useState("");
 
-  const flights = [
-    { from: "LHR", to: "NYC", departure: "London", arrival: "New York" },
-    { from: "LHR", to: "DXB", departure: "London", arrival: "Dubai" },
-    { from: "LHR", to: "NYC", departure: "London", arrival: "New York" },
-    { from: "LHR", to: "DXB", departure: "London", arrival: "Dubai" },
-  ];
-
   // Find currency by code
   const getCurrencyByCode = (code: string): Currency => {
     return currencies.find(currency => currency.code === code) || currencies[0];
+  };
+
+  // Toggle flight card active state
+  const toggleFlightCard = (id: number) => {
+    if (activeFlightId === id) {
+      setActiveFlightId(null);
+    } else {
+      setActiveFlightId(id);
+    }
   };
 
   // Update conversion rates when currencies change
@@ -203,31 +267,41 @@ export default function TravelToolsPage({
           <div className="section">
             <div className="section-container">
               <div className="section-title">Upcoming Flights</div>
-              <div className="flights-container">
-                {flights.map((flight, i) => (
-                  <div key={i} className="flight-card">
-                    <div className="flight-cities">
-                      <div className="flight-city">
-                        <img
-                          src={`/images/${flight.departure.replace(/\s/g, "")}.jpg`}
-                          alt={flight.departure}
-                        />
-                      </div>
-                      <div className="flight-city">
-                        <img
-                          src={`/images/${flight.arrival.replace(/\s/g, "")}.jpg`}
-                          alt={flight.arrival}
-                        />
-                      </div>
+              <div className="cards-wrap">
+                {interactiveFlights.map((flight) => (
+                  <div 
+                    key={flight.id} 
+                    className={`card ${activeFlightId === flight.id ? 'active' : ''}`}
+                    onClick={() => toggleFlightCard(flight.id)}
+                  >
+                    <div className="card-img">
+                      <img src={flight.imageUrl} alt={flight.departureCity} />
                     </div>
-                    <div className="flight-label">
-                      <div className="flight-label-text">
-                        {flight.from} → {flight.to}
+                    <div className="card-content">
+                      <img src="/images/plane.png" className="plane" alt="Airplane" />
+                      <div className="flight-details">
+                        <div className="flight-info">
+                          <span className="city">{flight.departureCity}</span>
+                          <span className="city-code">{flight.departureCode}</span>
+                          <span className="time">{flight.departureTime}</span>
+                        </div>
+                        <div className="flight-icon">
+                          <img src="/images/planeIcon.png" alt="Flight icon" />
+                        </div>
+                        <div className="flight-info">
+                          <span className="city">{flight.arrivalCity}</span>
+                          <span className="city-code">{flight.arrivalCode}</span>
+                          <span className="time">{flight.arrivalTime}</span>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flight-airplane">
-                      <div className="airplane-body">
-                        <div className="airplane-stripe" />
+                      <div className="dash-line"></div>
+                      <div className="footer-content">
+                        <div className="travel-date">
+                          <span className="date-title">Boarding On:</span>
+                          <span className="travel-day">{flight.boardingDate}</span>
+                          <span className="extended">.</span>
+                          <span className="extended">.</span>
+                        </div>
                       </div>
                     </div>
                   </div>
