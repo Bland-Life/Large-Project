@@ -26,6 +26,7 @@ const WhereImGoing = () => {
 
     function formatData() {
         var imageString = getImageString(image);
+        console.log(imageString);
         uploadImage(imageString);
         var emptyPlans = createEmptyPlans();
 
@@ -211,8 +212,7 @@ const WhereImGoing = () => {
                                         <input type="file" 
                                         name="image" 
                                         accept="image/*" 
-                                        value={image}
-                                        onChange={(e) => setImage(e.target.value)}/>
+                                        onChange={(e) => setImage(e.target.files?.[0])}/>
                                     </label>
                                     <br />
                                     <button type="submit" onClick={addTrip}>Submit</button>
