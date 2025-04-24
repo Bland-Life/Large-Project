@@ -370,57 +370,6 @@ const WhereImGoing = () => {
                             <p>Add New</p>
                         </div>
                     </div>
-        
-                    {isEditModalOpen && category === editingCategory && (
-                        <div className="modal">
-                            <div className="modal-content">
-                                <span className="close-button" onClick={closeEditModal}>
-                                    &times;
-                                </span>
-                                <form onSubmit={handleEditFormSubmit}>
-                                    <h2>Add {category}</h2>
-                                    <label>
-                                        Title:
-                                        <input 
-                                            type="text" 
-                                            name="title" 
-                                            value={title} 
-                                            onChange={(e) => setTitle(e.target.value)}
-                                            required
-                                        />
-                                    </label>
-                                    <br />
-                                    <label>
-                                        Description:
-                                        <input 
-                                            type="text" 
-                                            name="description" 
-                                            value={description} 
-                                            onChange={(e) => setDescription(e.target.value)}
-                                        />
-                                    </label>
-                                    <br />
-                                    <label>
-                                        Upload Image:
-                                        <input 
-                                            type="file" 
-                                            name="image" 
-                                            accept="image/*" 
-                                            onChange={handleImageChange}
-                                        />
-                                    </label>
-                                    <br />
-                                    <button 
-                                        type="submit" 
-                                        disabled={isLoading}
-                                    >
-                                        {isLoading ? 'Submitting...' : 'Submit'}
-                                    </button>
-                                    {error && <p className="error-message">{error}</p>}
-                                </form>
-                            </div>
-                        </div>
-                    )}
                 </>
             );
         }
@@ -478,6 +427,57 @@ const WhereImGoing = () => {
                         <Carousel category="Restaurants" data={selectedDest.Plans.Restaurants}></Carousel>
                         <Carousel category="Places" data={selectedDest.Plans.Places}></Carousel>
                         <Carousel category="Hotels" data={selectedDest.Plans.Hotels}></Carousel>
+
+                        {isEditModalOpen && category === editingCategory && (
+                            <div className="modal">
+                                <div className="modal-content">
+                                    <span className="close-button" onClick={closeEditModal}>
+                                        &times;
+                                    </span>
+                                    <form onSubmit={handleEditFormSubmit}>
+                                        <h2>Add {category}</h2>
+                                        <label>
+                                            Title:
+                                            <input 
+                                                type="text" 
+                                                name="title" 
+                                                value={title} 
+                                                onChange={(e) => setTitle(e.target.value)}
+                                                required
+                                            />
+                                        </label>
+                                        <br />
+                                        <label>
+                                            Description:
+                                            <input 
+                                                type="text" 
+                                                name="description" 
+                                                value={description} 
+                                                onChange={(e) => setDescription(e.target.value)}
+                                            />
+                                        </label>
+                                        <br />
+                                        <label>
+                                            Upload Image:
+                                            <input 
+                                                type="file" 
+                                                name="image" 
+                                                accept="image/*" 
+                                                onChange={handleImageChange}
+                                            />
+                                        </label>
+                                        <br />
+                                        <button 
+                                            type="submit" 
+                                            disabled={isLoading}
+                                        >
+                                            {isLoading ? 'Submitting...' : 'Submit'}
+                                        </button>
+                                        {error && <p className="error-message">{error}</p>}
+                                    </form>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             ) : (
