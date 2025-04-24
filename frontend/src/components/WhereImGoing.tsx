@@ -85,6 +85,7 @@ const WhereImGoing = () => {
             setIsEditing(false);
             setCurrentItemIndex(null);
             resetEditForm();
+            setCategory(cat);
         }
         
         setIsEditModalOpen(true);
