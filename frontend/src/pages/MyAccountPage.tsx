@@ -1,31 +1,36 @@
-// MyAccountPage.tsx  — now passes userName to MapExplorer
-
+// src/pages/MyAccountPage.tsx
 import React from "react";
 import AccountNavBar from "../components/AccountNavBar";
-import "../css/AccountPage.css";
 import MapExplorer from "../components/MapExplorer";
+import "../css/AccountPage.css";
 
 const MyAccountPage: React.FC = () => {
-  /*  🟣 1.  Get the username from localStorage.
-         - If nothing’s saved yet, default to "guest" so the map still loads. */
+  // assume localStorage was set at login
   const userName = localStorage.getItem("username") || "guest";
+
+  // fetch visited count
+  const [count, setCount] = React.useState(0);
+  React.useEffect(() => {
+    fetch(`https://ohtheplacesyoullgo.space/api/getcountries/${userName}`)
+      .then(res => (res.ok ? res.json() : []))
+      .then((arr: string[]) => setCount(arr.length))
+      .catch(() => setCount(0));
+  }, [userName]);
 
   return (
     <div className="account-page-root">
       <AccountNavBar />
 
-      {/* ---- Map ---- */}
       <section className="account-map">
-        {/* 🟣 2.  Pass it here  */}
         <MapExplorer userName={userName} />
       </section>
 
-      {/* ---- Stats ---- */}
       <section className="travel-stats">
         <h2>Travel Stats</h2>
         <div className="stat-grid">
-          <span><strong>•</strong> Click countries to mark them!</span>
-          {/* any additional stats you want */}
+          <span>
+            <strong>{count}</strong> / 195 countries visited
+          </span>
         </div>
       </section>
     </div>

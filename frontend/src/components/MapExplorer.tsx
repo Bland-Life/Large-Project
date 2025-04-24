@@ -1,134 +1,93 @@
-// MapExplorer.tsx — click country to mark/un-mark (localStorage + API)
+// src/components/MapExplorer.tsx
+import React, { useState, useEffect } from "react";
+import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import {
-  ComposableMap,
-  Geographies,
-  Geography,
-  Marker
-} from "react-simple-maps";
+const GEO_URL = "https://unpkg.com/world-atlas@2/countries-110m.json";
 
-const GEO_URL   = "https://unpkg.com/world-atlas@2/countries-110m.json";
-const VALID_ISO = /^[A-Z]{3}$/;   // three capital letters, e.g. USA
+interface MapExplorerProps {
+  userName?: string; // for future API calls if you like
+}
 
-/* ----------  types  ---------- */
-type Props = { userName?: string };
-type City  = { id: string; latitude: number; longitude: number };
-
-export default function MapExplorer({ userName }: Props) {
-  /* ----------  router / user  ---------- */
-  const { countryCode } = useParams<{ countryCode?: string }>();
-  const navigate  = useNavigate();
-  const username  = userName || localStorage.getItem("username") || "guest";
-
-  /* ----------  city list for a country  ---------- */
-  const [cities, setCities] = useState<City[]>([]);
-  useEffect(() => {
-    if (!countryCode) return setCities([]);
-    fetch(`/api/countries/${countryCode}/cities`)
-      .then(r => r.json())
-      .then((d: City[]) => setCities(d))
-      .catch(() => setCities([]));
-  }, [countryCode]);
-
-  /* ----------  visited set  ---------- */
+export default function MapExplorer({ userName }: MapExplorerProps) {
   const [visited, setVisited] = useState<Set<string>>(new Set());
 
-  // 1) load from localStorage immediately
+  // load saved list from localStorage
   useEffect(() => {
-    const local = JSON.parse(localStorage.getItem(`visited_${username}`) || "[]");
-    setVisited(new Set(local));
-  }, [username]);
+    const saved = JSON.parse(localStorage.getItem("demoVisited") || "[]");
+    setVisited(new Set(saved));
+  }, []);
 
-  // 2) overlay with server copy (if reachable)
-  useEffect(() => {
-    fetch(`https://ohtheplacesyoullgo.space/api/getcountries/${username}`)
-      .then(r => (r.ok ? r.json() : []))
-      .then((arr: string[]) => setVisited(new Set(arr)))
-      .catch(() => {}); // silently ignore if offline
-  }, [username]);
-
-  /* ----------  save helper  ---------- */
-  const syncToServer = (iso: string, nowVisited: boolean) => {
-    const base = "https://ohtheplacesyoullgo.space/api";
-    const endpoint = nowVisited ? "addcountry" : "deletecountry";
-    const method   = nowVisited ? "POST"       : "DELETE";
-
-    fetch(`${base}/${endpoint}/${username}`, {
-      method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ country: iso })
-    }).catch(() => {});
-  };
-
-  /* ----------  click handler  ---------- */
-  const handleClick = (iso: string) => {
-    if (!VALID_ISO.test(iso)) return;     // ignore Antarctica etc.
-
+  // toggle any country (geo.id is a string, e.g. "840")
+  const toggle = (code: string) => {
     setVisited(prev => {
       const next = new Set(prev);
-      const nowVisited = !next.has(iso);
-      nowVisited ? next.add(iso) : next.delete(iso);
-
-      // persist locally
-      localStorage.setItem(`visited_${username}`, JSON.stringify([...next]));
-
-      // fire-and-forget to server
-      syncToServer(iso, nowVisited);
-      return next;                        // important: return *new* Set
+      next.has(code) ? next.delete(code) : next.add(code);
+      localStorage.setItem("demoVisited", JSON.stringify([...next]));
+      return next;
     });
+
+    // optional: POST to your backend
+    // if (userName) {
+    //   fetch(
+    //     `https://ohtheplacesyoullgo.space/api/toggleCountry/${userName}/${code}`,
+    //     { method: "POST" }
+    //   );
+    // }
   };
 
-  /* --------------------  render  -------------------- */
   return (
-    <ComposableMap>
-      <Geographies geography={GEO_URL}>
-        {({ geographies }) =>
-          geographies.map(geo => {
-            // robust ISO lookup
-            const iso =
-              geo.properties.ISO_A3 ||
-              geo.properties.iso_a3 ||
-              (geo.id as string);
+    <div
+      // full-width container, height comes from CSS below
+      style={{
+        width: "100%",
+        border: "2px solid #333",
+        margin: "0 auto",
+      }}
+    >
+      <ComposableMap
+        projectionConfig={{ scale: 140 }}
+        style={{
+          width: "100%",
+          height: "100%",
+          pointerEvents: "auto",
+          userSelect: "none",
+        }}
+      >
+        <Geographies geography={GEO_URL}>
+          {({ geographies }) =>
+            geographies.map(geo => {
+              const code = geo.id as string;
+              const isVisited = visited.has(code);
 
-            const goodIso   = VALID_ISO.test(iso);
-            const isVisited = goodIso && visited.has(iso);
-
-            return (
-              <Geography
-                key={geo.rsmKey}
-                geography={geo}
-
-                /* 👉 THIS prop is what triggers colour changes */
-                fill={isVisited ? "#F05" : "#DDD"}
-
-                style={{
-                  default: { outline: "none" },
-                  hover:   { fill: isVisited ? "#ff4f8a" : "#AAA", outline: "none", cursor: goodIso ? "pointer" : "default" },
-                  pressed: { fill: "#F05", outline: "none" }
-                }}
-                onClick={() => {
-                  if (!goodIso) return;
-                  handleClick(iso);
-                  if (!countryCode) navigate(`/map/${iso}`); // keep drill-down
-                }}
-              />
-            );
-          })
-        }
-      </Geographies>
-
-      {/* city markers stay unchanged */}
-      {countryCode && cities.map(c => (
-        <Marker
-          key={c.id}
-          coordinates={[c.longitude, c.latitude]}
-          onClick={() => navigate(`/map/${countryCode}/${c.id}`)}
-        >
-          <circle r={3} fill="#E91E63" />
-        </Marker>
-      ))}
-    </ComposableMap>
+              return (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  onClick={() => toggle(code)}
+                  style={{
+                    default: {
+                      fill: isVisited ? "#ff0066" : "#dddddd",
+                      stroke: "#666",
+                      outline: "none",
+                    },
+                    hover: {
+                      fill: isVisited ? "#ff6699" : "#aaaaaa",
+                      stroke: "#666",
+                      outline: "none",
+                      cursor: "pointer",
+                    },
+                    pressed: {
+                      fill: isVisited ? "#ff0066" : "#dddddd",
+                      stroke: "#666",
+                      outline: "none",
+                    },
+                  }}
+                />
+              );
+            })
+          }
+        </Geographies>
+      </ComposableMap>
+    </div>
   );
 }
