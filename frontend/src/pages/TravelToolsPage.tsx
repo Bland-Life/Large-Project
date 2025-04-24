@@ -233,8 +233,9 @@ export default function TravelToolsPage({
 
   const openModal = async (listName: string) => {
     try {
-      const response = await fetch(`https://ohtheplacesyoullgo.space/api/getlist/${username}?name=${listName}`, {
-        method: "GET",
+      const response = await fetch(`https://ohtheplacesyoullgo.space/api/getlist/${userData.username}`, {
+        method: "PUT",
+        body: JSON.stringify({listName}),
         headers: { "Content-Type": "application/json" },
       });
       const data = await response.json();
