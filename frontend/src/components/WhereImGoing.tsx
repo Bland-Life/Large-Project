@@ -586,7 +586,7 @@ const WhereImGoing = () => {
                                 </button>
 
                                 <h2>{selectedDest.Destination}</h2>
-                                <p>{formatDate(selectedDest.Date)}</p>
+                                <p>{formatDateString(selectedDest.Date)}</p>
                             </div>
                             
                             {selectedDest.Image && (
