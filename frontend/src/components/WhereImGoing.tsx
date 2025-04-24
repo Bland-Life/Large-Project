@@ -389,30 +389,22 @@ const WhereImGoing = () => {
 
                 <div className="cards">
                     {isAddNew ? (
-                        <div className="plans">
-                            <div className="plansTitle">{category}</div>
-
-                            <div className="cards" onClick={() => openEditModal(category)}>
-                                <div className="imagePlaceholder"></div>
-                                <p>Add New</p>
-                            </div>
-                        </div>
+                        <>
+                            <div className="imagePlaceholder"></div>
+                            <p>Add New</p>
+                        </>
                     ) : (
-                        <div className="plans">
-                            <div className="plansTitle">{category}</div>
-
-                            <div className="cards">
-                                <h4>{currentItem.title}</h4>
-                                <div className="imagePlaceholder"
+                        <>
+                            <h4>{currentItem.title}</h4>
+                            <div className="imagePlaceholder"
                                 style={{
                                     background: currentItem.image
                                         ? `#ccc url(${currentItem.image}) center/160% no-repeat`
                                         : `#ccc`,
                                     }}>
-                                </div>
-                                <p>{currentItem.description}</p>
                             </div>
-                        </div>
+                            <p>{currentItem.description}</p>
+                        </>
                     )}
                 </div>
             </div>
