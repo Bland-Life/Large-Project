@@ -191,6 +191,8 @@ const WhereImGoing = () => {
     }
     
     async function editData(categoryName: string, item: PlanItem) {
+        console.log(item);
+        
         if (!selectedDest || !userData) {
             return;
         }
