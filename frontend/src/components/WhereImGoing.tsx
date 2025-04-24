@@ -221,7 +221,7 @@ const WhereImGoing = () => {
         };
     }
 
-    async function deleteData(data: any[]) {
+    async function deleteData(data: { destination: string, date: string }) {
         try {
             const jsTripData = JSON.stringify(data);
 
@@ -231,6 +231,8 @@ const WhereImGoing = () => {
                 headers: { "Content-Type": "application/json"}
             });
 
+            const text = await response.text();
+            console.log("RAW:", text);
             const res = JSON.parse(await response.text());
 
             if (res.status !== "Success"){
@@ -445,7 +447,7 @@ const WhereImGoing = () => {
 
         try {
             console.log("Deleting Trip");
-            const formattedData = [{ destination, date }];
+            const formattedData = { destination, date };
             await deleteData(formattedData);
             
             if (userData) {
