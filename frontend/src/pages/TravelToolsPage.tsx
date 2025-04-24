@@ -220,6 +220,7 @@ export default function TravelToolsPage({
 
   // Fetch packing lists from the API
   useEffect(() => {
+    if (userData) {
     const fetchData = async () => {
       var data = await fetchPackingLists(userData.username, "");
       if (data)
@@ -227,19 +228,21 @@ export default function TravelToolsPage({
     };
 
     fetchData();
+  }
   }, [userData]);
 
-  const openModal = async (listName: string) => {
+  const openModal = async (name: string) => {
     try {
-      const response = await fetch(`https://ohtheplacesyoullgo.space/api/getlist/${username}?name=${listName}`, {
-        method: "GET",
+      const response = await fetch(`https://ohtheplacesyoullgo.space/api/getlist/${userData.username}`, {
+        method: "PUT",
+        body: JSON.stringify({name}),
         headers: { "Content-Type": "application/json" },
       });
       const data = await response.json();
       console.log("API Response (getlist - specific list):", data);
       if (data.status === "Success") {
         setPackingItems(data.list); // Set the items in the selected packing list
-        setSelectedPackingList(listName);
+        setSelectedPackingList(name);
         setIsModalOpen(true);
         setIsEditing(false); // Start in view mode
       } else {
