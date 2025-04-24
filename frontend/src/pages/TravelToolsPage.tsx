@@ -123,11 +123,9 @@ export default function TravelToolsPage({
   const [selectedPackingList, setSelectedPackingList] = useState<string | null>(
     null
   );
-  const [packingItems, setPackingItems] = useState<string[]>([""]);
+  const [packingItems, setPackingItems] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [destinations, setDestinations] = useState([
-    { name: "General Vacation" },
-  ]);
+  const [destinations, setDestinations] = useState<{ name: string }[]>([]);
   const [isAddDestinationModalOpen, setIsAddDestinationModalOpen] =
     useState(false);
   const [newDestinationName, setNewDestinationName] = useState("");
@@ -193,24 +191,72 @@ export default function TravelToolsPage({
     setPackingItems(updatedItems);
   };
 
-  const openModal = (listName: string) => {
-    setSelectedPackingList(listName);
-    setIsModalOpen(true);
-    setIsEditing(false); // Start in view mode
+  // Retrieve the username of the logged-in user
+  let _ud: any = localStorage.getItem("user_data");
+  let ud = JSON.parse(_ud);
+  const username = ud?.username || "guest_user"; // Fallback to "guest_user" if no username is found
+
+  // Fetch packing lists from the API
+  useEffect(() => {
+    fetchPackingLists();
+  }, [username]);
+
+  const openModal = async (listName: string) => {
+    try {
+      const response = await fetch(`https://ohtheplacesyoullgo.space/api/getlist/${username}?name=${listName}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await response.json();
+      console.log("API Response (getlist - specific list):", data);
+      if (data.status === "Success") {
+        setPackingItems(data.list); // Set the items in the selected packing list
+        setSelectedPackingList(listName);
+        setIsModalOpen(true);
+        setIsEditing(false); // Start in view mode
+      } else {
+        console.error("Failed to fetch packing list:", data.status);
+      }
+    } catch (error) {
+      console.error("Error fetching packing list:", error);
+    }
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedPackingList(null);
-    setPackingItems([""]);
+    setPackingItems([]);
   };
 
   const startEditing = () => {
     setIsEditing(true);
   };
 
-  const stopEditing = () => {
-    setIsEditing(false);
+  const stopEditing = async () => {
+    if (!selectedPackingList) {
+      console.error("No packing list selected.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://ohtheplacesyoullgo.space/api/addtopacking/${username}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: selectedPackingList,
+          packinglist: packingItems,
+        }),
+      });
+      const data = await response.json();
+      console.log("API Response (addtopacking):", data);
+      if (data.status === "Success") {
+        setIsEditing(false);
+      } else {
+        console.error("Failed to save packing list:", data.status);
+      }
+    } catch (error) {
+      console.error("Error saving packing list:", error);
+    }
   };
 
   const openAddDestinationModal = () => {
@@ -222,10 +268,49 @@ export default function TravelToolsPage({
     setNewDestinationName("");
   };
 
-  const addDestination = () => {
+  const addDestination = async () => {
     if (newDestinationName.trim() !== "") {
-      setDestinations([...destinations, { name: newDestinationName }]);
-      closeAddDestinationModal();
+      try {
+        const response = await fetch(`https://ohtheplacesyoullgo.space/api/addpackinglist/${username}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: newDestinationName }),
+        });
+        const data = await response.json();
+        console.log("API Response (addpackinglist):", data);
+        if (data.status === "Success") {
+          // Add the new destination to the state
+          setDestinations((prevDestinations) => [
+            ...prevDestinations,
+            { name: newDestinationName },
+          ]);
+          closeAddDestinationModal(); // Close the modal after adding
+        } else {
+          console.error("Failed to add destination:", data.status);
+        }
+      } catch (error) {
+        console.error("Error adding destination:", error);
+      }
+    } else {
+      console.error("Destination name cannot be empty.");
+    }
+  };
+
+  const fetchPackingLists = async () => {
+    try {
+      const response = await fetch(`https://ohtheplacesyoullgo.space/api/getlist/${username}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await response.json();
+      console.log("API Response (getlist):", data);
+      if (data.status === "Success") {
+        setDestinations(data.list.map((list: any) => ({ name: list.name })));
+      } else {
+        console.error("Failed to fetch packing lists:", data.status);
+      }
+    } catch (error) {
+      console.error("Error fetching packing lists:", error);
     }
   };
 
@@ -431,7 +516,7 @@ export default function TravelToolsPage({
               <>
                 {packingItems.map((item, index) => (
                   <div key={index} className="packing-item">
-                    <span>{index + 1}. </span>
+                    <span>{index + 1}. </span> {/* Display the item number */}
                     <input
                       type="text"
                       value={item}
@@ -453,7 +538,7 @@ export default function TravelToolsPage({
                 <ul>
                   {packingItems.map((item, index) => (
                     <li key={index}>
-                      {index + 1}. {item}
+                      {index + 1}. {item} {/* Display the item number */}
                     </li>
                   ))}
                 </ul>
