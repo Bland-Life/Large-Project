@@ -24,6 +24,7 @@ const MyAccountPage: React.FC = () => {
         </div>
       </section>
 
+
       <section className="account-map">
         <MapExplorer
           userName={userName}
@@ -34,6 +35,7 @@ const MyAccountPage: React.FC = () => {
           }}
         />
       </section>
+
     </div>
   );
 };
