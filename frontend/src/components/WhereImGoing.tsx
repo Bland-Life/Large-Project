@@ -144,8 +144,8 @@ const WhereImGoing = () => {
         const items = data?.items || [];
         if (!items.length){
             return (
+                <div className="plansTitle">{category}</div>
                 <div className="plans">
-                    <div className="plansTitle">{category}</div>
                     <div className="cards">
                         <div className="imagePlaceholder"></div>
                         <p>Add New</p>
