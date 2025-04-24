@@ -35,6 +35,13 @@ interface ConversionRates {
   };
 }
 
+interface UserData {
+  name: string;
+  username: string;
+  email: string;
+  profileimage: string;
+}
+
 export default function TravelToolsPage({
   pageType = "default",
 }: TravelToolsProps) {
@@ -45,6 +52,7 @@ export default function TravelToolsPage({
   const [inverseRate, setInverseRate] = useState(0.00070267);
   const [convertedAmount, setConvertedAmount] = useState(1423.9607);
   const [activeFlightId, setActiveFlightId] = useState<number | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
 
   // Interactive flights data
   const interactiveFlights: Flight[] = [
@@ -196,10 +204,29 @@ export default function TravelToolsPage({
   let ud = JSON.parse(_ud);
   const username = ud?.username || "guest_user"; // Fallback to "guest_user" if no username is found
 
+  useEffect(() => {
+        // fetch or set user data
+        setTimeout(() => {
+            if (ud) {
+                setUserData({
+                    name: ud.firstName,
+                    username: ud.username,
+                    email: ud.email,
+                    profileimage: ud.profileimage,
+                });
+            }
+        }, 1000);
+        }, []);
+
   // Fetch packing lists from the API
   useEffect(() => {
-    fetchPackingLists("");
-  }, [username]);
+    const fetchData = async () => {
+      var data = await fetchPackingLists(userData.username, "");
+      setDestinations(data.list.map((list: any) => ({ name: list.name })));
+    };
+
+    fetchData();
+  }, [userData]);
 
   const openModal = async (listName: string) => {
     try {
@@ -296,9 +323,9 @@ export default function TravelToolsPage({
     }
   };
 
-  const fetchPackingLists = async (name : string) => {
+  const fetchPackingLists = async (_username: string, name : string) => {
     try {
-      const response = await fetch(`https://ohtheplacesyoullgo.space/api/getlist/${username}`, {
+      const response = await fetch(`https://ohtheplacesyoullgo.space/api/getlist/${_username}`, {
         method: "GET",
         body: JSON.stringify({name}),
         headers: { "Content-Type": "application/json" },
@@ -306,9 +333,10 @@ export default function TravelToolsPage({
       const data = await response.json();
       console.log("API Response (getlist):", data);
       if (data.status === "Success") {
-        setDestinations(data.list.map((list: any) => ({ name: list.name })));
+        return data;
       } else {
         console.error("Failed to fetch packing lists:", data.status);
+        return null;
       }
     } catch (error) {
       console.error("Error fetching packing lists:", error);
