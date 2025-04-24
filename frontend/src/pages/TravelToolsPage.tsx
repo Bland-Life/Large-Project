@@ -231,18 +231,18 @@ export default function TravelToolsPage({
   }
   }, [userData]);
 
-  const openModal = async (listName: string) => {
+  const openModal = async (name: string) => {
     try {
       const response = await fetch(`https://ohtheplacesyoullgo.space/api/getlist/${userData.username}`, {
         method: "PUT",
-        body: JSON.stringify({listName}),
+        body: JSON.stringify({name}),
         headers: { "Content-Type": "application/json" },
       });
       const data = await response.json();
       console.log("API Response (getlist - specific list):", data);
       if (data.status === "Success") {
         setPackingItems(data.list); // Set the items in the selected packing list
-        setSelectedPackingList(listName);
+        setSelectedPackingList(name);
         setIsModalOpen(true);
         setIsEditing(false); // Start in view mode
       } else {
