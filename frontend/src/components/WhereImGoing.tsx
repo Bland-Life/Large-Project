@@ -7,6 +7,7 @@ interface PlanItem {
   title: string;
   description: string;
   image: string;
+  id?: string; // Adding optional id for tracking items
 }
 
 interface PlanCategory {
@@ -40,12 +41,15 @@ const WhereImGoing = () => {
     // State management
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isTripEditModalOpen, setIsTripEditModalOpen] = useState(false);
     const [selectedDest, setSelectedDest] = useState<Trip | null>(null);
     const [editingCategory, setEditingCategory] = useState("");
     const [currentTrips, setCurrentTrips] = useState<Trip[] | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [userData, setUserData] = useState<UserData | null>(null);
+    const [isEditing, setIsEditing] = useState(false);
+    const [currentItemIndex, setCurrentItemIndex] = useState<number | null>(null);
 
     // Form states
     const [category, setCategory] = useState<string>("");
@@ -54,6 +58,7 @@ const WhereImGoing = () => {
     const [destination, setDestination] = useState<string>("");
     const [date, setDate] = useState<string>("");
     const [image, setImage] = useState<File | null>(null);
+    const [imagePreview, setImagePreview] = useState<string>("");
 
     // Modal control functions
     const openAddModal = () => setIsAddModalOpen(true);
@@ -62,9 +67,24 @@ const WhereImGoing = () => {
         resetAddForm();
     };
 
-    const openEditModal = (cat: string) => {
+    const openEditModal = (cat: string, item?: PlanItem, index?: number) => {
         setCategory(cat);
         setEditingCategory(cat);
+        
+        if (item && index !== undefined) {
+            // We're editing an existing item
+            setIsEditing(true);
+            setCurrentItemIndex(index);
+            setTitle(item.title);
+            setDescription(item.description);
+            setImagePreview(item.image || "");
+        } else {
+            // We're adding a new item
+            setIsEditing(false);
+            setCurrentItemIndex(null);
+            resetEditForm();
+        }
+        
         setIsEditModalOpen(true);
     };
     
@@ -73,20 +93,34 @@ const WhereImGoing = () => {
         resetEditForm();
     };
 
+    const openTripEditModal = () => {
+        if (selectedDest) {
+            setDestination(selectedDest.Destination);
+            setDate(selectedDest.Date);
+            setImagePreview(selectedDest.Image || "");
+        }
+        setIsTripEditModalOpen(true);
+    };
+
+    const closeTripEditModal = () => {
+        setIsTripEditModalOpen(false);
+    };
+
     // Form reset functions
     const resetAddForm = () => {
         setDestination("");
         setDate("");
         setImage(null);
+        setImagePreview("");
     };
 
     const resetEditForm = () => {
         setTitle("");
         setDescription("");
         setImage(null);
+        setImagePreview("");
         setCategory("");
     };
-
 
     useEffect(() => {
         // fetch or set user data
@@ -165,8 +199,8 @@ const WhereImGoing = () => {
         };
     }
 
-    async function deleteData(){
-
+    async function deleteData() {
+        // Implement delete functionality
     }
 
     async function sendData(data: any) {
@@ -195,9 +229,7 @@ const WhereImGoing = () => {
         }
     }
     
-    async function editData(categoryName: string, item: PlanItem) {
-        console.log(item);
-        
+    async function editData(categoryName: string, item: PlanItem, isNewItem: boolean, itemIndex?: number) {
         if (!selectedDest || !userData) {
             return;
         }
@@ -214,11 +246,23 @@ const WhereImGoing = () => {
                 throw new Error(`Category ${categoryName} not found in plans`);
             }
             
-            newPlans[categoryName] = {
-                ...newPlans[categoryName],
-                number: newPlans[categoryName].number + 1,
-                [categoryKey]: [...(newPlans[categoryName][categoryKey] || []), item]
-            };
+            if (isNewItem) {
+                // Adding a new item
+                newPlans[categoryName] = {
+                    ...newPlans[categoryName],
+                    number: newPlans[categoryName].number + 1,
+                    [categoryKey]: [...(newPlans[categoryName][categoryKey] || []), item]
+                };
+            } else if (itemIndex !== undefined) {
+                // Editing an existing item
+                const items = [...newPlans[categoryName][categoryKey]];
+                items[itemIndex] = item;
+                
+                newPlans[categoryName] = {
+                    ...newPlans[categoryName],
+                    [categoryKey]: items
+                };
+            }
 
             const edit = {
                 destination: oldTrip.Destination,
@@ -258,6 +302,59 @@ const WhereImGoing = () => {
         }
     }
 
+    async function updateTripDetails() {
+        if (!selectedDest || !userData) return;
+        
+        try {
+            setIsLoading(true);
+            
+            let imageUrl = selectedDest.Image;
+            if (image) {
+                const base64 = await getImageString(image);
+                imageUrl = await uploadImage(base64);
+            }
+            
+            const edit = {
+                destination: selectedDest.Destination,
+                date: selectedDest.Date,
+                newdate: date,
+                newplans: selectedDest.Plans,
+                newimage: imageUrl,
+                newdestination: destination
+            };
+
+            const response = await fetch(`https://ohtheplacesyoullgo.space/api/edittrip/${userData.username}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json"},
+                body: JSON.stringify(edit)
+            });
+
+            const res = await response.json();
+
+            if (res.status !== "Success") {
+                throw new Error(res.message || "Failed to update trip details");
+            }
+
+            // Refresh trips and select the updated destination
+            const trips = await getTrips(userData.username);
+            setCurrentTrips(trips);
+            
+            // Find and select the updated destination with potentially new name
+            const updatedDest = trips.find(t => 
+                (t.Destination === destination || t.Destination === selectedDest.Destination) && 
+                (t.Date === date || t.Date === selectedDest.Date)
+            );
+            
+            setSelectedDest(updatedDest || null);
+            closeTripEditModal();
+        } catch (err) {
+            console.error("Error updating trip details:", err);
+            setError("Failed to update trip details. Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     async function handleEditFormSubmit(event: React.FormEvent): Promise<void> {
         event.preventDefault();
         
@@ -272,8 +369,8 @@ const WhereImGoing = () => {
         try {
             console.log("Editing Trip for category:", category);
             
-            // Prepare the item to add
-            let imageUrl = "";
+            // Prepare the item to add or edit
+            let imageUrl = imagePreview;
             if (image) {
                 const base64 = await getImageString(image);
                 imageUrl = await uploadImage(base64);
@@ -285,7 +382,7 @@ const WhereImGoing = () => {
                 image: imageUrl
             };
     
-            await editData(category, item);
+            await editData(category, item, !isEditing, isEditing ? currentItemIndex! : undefined);
             closeEditModal();
         } catch (err) {
             console.error("Error in editTrip:", err);
@@ -293,6 +390,11 @@ const WhereImGoing = () => {
         } finally {
             setIsLoading(false);
         }
+    }
+
+    async function handleTripEditSubmit(event: React.FormEvent): Promise<void> {
+        event.preventDefault();
+        await updateTripDetails();
     }
 
     async function addTrip(event: React.FormEvent): Promise<void> {
@@ -343,6 +445,15 @@ const WhereImGoing = () => {
     function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
         if (event.target.files && event.target.files[0]) {
             setImage(event.target.files[0]);
+            
+            // Create a preview URL
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                if (e.target && typeof e.target.result === 'string') {
+                    setImagePreview(e.target.result);
+                }
+            };
+            reader.readAsDataURL(event.target.files[0]);
         }
     }
 
@@ -387,13 +498,19 @@ const WhereImGoing = () => {
                 <div className="carousel">
                     {visible.map((item, idx) => {
                         const position = idx === 0 ? "prev" : idx === 1 ? "active" : "next";
+                        const actualIndex = idx === 0 ? prevIndex : idx === 1 ? currentIndex : nextIndex;
 
                         return (
                             <div
                                 className={`cards ${position}`}
                                 key={idx}
-                                onClick={idx === 1 && item.isAddNew ? () => openEditModal(category) : undefined}
-                                style={{ cursor: idx === 1 && item.isAddNew ? 'pointer' : 'default' }}
+                                onClick={idx === 1 ? 
+                                    item.isAddNew ? 
+                                        () => openEditModal(category) : 
+                                        () => openEditModal(category, item, actualIndex === items.length ? null : actualIndex) 
+                                    : undefined
+                                }
+                                style={{ cursor: idx === 1 ? 'pointer' : 'default' }}
                             >
                                 {item.isAddNew ? (
                                     <>
@@ -433,10 +550,36 @@ const WhereImGoing = () => {
             
             {selectedDest ? (
                 <div className="destinationLayout">
-                    <div className="addDestination" onClick={() => setSelectedDest(null)}>
-                        &lt;
+                    <div className="tripHeader">
+                        <div className="backButton" onClick={() => setSelectedDest(null)}>
+                            &lt;
+                        </div>
+                        
+                        <div className="tripDetails">
+                            <div className="tripInfo">
+                                <h2>{selectedDest.Destination}</h2>
+                                <p>{formatDate(selectedDest.Date)}</p>
+                                <button 
+                                    className="editTripButton" 
+                                    onClick={openTripEditModal}
+                                >
+                                    Edit Trip Details
+                                </button>
+                            </div>
+                            
+                            {selectedDest.Image && (
+                                <div 
+                                    className="tripImage"
+                                    style={{
+                                        background: `#ccc url(${selectedDest.Image}) center/cover no-repeat`,
+                                        width: "150px",
+                                        height: "100px",
+                                        borderRadius: "5px"
+                                    }}
+                                />
+                            )}
+                        </div>
                     </div>
-                    
                     
                     <div className="plansContainer">
                         <Carousel category="Activities" data={selectedDest.Plans.Activities}></Carousel>
@@ -451,7 +594,7 @@ const WhereImGoing = () => {
                                         &times;
                                     </span>
                                     <form onSubmit={handleEditFormSubmit}>
-                                        <h2>Add {category}</h2>
+                                        <h2>{isEditing ? `Edit ${category}` : `Add ${category}`}</h2>
                                         <label>
                                             Title:
                                             <input 
@@ -482,12 +625,82 @@ const WhereImGoing = () => {
                                                 onChange={handleImageChange}
                                             />
                                         </label>
+                                        {imagePreview && (
+                                            <div className="image-preview">
+                                                <img 
+                                                    src={imagePreview} 
+                                                    alt="Preview" 
+                                                    style={{ maxWidth: "100%", maxHeight: "150px" }} 
+                                                />
+                                            </div>
+                                        )}
                                         <br />
                                         <button 
                                             type="submit" 
                                             disabled={isLoading}
                                         >
-                                            {isLoading ? 'Submitting...' : 'Submit'}
+                                            {isLoading ? 'Submitting...' : isEditing ? 'Update' : 'Add'}
+                                        </button>
+                                        {error && <p className="error-message">{error}</p>}
+                                    </form>
+                                </div>
+                            </div>
+                        )}
+
+                        {isTripEditModalOpen && (
+                            <div className="modal">
+                                <div className="modal-content">
+                                    <span className="close-button" onClick={closeTripEditModal}>
+                                        &times;
+                                    </span>
+                                    <form onSubmit={handleTripEditSubmit}>
+                                        <h2>Edit Trip Details</h2>
+                                        <label>
+                                            Destination:
+                                            <input 
+                                                type="text" 
+                                                name="destination" 
+                                                value={destination} 
+                                                onChange={(e) => setDestination(e.target.value)}
+                                                required
+                                            />
+                                        </label>
+                                        <br />
+                                        <label>
+                                            Date:
+                                            <input 
+                                                type="date" 
+                                                name="date" 
+                                                value={date} 
+                                                onChange={(e) => setDate(e.target.value)}
+                                                required
+                                            />
+                                        </label>
+                                        <br />
+                                        <label>
+                                            Upload Image:
+                                            <input 
+                                                type="file" 
+                                                name="image" 
+                                                accept="image/*" 
+                                                onChange={handleImageChange}
+                                            />
+                                        </label>
+                                        {imagePreview && (
+                                            <div className="image-preview">
+                                                <img 
+                                                    src={imagePreview} 
+                                                    alt="Preview" 
+                                                    style={{ maxWidth: "100%", maxHeight: "150px" }} 
+                                                />
+                                            </div>
+                                        )}
+                                        <br />
+                                        <button 
+                                            type="submit" 
+                                            disabled={isLoading}
+                                        >
+                                            {isLoading ? 'Updating...' : 'Update Trip'}
                                         </button>
                                         {error && <p className="error-message">{error}</p>}
                                     </form>
@@ -541,6 +754,15 @@ const WhereImGoing = () => {
                                             onChange={handleImageChange}
                                         />
                                     </label>
+                                    {imagePreview && (
+                                        <div className="image-preview">
+                                            <img 
+                                                src={imagePreview} 
+                                                alt="Preview" 
+                                                style={{ maxWidth: "100%", maxHeight: "150px" }} 
+                                            />
+                                        </div>
+                                    )}
                                     <br />
                                     <button 
                                         type="submit" 
