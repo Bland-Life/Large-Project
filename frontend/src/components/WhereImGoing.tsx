@@ -129,6 +129,7 @@ const WhereImGoing = () => {
         }
     }
 
+    console.log("DATA");
 
     const destClick = (destinationName: string) => {
         const selectedDest = currentTrips.find((trip) => trip.Destination === destination);
@@ -232,7 +233,10 @@ const WhereImGoing = () => {
 
                     <div className="destinationContainer">
                         {currentTrips && currentTrips.map((trip) => (
-                            <div className="destination" key={trip.Destination} onClick={() => destClick(trip.Destination)}>
+                            <div className="destination" key={trip.Destination} onClick={() => {
+                                    console.log("CLICKED", trip.Destination);
+                                    destClick(trip.Destination)}
+                                }>
                                 <h2 className="destinationTitle">{trip.Destination}</h2>
                                 <div className="imagePlaceholder"
                                     style={{
