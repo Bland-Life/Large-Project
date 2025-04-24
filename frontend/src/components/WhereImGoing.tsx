@@ -24,17 +24,17 @@ const WhereImGoing = () => {
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
-    function formatData() {
-        var imageString = getImageString(image);
-        console.log(imageString);
-        uploadImage(imageString);
+    async function formatData() {
+        const base64 = await getImageString(image);
+        console.log(base64);
+        uploadImage(base64);
         var emptyPlans = createEmptyPlans();
 
         var trip = {
             destination:destination,
             date:date,
             plans:emptyPlans,
-            image:imageString
+            image:base64
         }
 
         setTripData(trip);
