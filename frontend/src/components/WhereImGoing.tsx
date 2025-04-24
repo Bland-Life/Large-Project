@@ -520,17 +520,24 @@ const WhereImGoing = () => {
                     {visible.map((item, idx) => {
                         const position = idx === 0 ? "prev" : idx === 1 ? "active" : "next";
                         const actualIndex = idx === 0 ? prevIndex : idx === 1 ? currentIndex : nextIndex;
-
+                    
+                        const handleCardClick = () => {
+                            // Only handle clicks on the active card (middle one)
+                            if (idx !== 1) return;
+                            
+                            if (item.isAddNew) {
+                                openEditModal(category);
+                            } else {
+                                const itemIndex = actualIndex < items.length ? actualIndex : null;
+                                openEditModal(category, item, itemIndex);
+                            }
+                        };
+                    
                         return (
                             <div
                                 className={`cards ${position}`}
                                 key={idx}
-                                onClick={idx === 1 ? 
-                                    item.isAddNew ? 
-                                        () => openEditModal(category) : 
-                                        () => openEditModal(category, item, actualIndex === items.length ? null : actualIndex) 
-                                    : undefined
-                                }
+                                onClick={handleCardClick}
                                 style={{ cursor: idx === 1 ? 'pointer' : 'default' }}
                             >
                                 {item.isAddNew ? (
@@ -575,6 +582,7 @@ const WhereImGoing = () => {
                         <div className="buttton" onClick={() => setSelectedDest(null)}>
                             &lt;
                         </div>
+                        <br />
                         <br />
                         
                         <div className="tripDetails">
