@@ -26,7 +26,7 @@ function App() {
     <Router>
       <Routes>
         {/* All public routes are inside the Layout */}
-        <Route element={<Layout />}>
+        <Route>
           <Route path="/" element={<HomePage />} />
           <Route path="/Login" element={<LoginPage />} />
           <Route path="/Signup" element={<SignupPage />} />
