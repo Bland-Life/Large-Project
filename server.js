@@ -499,11 +499,11 @@ app.get('/api/getflights/:username', async (req, res, next) => {
 
 app.put('/api/deleteflight/:username', async (req, res, next) => {
     const username = req.params.username;
-    const { departcode, arrivecode } = req.body
+    const { port1code, port2code } = req.body
 
     const db = client.db();
     const results = await db.collection('TravelTools')
-    .updateOne({Username:username}, { $pull: { UpcomingFlights: { departcode: departcode, arrivecode: arrivecode } } });
+    .updateOne({Username:username}, { $pull: { UpcomingFlights: { departcode: port1code, arrivecode: port2code } } });
     var status = "Failed to delete flight";
     if (results.acknowledged) {
         status = "Success";
