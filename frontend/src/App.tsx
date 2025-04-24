@@ -14,6 +14,10 @@ import WhereImGoingPage from "./pages/WhereImGoingPage";
 import JoinMePage from "./pages/JoinMePage";
 import TravelToolsPage from "./pages/TravelToolsPage";
 import UserProfilePage from "./pages/UserProfilePage";
+import TestMapPage from "./pages/TestMapPage";  
+
+
+
 
 // Map component
 import MapExplorer from "./components/MapExplorer";
@@ -30,7 +34,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/Login" element={<LoginPage />} />
           <Route path="/Signup" element={<SignupPage />} />
-
+          <Route path="/test-map" element={<TestMapPage />} />
           {/* Account dashboard */}
           <Route path="/MyAccount" element={<MyAccount />} />
 
