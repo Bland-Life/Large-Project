@@ -157,7 +157,7 @@ export default function MapExplorer({
           {({ geographies }) =>
             geographies.map(geo => {
               const code = geo.id as string;
-              const isVisited = visited.has(code);
+              const isVisited = visited?.has(code);
 
               return (
                 <Geography
