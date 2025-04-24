@@ -397,58 +397,6 @@ const WhereImGoing = () => {
         }
     }
 
-    const handleDeletePlan = async () => {
-        if (!selectedDest || !selectedDest.Destination || !selectedDest.Date) return;
-        
-        try {
-            // Find the specific plan to delete (You may use plan title or other unique identifiers)
-            const planToDelete = selectedDest.Plans.find(plan => plan.title === title && plan.description === description);
-            
-            if (!planToDelete) {
-                setError("Plan not found to delete.");
-                return;
-            }
-            
-            // Remove the plan from the plans array
-            const updatedPlans = selectedDest.Plans.filter(plan => plan !== planToDelete);
-            
-            // Prepare the data to update the trip
-            const updatedTrip = {
-                destination: selectedDest.Destination,
-                date: selectedDest.Date,
-                newplans: updatedPlans,  // Updated plans without the deleted plan
-                newimage: image ? await uploadImage(await getImageString(image)) : selectedDest.Image,  // New image (if updated)
-                newdestination: destination
-            };
-    
-            // Send the update request to the server
-            const response = await fetch(`https://ohtheplacesyoullgo.space/api/edittrip/${userData.username}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(updatedTrip)
-            });
-    
-            const res = await response.json();
-    
-            if (res.status !== "Success") {
-                throw new Error(res.message || "Failed to delete the plan");
-            }
-    
-            // Refresh trips and update UI
-            const trips = await getTrips(userData.username);
-            setCurrentTrips(trips);
-    
-            // Reset selected destination and close modal
-            setSelectedDest(null);
-            closeEditModal();
-        } catch (err) {
-            console.error("Error deleting plan:", err);
-            setError("Failed to delete plan. Please try again.");
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
     async function handleEditFormSubmit(event: React.FormEvent): Promise<void> {
         event.preventDefault();
         
@@ -491,116 +439,70 @@ const WhereImGoing = () => {
         await updateTripDetails();
     }
 
-    async function deleteTrip(dst: string, dt: string) {
-        if (!userData) return;
+    async function deleteTrip(destination: string, date): Promise<void> {
         setIsLoading(true);
         setError(null);
-      
-        try {
-          // lowercase keys that the API expects:
-          const payload = {
-            destination: dst,
-            date:        dt
-          };
-          console.log("→ DELETE payload:", payload);
-      
-          const resp = await fetch(
-            `https://ohtheplacesyoullgo.space/api/deletetrip/${userData.username}`,
-            {
-              method:  "DELETE",
-              headers: { "Content-Type": "application/json" },
-              body:    JSON.stringify(payload),
-            }
-          );
-      
-          // log raw response in case it still errors
-          const text = await resp.text();
-          console.log("← DELETE raw response:", text);
-      
-          const body = JSON.parse(text);
-          if (resp.status !== 200 || body.status !== "Success") {
-            throw new Error(body.error || body.message || `deletetrip failed (${resp.status})`);
-          }
-      
-          // remove the trip from local state
-          setCurrentTrips(prev =>
-            prev.filter(t => !(t.Destination === dst && t.Date === dt))
-          );
-      
-        } catch (err: any) {
-          console.error("deleteTrip error:", err);
-          setError(err.message);
-        } finally {
-          setIsLoading(false);
-        }
-      }
 
-      async function addTrip(e: React.FormEvent) {
-        e.preventDefault();
-        if (!userData) return;
-    
+        try {
+            console.log("Deleting Trip");
+            const formattedData = { destination, date };
+            await deleteData(formattedData);
+            
+            if (userData) {
+                const trips = await getTrips(userData.username);
+                setCurrentTrips(trips);
+            }
+        } catch(err) {
+            console.error("Error in deleteTrip:", err);
+            setError("Failed to delete trip. Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    async function addTrip(event: React.FormEvent): Promise<void> {
+        event.preventDefault();
         setIsLoading(true);
         setError(null);
+        
         try {
-            const payload = await formatData();
-    
-          const resp = await fetch(
-            `https://ohtheplacesyoullgo.space/api/addtrip/${userData.username}`,
-            {
-              method:  "PUT",
-              headers: { "Content-Type": "application/json" },
-              body:    JSON.stringify(payload),
+            console.log("Adding Trip");
+            const formattedData = await formatData();
+            await sendData(formattedData);
+            closeAddModal();
+            
+            // Refresh the trips list
+            if (userData) {
+                const trips = await getTrips(userData.username);
+                setCurrentTrips(trips);
             }
-          );
-          const body = await resp.json();
-          if (body.status !== "Success") {
-            throw new Error(body.message || "addtrip failed");
-          }
-    
-          // Optimistic UI: prepend the new trip
-          setCurrentTrips(prev => [payload, ...prev]);
-    
-          // clear & close form
-          resetAddForm();
-          setIsAddModalOpen(false);
-    
-        } catch (err: any) {
-          console.error("addTrip error:", err);
-          setError(err.message);
+        } catch (err) {
+            console.error("Error in addTrip:", err);
+            setError("Failed to add trip. Please try again.");
         } finally {
-          setIsLoading(false);
+            setIsLoading(false);
         }
-      }
+    }
 
     async function getTrips(user: string): Promise<Trip[]> {
-        const url  = `https://ohtheplacesyoullgo.space/api/gettrips/${user}`;
-        const resp = await fetch(url, {
-        method:  "GET",
-        headers: { "Content-Type": "application/json" },
-        });
-
-        // parse body safely
-        const text = await resp.text();
-        let body: any;
         try {
-        body = JSON.parse(text);
-        } catch {
-        console.error("getTrips: invalid JSON:", text);
-        throw new Error("Invalid JSON from getTrips()");
+            const response = await fetch(`https://ohtheplacesyoullgo.space/api/gettrips/${user}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            });
+        
+            const res = JSON.parse(await response.text());
 
+            if (res.status === "Success") {
+                return res.trips;
+            }
+            
+            throw new Error(res.message || "Failed to get trips");
+        } catch (err) {
+            console.error("Error getting trips:", err);
+            setError("Failed to load trips. Please try again.");
+            throw err;
         }
-
-        // 409 = “no trips yet” → return []
-        if (resp.status === 409) {
-        return [];
-        }
-        if (!resp.ok) {
-        throw new Error(body.message || `getTrips failed (${resp.status})`);
-        }
-        if (body.status === "Success" && Array.isArray(body.trips)) {
-        return body.trips;
-        }
-        throw new Error(body.message || "getTrips returned bad payload");
     }
 
     function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -817,16 +719,6 @@ const WhereImGoing = () => {
                                         >
                                             {isLoading ? 'Submitting...' : isEditing ? 'Update' : 'Add'}
                                         </button>
-
-                                        {isEditing && (
-                                            <button
-                                                type="button"
-                                                onClick={handleDeletePlan}
-                                            > 
-                                                Delete 
-                                            </button>
-                                        )}
-
                                         {error && <p className="error-message">{error}</p>}
                                     </form>
                                 </div>
@@ -965,12 +857,12 @@ const WhereImGoing = () => {
                     <div className="destinationContainer">
                         {currentTrips && currentTrips.length > 0 ? (
                             currentTrips.map((trip) => (
-                                <div className="destination" key={`${trip.Destination}—${trip.Date}`} onClick={() => {
+                                <div className="destination" key={trip.Destination} onClick={() => {
                                         console.log("CLICKED", trip.Destination);
                                         destClick(trip.Destination);
                                     }
                                 }>
-                                    <span className="close-button" onClick={() => deleteTrip(trip.Destination, trip.Date)}>
+                                    <span className="close-button" onClick={() => deleteTrip(trip.destination, trip.date)}>
                                         &times;
                                     </span>
 
