@@ -427,7 +427,8 @@ app.get('/api/getlist/:username', async (req, res, next) => {
     var list;
     if (results.length > 0) {
         status = "Success";
-        list = results?.PackingList?.[0]?.list;
+        list = results?.[0]?.PackingList?.find(p => p.name === name)?.list || [];
+
     }
     var ret = {list: list, status: status};
     res.status(200).json(ret);
