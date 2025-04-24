@@ -60,6 +60,8 @@
     border-image:linear-gradient(90deg,#FFA500 0%,#F1392F 30%,#4E00D5  100%) 1;
     border-radius: 10px;
     width: 30%;
+    display: flex;
+    flex-direction: column;
     padding-top: 1rem;
     padding-bottom: 1rem;
     box-sizing: border-box;
@@ -126,6 +128,9 @@
     width: 90%;
     height: 150px;
     background-color: #2600ff; /* White box */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 10px;
     margin-bottom: 0.5rem;
 }
