@@ -542,7 +542,7 @@ const WhereImGoing = () => {
         setIsLoading(true);
         setError(null);
         try {
-          const payload = await formatNewTripPayload();
+            const payload = await formatData();
     
           const resp = await fetch(
             `https://ohtheplacesyoullgo.space/api/addtrip/${userData.username}`,
