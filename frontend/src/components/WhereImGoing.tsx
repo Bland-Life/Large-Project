@@ -558,7 +558,7 @@ const WhereImGoing = () => {
                         <div className="tripDetails">
                             <div className="tripInfo">
                                 <h2>{selectedDest.Destination}</h2>
-                                <p>{formatDate(selectedDest.Date)}</p>
+                                <p>{formatDateString(selectedDest.Date)}</p>
                                 <button 
                                     className="editTripButton" 
                                     onClick={openTripEditModal}
