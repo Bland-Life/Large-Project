@@ -487,7 +487,11 @@ const WhereImGoing = () => {
     };
 
     // Card carousel component
-    const Carousel = ({ data, category }: { data: PlanCategory, category: string }) => {
+    const Carousel = ({ data, category, openEditModal }: { 
+        data: PlanCategory, 
+        category: string,
+        openEditModal: (cat: string, item?: PlanItem, index?: number) => void 
+    }) => {
         const [currentIndex, setCurrentIndex] = useState(0);
     
         // Get the appropriate array based on category
@@ -612,10 +616,10 @@ const WhereImGoing = () => {
                     </div>
                     
                     <div className="plansContainer">
-                        <Carousel category="Activities" data={selectedDest.Plans.Activities}></Carousel>
-                        <Carousel category="Restaurants" data={selectedDest.Plans.Restaurants}></Carousel>
-                        <Carousel category="Places" data={selectedDest.Plans.Places}></Carousel>
-                        <Carousel category="Hotels" data={selectedDest.Plans.Hotels}></Carousel>
+                        <Carousel category="Activities" data={selectedDest.Plans.Activities} openEditModal={openEditModal} ></Carousel>
+                        <Carousel category="Restaurants" data={selectedDest.Plans.Restaurants} openEditModal={openEditModal} ></Carousel>
+                        <Carousel category="Places" data={selectedDest.Plans.Places} openEditModal={openEditModal} ></Carousel>
+                        <Carousel category="Hotels" data={selectedDest.Plans.Hotels} openEditModal={openEditModal} ></Carousel>
 
                         {isEditModalOpen && category === editingCategory && (
                             <div className="modal">
