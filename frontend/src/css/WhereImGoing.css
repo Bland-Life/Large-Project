@@ -63,8 +63,8 @@
 }
 
 .controls button {
-    width: 0.5rem;
-    height: 1.5rem;
+    width: 20px;
+    height: 20px;
     border: 2px solid black;
     border-radius: 50%;
     background-color: white;

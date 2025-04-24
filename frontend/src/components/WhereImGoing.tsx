@@ -365,32 +365,18 @@ const WhereImGoing = () => {
                         category.toLowerCase() === "hotels" ? "hotels" : "";
         
         const items = data[categoryKey] || [];
-        
-        // If no items, show the "Add New" card
-        if (!items.length) {
-            return (
-                <>
-                    <div className="plans">
-                        <div className="plansTitle">{category}</div>
-                        
-                        <div className="cards" onClick={() => openEditModal(category)}>
-                            <div className="imagePlaceholder"></div>
-                            <p>Add New</p>
-                        </div>
-                    </div>
-                </>
-            );
-        }
+        const total = items.length + 1;
 
         const handleNext = () => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % total);
         };
 
         const handlePrev = () => {
-            setCurrentIndex((prevIndex) => (prevIndex - 1 + items.length) % items.length);
+            setCurrentIndex((prevIndex) => (prevIndex - 1 + total) % total);
         };
 
-        const currentItem = items[currentIndex];
+        const isAddNew = currentIndex === items.length;
+        const currentItem = !isAddNew ? items[currentIndex] : null;
 
         return (
             <div className="plans">
@@ -402,16 +388,26 @@ const WhereImGoing = () => {
                 </div>
 
                 <div className="cards">
-                    <div className="imagePlaceholder"
-                        style={{
-                            background: currentItem.image
-                                ? `#ccc url(${currentItem.image}) center/160% no-repeat`
-                                : `#ccc`,
-                            }}>
-                    </div>
+                    {isAddNew ? (
+                        <div className="plans">
+                            <div className="plansTitle">{category}</div>
 
-                    <h4>{currentItem.title}</h4>
-                    <p>{currentItem.description}</p>
+                            <div className="cards" onClick={() => openEditModal(category)}>
+                                <div className="imagePlaceholder"></div>
+                                <p>Add New</p>
+                            </div>
+                        </div>
+                    ) : (
+                        <h4>{currentItem.title}</h4>
+                        <div className="imagePlaceholder"
+                            style={{
+                                background: currentItem.image
+                                    ? `#ccc url(${currentItem.image}) center/160% no-repeat`
+                                    : `#ccc`,
+                                }}>
+                        </div>
+                        <p>{currentItem.description}</p>
+                    )}
                 </div>
             </div>
         );
