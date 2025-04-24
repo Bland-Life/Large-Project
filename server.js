@@ -440,6 +440,44 @@ app.get('/api/getlist/:username', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
+app.put('/api/addflight/:username', async (req, res, next) => {
+    const username = req.params.username;
+    const { port1, port1code, port1time, port2, port2code, port2time, boardingday, image } = req.body
+
+    const flightdata = {
+        depart: port1,
+        dapertcode: port1code,
+        departtime: port1time,
+        arrive: port2,
+        arrivecode: port2code,
+        arrivetime: port2time,
+        boardingday: boardingday,
+        image: image
+    }
+    const db = client.db();
+    const results = await db.collection('TravelTools').updateOne({Username:username}, {$push: {UpcomingFlights: flightdata}});
+    var status = "Failed to add flight";
+    if (results.acknowledged) {
+        status = "Success";
+    }
+    var ret = {status: status};
+    res.status(200).json(ret);
+});
+
+app.get('/api/getflights/:username', async (req, res, next) => {
+    const username = req.params.username;
+    const db = client.db();
+    const results = await db.collection('TravelTools').find({Username:username}).toArray();
+    var status = "Failed to add flight";
+    var flights = [];
+    if (results.acknowledged) {
+        flights = results[0].UpcomingFlights;
+        status = "Success";
+    }
+    var ret = {flights: flights, status: status};
+    res.status(200).json(ret);
+});
+
 app.post('/webhook', express.raw({ type: '*/*' }),  (req, res) => {
     console.log('🚨 Received webhook POST request!');
     exec('pm2 restart script', (err, stdout, stderr) => {
