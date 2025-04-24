@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
-import "../css/TravelToolsFlights.css";
 import "../css/TravelTools.css";
+import "../css/TravelToolsFlights.css";
+
 
 interface TravelToolsProps {
   pageType?: string;
