@@ -19,7 +19,7 @@ html, body {
 .account-map {
   width: 100%;
   max-width: 1600px;          /* optional: limit super-wide screens */
-  margin: 24px auto;          /* center + vertical spacing */
+  margin-bottom: 24px;          /* center + vertical spacing */
 }
 
 .account-map svg {
@@ -31,7 +31,7 @@ html, body {
 .travel-stats {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto 60px;        /* give some breathing room at bottom */
+  margin: auto;        /* give some breathing room at bottom */
   padding: 24px 20px;
   box-sizing: border-box;
 

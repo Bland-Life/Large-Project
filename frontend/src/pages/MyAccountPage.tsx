@@ -15,14 +15,6 @@ const MyAccountPage: React.FC = () => {
   return (
     <div className="account-page-root">
       
-
-      <section className="account-map">
-        <MapExplorer
-          userName={userName}
-          onVisitedChange={(newCount: number) => setCount(newCount)}
-        />
-      </section>
-
       <section className="travel-stats">
         <h2>Travel Stats</h2>
         <div className="stat-grid">
@@ -31,6 +23,15 @@ const MyAccountPage: React.FC = () => {
           </span>
         </div>
       </section>
+      
+      <section className="account-map">
+        <MapExplorer
+          userName={userName}
+          onVisitedChange={(newCount: number) => setCount(newCount)}
+        />
+      </section>
+
+      
     </div>
   );
 };
