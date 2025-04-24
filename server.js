@@ -497,6 +497,22 @@ app.get('/api/getflights/:username', async (req, res, next) => {
     res.status(200).json(ret);
 });
 
+app.put('/api/deleteflight/:username', async (req, res, next) => {
+    const username = req.params.username;
+    const { port1code, port2code } = req.body
+
+    const db = client.db();
+    const results = await db.collection('TravelTools')
+    .updateOne({Username:username}, { $pull: { UpcomingFlights: { departcode: port1code, arrivecode: port2code } } });
+    var status = "Failed to delete flight";
+    if (results.acknowledged) {
+        status = "Success";
+    }
+    var ret = {status: status};
+    res.status(200).json(ret);
+});
+
+
 app.post('/webhook', express.raw({ type: '*/*' }),  (req, res) => {
     console.log('🚨 Received webhook POST request!');
     exec('pm2 restart script', (err, stdout, stderr) => {

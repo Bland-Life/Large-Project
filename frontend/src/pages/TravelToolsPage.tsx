@@ -135,7 +135,7 @@ export default function TravelToolsPage({
     { code: "CNY", name: "Chinese Yuan", flag: "🇨🇳" },
   ];
 
-  // Sample conversion rates (in a real app, you'd fetch these from an API)
+  // hard coded conversions should use API
   const rates: ConversionRates = {
     USD: { USD: 1, EUR: 0.91, GBP: 0.79, JPY: 153.24, KRW: 1423.96, CAD: 1.38, AUD: 1.52, CNY: 7.25 },
     EUR: { USD: 1.10, EUR: 1, GBP: 0.87, JPY: 168.64, KRW: 1566.98, CAD: 1.52, AUD: 1.67, CNY: 7.98 },

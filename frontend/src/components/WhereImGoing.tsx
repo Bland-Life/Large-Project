@@ -1,7 +1,20 @@
-// src/components/WhereImGoing.tsx
 import React, { useState, useEffect } from "react";
 import "../css/WhereImGoing.css";
-import { getImageString, uploadImage } from "../utils/utils.tsx";
+import { formatDate, getImageString, uploadImage } from "../utils/utils.tsx";
+
+// Define TypeScript interfaces for better type safety
+interface PlanItem {
+  title: string;
+  description: string;
+  image: string;
+  id?: string; // Adding optional id for tracking items
+}
+
+interface PlanCategory {
+  number: number;
+  [key: string]: any; // This will hold the arrays like 'activities', 'restaurants', etc.
+}
+
 
 // --- Interfaces ---
 interface PlanItem {
@@ -22,14 +35,16 @@ interface Trip {
     Restaurants: PlanCategory;
     Places:      PlanCategory;
     Hotels:      PlanCategory;
+
   };
 }
 interface UserData {
-  name:         string;
-  username:     string;
-  email:        string;
+  name: string;
+  username: string;
+  email: string;
   profileimage: string;
 }
+
 
 // --- Component ---
 const WhereImGoing: React.FC = () => {
@@ -106,10 +121,14 @@ const WhereImGoing: React.FC = () => {
     if (resp.status === 409) return [];
     if (!resp.ok) {
       throw new Error(body.message || `getTrips failed (${resp.status})`);
+
     }
-    if (body.status === "Success" && Array.isArray(body.trips)) {
-      return body.trips;
+
+    async function handleTripEditSubmit(event: React.FormEvent): Promise<void> {
+        event.preventDefault();
+        await updateTripDetails();
     }
+
     throw new Error(body.message || "getTrips returned bad payload");
   }
 
@@ -386,10 +405,10 @@ const WhereImGoing: React.FC = () => {
       reader.onload = () => {
         if (typeof reader.result === "string") {
           setImagePreview(reader.result);
+
         }
-      };
-      reader.readAsDataURL(file);
     }
+
   }
 
   // 13) Card click → detail view
@@ -753,6 +772,7 @@ const WhereImGoing: React.FC = () => {
       )}
     </div>
   );
+
 };
 
 export default WhereImGoing;
