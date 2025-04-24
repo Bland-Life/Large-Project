@@ -1,11 +1,11 @@
 /* ----------  ACCOUNT NAV‑BAR  ---------- */
 .account-nav{
-    width:100%;
+    max-width:100%;
     height:6rem;                     /* thinner bar (≈25 % less)            */
     display:flex;
     align-items:center;
     padding:6px 24px;                /* gradient shows above & below text   */
-    margin-top:2px;                  /* pulls bar very close to top          */
+    margin:0.3rem;                  /* pulls bar very close to top          */
     background:linear-gradient(90deg,#FFA500 0%,#F1392F 30%,#4E00D5  100%);
     border-radius:16px;
     box-sizing:border-box;
