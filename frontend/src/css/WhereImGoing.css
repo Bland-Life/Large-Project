@@ -101,6 +101,7 @@
     border-radius: 10px;
     width: 30%;
     display: flex;
+    opacity: 0.5;
     transform: scale(0.95);
     transition: opacity 0.3s, transform 0.3s;
     flex-direction: column;
@@ -113,7 +114,6 @@
 .cards.prev,
 .cards.next {
     pointer-events: none;
-    opacity: 0.5;
 }
 
 .cards.active {
