@@ -421,8 +421,13 @@ app.get('/api/getlist/:username', async (req, res, next) => {
     const username = req.params.username;
     const { name } = req.body;
     const db = client.db();
-    const results = await db.collection('TravelTools')
-    .find({Username:username, "PackingList.name":name}, { projection: { PackingList: 1, _id: 0 } }).toArray();
+    if (name === "") {
+        const results = await db.collection('TravelTools')
+        .find({Username:username}, { projection: { PackingList: 1, _id: 0 } }).toArray;
+    }else {
+        const results = await db.collection('TravelTools')
+        .find({Username:username, "PackingList.name":name}, { projection: { PackingList: 1, _id: 0 } }).toArray();
+    }
     var status = "Failed to get list";
     var list;
     if (results.length > 0) {
