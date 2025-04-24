@@ -33,11 +33,10 @@ const WhereImGoing = () => {
           fetchData();
           setCurrentTrips(trips);
         
-      }, []); 
+      }, [userData]); 
 
     async function formatData() : Promise<any>{
         const base64 = await getImageString(image);
-        console.log(base64);
         var filename = await uploadImage(base64);
         var emptyPlans = createEmptyPlans();
 
@@ -115,7 +114,6 @@ const WhereImGoing = () => {
     function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
         if (event.target.files && event.target.files[0]) {
             setImage(event.target.files[0]);
-            console.log(event.target.files[0].name);
         }
     }
 
