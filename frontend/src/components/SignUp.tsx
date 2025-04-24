@@ -89,6 +89,14 @@ function SignUp(){
         });
 
         const res3 = JSON.parse(await response3.text());
+
+        const response4 = await fetch('https://ohtheplacesyoullgo.space/api/createtraveltools', {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers: {'Content-Type': 'application/json'}
+        });
+
+        const res4 = JSON.parse(await response4.text());
     }
 
     return(

@@ -408,7 +408,7 @@ app.put('/api/addtopacking/:username', async (req, res, next) => {
     const username = req.params.username;
     const { name, packinglist } = req.body
     const db = client.db();
-    const results = await db.collection('TravelTools').updateOne({Username:username, "PackingList.name": name}, {$set: {list:packinglist}});
+    const results = await db.collection('TravelTools').updateOne({Username:username, "PackingList.name": name}, {$set: {"PackingList.$.list":packinglist}});
     var status = "Failed to add list";
     if (results.acknowledged) {
         status = "Success";
@@ -421,12 +421,22 @@ app.get('/api/getlist/:username', async (req, res, next) => {
     const username = req.params.username;
     const { name } = req.body;
     const db = client.db();
-    const results = await db.collection('TravelTools').find({Username:username, "PackingList.name":name}).toArray();
+    var list = [];
     var status = "Failed to get list";
-    var list;
-    if (results.length > 0) {
-        status = "Success";
-        list = results[0].list;
+    if (name === "") {
+        const results = await db.collection('TravelTools')
+        .find({Username:username}, { projection: { PackingList: 1, _id: 0 } }).toArray();
+        if (results?.length > 0) {
+            status = "Success";
+            list = results[0].list.PackingList;
+        }
+    }else {
+        const results = await db.collection('TravelTools')
+        .find({Username:username, "PackingList.name":name}, { projection: { PackingList: 1, _id: 0 } }).toArray();
+        if (results?.length > 0) {
+            status = "Success";
+            list = results?.[0]?.PackingList?.find(p => p.name === name)?.list || [];
+        }
     }
     var ret = {list: list, status: status};
     res.status(200).json(ret);
