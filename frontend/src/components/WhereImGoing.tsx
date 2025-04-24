@@ -255,7 +255,12 @@ const WhereImGoing = () => {
                         {currentTrips && currentTrips.map((trip) => (
                             <div className="destination" key={trip.Destination}>
                                 <h2 className="destinationTitle">{trip.Destination}</h2>
-                                <div className="imagePlaceholder"></div>
+                                <div className="imagePlaceholder"
+                                style={{
+                                    background: trip.Image
+                                        ? `#ccc url(${trip.Image}) center/160% no-repeat`
+                                        : `#ccc`,
+                                }}></div>
                                 <h3 className="destinationSubtitle">You've Planned:</h3>
                                 <ul className="destinationList">
                                     {trip.Plans.Activities && trip.Plans.Activities.number > 0 && (
